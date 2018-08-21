@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@MapperScan(basePackages = "com.flgo.dao")
+@MapperScan(basePackages = "com.walk.dao")
 @EnableTransactionManagement
 @SpringBootApplication
 @ServletComponentScan
