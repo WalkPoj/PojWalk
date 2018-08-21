@@ -11,7 +11,7 @@ public class TestController {
     @RequestMapping("/test")
     public String test(Model mod){
         mod.addAttribute("index","a");
-        System.out.println("aaawaa");
+        System.out.println("这是一个测试");
         return "model";
     }
 }
