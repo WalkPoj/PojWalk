@@ -12,6 +12,7 @@ public class TestController {
     public String test(Model mod){
         mod.addAttribute("index","a");
         System.out.println("这是一个测试");
+        System.out.println("测试一波");
         return "model";
     }
 }
