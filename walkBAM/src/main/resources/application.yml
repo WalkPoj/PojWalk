@@ -1,0 +1,42 @@
+server:
+  servlet:
+    context-path: /walk
+
+mybatis:
+  type-aliases-package: com.walk.pojo
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    auto-mapping-behavior: full
+    use-generated-keys: true
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/walk
+    username: root
+    password: 2418
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm
+    time-zone: GMT+8
+
+#thymeleaf start
+  thymeleaf:
+    encoding: UTF-8
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+#thymeleaf end
+
+#  resources:
+#    static-locations: classpath:static/
+#    add-mappings: true
+
+#pagehelper:
+#    helperDialect: oracle
+#    returnPageInfo: check
+#    supportMethodsArguments: true
+#    reasonable: true
+#    params: count=countSql
