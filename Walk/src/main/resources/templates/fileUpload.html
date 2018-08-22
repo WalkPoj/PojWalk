@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传测试</title>
+</head>
+<body>
+<form action="upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file"/><br/>
+    <input type="file" name="file"/><br/>
+    <input type="file" name="file"/><br/>
+    <input type="submit" value="上 传"/>
+</form>
+<hr>
+<form action="down" method="get">
+    <input name="fname" value="cf5ba3d0-cb48-44d9-9769-2d4b5095f286b999a9014c086e0627ffd05309087bf40ad1cb57.jpg">
+    <input type="submit" value="下载">
+</form>
+</body>
+</html>

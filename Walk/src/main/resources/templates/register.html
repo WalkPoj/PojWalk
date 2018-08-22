@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>漫行-注册</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!--[if lte IE 8]>
+    <script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="assets/css/Flgo.css">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
+    <!--logo-->
+    <link rel="shortcut icon" href="images/bitbug_favicon.ico" />
+    <!--login-->
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body class="index">
+<div id="page-wrapper">
+    <!-- Header -->
+    <header id="header" class="reveal">
+        <h1 id="logo"><a href="index.html"><img src="images/TIM图片20180804120320.png" height="30" width="60"/></a></h1>
+        <nav id="nav">
+            <ul>
+                <li class="current"><a href="index.html">首页</a></li>
+                <li><a href="listView.html">所有景点</a></li>
+                <li class="submenu">
+                    <a href="#">更多</a>
+                    <ul>
+                        <li><a href="center/index.html" target="_blank">个人中心</a></li>
+                        <li class="submenu">
+                            <a href="#">Submenu</a>
+                            <ul>
+                                <li><a href="#">默认</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="javascript:log()" style="border-radius: 12px;" class="button special">登   录</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="banner">
+
+    </section>
+    <!-- Main -->
+    <article id="main">
+        <!-- Three -->
+        <section class="wrapper style3 container special">
+            <div></div>
+            <div class="reg" style="width: 600px;display: inline-block;">
+                <form action="#" method="post">
+                    <table>
+                        <tr>
+                            <td>昵称：</td>
+                            <td><input type="text" name="nickname"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>手机号：</td>
+                            <td><input type="text" name="uphone"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="text" name="validation"></td>
+                            <td><span></span><a href="#" id="vCont">获取短信验证码</a></td>
+                        </tr>
+                    </table>
+                    <p><input type="submit" name="subReg" value="注   册" style="cursor: pointer; border-radius: 14px;border: 0;padding: 5px 42px 5px 42px; color: white;background-color: lightseagreen">
+                        <a href="javascript:log()" style="margin-left: 70px;">现在登录！</a></p>
+                </form>
+            </div>
+        </section>
+
+    </article>
+    <!-- Footer -->
+    <footer id="footer">
+
+        <ul class="copyright">
+            <li>漫行 &copy; 2018</li>
+            <li>解释权由漫行所有</li>
+        </ul>
+
+    </footer>
+    <div id="max"></div>
+    <div class="login">
+        <div class="close"><a href="javascript:clo()" title="关闭">X</a></div>
+        <form action="#" name="login">
+            <table align="center">
+                <img src="assets/css/images/TIM图片20180818152614.jpg" height="30" width="150" style="margin-top: 8px;margin-left:165px;"/>
+                <tr>
+                    <td valign="">用户名：</td>
+                    <td><input type="text" name="uname" class="input"></td>
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    <td><input type="password" name="upwd" class="input"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="bb" align="center"><input id="butlogin" type="submit" value="登    录"></td>
+                    <td><a href="register.html" id="nodemo">没有账号？现在注册！</a></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- Scripts -->
+<script src="center/js/jquery.min.js"></script>
+<script src="assets/js/jquery.dropotron.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/jquery.scrollgress.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/login.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var time = 61;
+        var res = true;
+        function djs() {
+            $("#vCont").prev().text("(60s)获取验证");
+           time--;
+           if(time == 0){
+               $("#vCont").show();
+               $("#vCont").prev().hide();
+               time = 61;
+           }else{
+               $("#vCont").hide();
+               $("#vCont").prev().show();
+               setTimeout(function () {
+                   djs();
+                   $("#vCont").prev().text("("+time+"s)获取验证");
+               },1000);
+           }
+        }
+        $("#vCont").click(function () {
+            djs();
+
+        })
+    })
+</script>
+<!--[if lte IE 8]>
+<script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

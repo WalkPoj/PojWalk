@@ -1,6 +1,10 @@
 server:
   servlet:
-    context-path: /walk
+    context-path: /MX
+
+Mydir:
+  serverURI: C:\AllApp\jqwb\
+
 
 mybatis:
   type-aliases-package: com.walk.pojo
@@ -30,9 +34,16 @@ spring:
     suffix: .html
 #thymeleaf end
 
-#  resources:
-#    static-locations: classpath:static/
-#    add-mappings: true
+  resources:
+    static-locations: classpath:/templates/
+    add-mappings: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20Mb
+      max-request-size: 50Mb
+
 
 #pagehelper:
 #    helperDialect: oracle

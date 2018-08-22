@@ -1,0 +1,50 @@
+#max{
+    position:fixed;
+    left:0;
+    top:0px;
+    width:100%;
+    height:100%;
+    background-color: rgba(69,74,73,0.44);
+    display: none;
+    z-index: 2;
+}
+.login{
+    padding-left: 60px;
+    position: fixed;
+    top: 380px;
+    left: 650px;
+    width: 600px;
+    height: 258px;
+    border: 1px solid #3fb1a3;
+    font-size: 18px;
+    background-color: white;
+    display: none;
+    z-index: 3;
+    border-radius: 14px;
+}
+.close{
+    position: fixed;
+    top: 400px;
+    left: 1222px;
+
+}
+.close p:hover{
+    cursor: hand;
+}
+.login .input{
+    margin: 22px 0px 22px 0;
+    width: 110%;
+    height: 30px;
+}
+#nodemo{
+    text-decoration: none;
+    color: rgba(30,116,16,0.63);
+}
+.bb #butlogin{
+    width: 138px;
+    background-color: lightseagreen;
+    color: white;
+    height: 45px;
+    border-radius: 14px;
+    border: 0;
+}

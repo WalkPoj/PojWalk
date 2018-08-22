@@ -1,0 +1,8 @@
+#center{
+    background-color: lightskyblue;
+    color: white !important;
+    border-radius: 5px;
+}
+#center:hover{
+    background-color: rgba(69,214,231,0.5) !important;
+}
