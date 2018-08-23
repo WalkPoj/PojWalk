@@ -3,8 +3,11 @@ server:
     context-path: /MX
 
 Mydir:
-  serverURI: C:\AllApp\jqwb\
+  serverURI: http://www.nieanshow.cn:8080/img/
 
+
+getPic:
+  serverURI: C:\AllApp\jqwb/
 
 mybatis:
   type-aliases-package: com.walk.pojo

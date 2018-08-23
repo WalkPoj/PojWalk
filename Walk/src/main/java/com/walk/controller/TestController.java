@@ -30,9 +30,19 @@ public class TestController {
         return "fileUpload";
     }
 
+    /**
+     * 获取yml文件中自定义属性
+     */
     @Value("${Mydir.serverURI}")
     private String fileDir;
 
+    /**
+     * 文件上传
+     * @param request
+     * @param files
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/upload")
     public String upload( HttpServletRequest request,@RequestParam("file") MultipartFile[] files) throws IOException{
         System.out.println("进来了");
@@ -100,6 +110,49 @@ public class TestController {
             out.flush();
         }
         out.close();
+    }
+
+    /**
+     * 获取图片位置，即磁盘位置
+     */
+    @Value("${getPic.serverURI}")
+    private String getDir;
+    /**
+     * 获取所有图片
+     * @return
+     */
+    @RequestMapping("getPic")
+    public String getPic(Model mod){
+        List<String> list = getFiles(getDir);
+        System.out.println(getDir);
+        mod.addAttribute("list",list);
+        return "fileUpload";
+    }
+    /**
+     * 递归获取某路径下的所有文件，文件夹，并输出
+     */
+    public static List getFiles(String path) {
+        File file = new File(path);
+        List<String> pname = new ArrayList<>();
+        // 如果这个路径是文件夹
+        if (file.isDirectory()) {
+            // 获取路径下的所有文件
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                // 如果还是文件夹 递归获取里面的文件 文件夹
+                if (files[i].isDirectory()) {
+                    System.out.println("目录：" + files[i].getPath());
+                    getFiles(files[i].getPath());
+                } else {
+                    System.out.println("文件：" + files[i].getName());
+                    pname.add(files[i].getName());
+                }
+            }
+        } else {
+            System.out.println("文件：" + file.getPath());
+        }
+        System.out.println(pname.size());
+        return pname;
     }
 
 }

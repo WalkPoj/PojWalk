@@ -16,5 +16,12 @@
     <input name="fname" value="cf5ba3d0-cb48-44d9-9769-2d4b5095f286b999a9014c086e0627ffd05309087bf40ad1cb57.jpg">
     <input type="submit" value="下载">
 </form>
+<ul>
+    <li th:each="img,imgStat:${list}">
+        <img th:src="'http://www.nieanshow.cn:8080/img/'+${img}" width="400px" height="500px">
+    </li>
+</ul>
+<!--<img th:each="img,userStat:${list}" src="">-->
+<!--<img th:src="${img}">-->
 </body>
 </html>
