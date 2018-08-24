@@ -22,12 +22,6 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
     <!-- //js -->
-    <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,500italic,700italic,900,900italic"
-          rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic"
-          rel="stylesheet" type="text/css">
-    <!-- //fonts -->
     <script type="text/javascript">
         $(document).ready(function () {
             $('#horizontalTab').easyResponsiveTabs({
@@ -53,7 +47,7 @@
             <div class="single-page">
                 <div class="col-md-8 single-gd-lt">
                     <div class="single-pg-hdr">
-                        <h2>张家界，周末特惠<span th:text="${jsb}"></span></h2>
+                        <h2>张家界，周末特惠</h2>
                         <p>赶快咨询吧，过时不待呦~ +86 132****9089</p>
                     </div>
                     <div class="flexslider">
@@ -149,38 +143,69 @@
                                 <p>A large musical performance</p>
                             </div>
                         </div>
-                        <div class="p-table-grid-info">
-                            <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
-                            <div class="room-basic-info">
-                                <a href="#"></a>
-                                <h4>天门山</h4>
-                                <p>The tianmen mountain</p>
-                            </div>
-                        </div>
-                        <div class="p-table-grid-info">
-                            <a href="#"><img src="images/50bfc49b2a738b03a4875795d970b6a3.jpg" width="1024" alt=""></a>
-                            <div class="room-basic-info">
-                                <a href="#"></a>
-                                <h4>天门山索道风光</h4>
-                                <p>Cableway scenery</p>
-                                <a href="#top" name="zf">回到顶部</a>
-                            </div>
-                        </div>
+                        <ul style="list-style: none">
+                            <li>
+                                <div class="p-table-grid-info">
+                                    <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
+                                    <div class="room-basic-info">
+                                        <a href="#"></a>
+                                        <h4>天门山</h4>
+                                        <p>The tianmen mountain</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="p-table-grid-info">
+                                    <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
+                                    <div class="room-basic-info">
+                                        <a href="#"></a>
+                                        <h4>天门山</h4>
+                                        <p>The tianmen mountain</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="p-table-grid-info">
+                                    <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
+                                    <div class="room-basic-info">
+                                        <a href="#"></a>
+                                        <h4>天门山</h4>
+                                        <p>The tianmen mountain</p>
+                                        <a href="#top" name="zf">回到顶部</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
+            <!--提交支付信息-->
+            <form action="#" method="post" style="margin-top: 18px">
             <div class="p-table">
                 <div class="p-table-grids">
-                    <div class="col-md-3 p-table-grid" style="width: 70%">
-                        <div class="p-table-grad-heading" style="width: 143%">
-                            <h6>出行方式</h6>
+                    <div class="col-md-3 p-table-grid" style="width: 50%">
+                        <div class="p-table-grad-heading" style="width: 100%">
+                            <h6>出行位置/世界时间</h6>
                         </div>
                         <div class="p-table-grid-info">
                             <div class="room-basic-info">
                                 出发位置：<input type="text" placeholder="选择您的出发城市" class="search" name="se_strat" style="height: 39px;"/> To
                                 <input type="text" placeholder="商家位置" value="" name="se_end" style="height: 39px;"/><br/><br/><br/>
                                 出发时间：<input id="time" type="date" value=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-table-grid" style="width: 50%">
+                        <div class="p-table-grad-heading" >
+                            <h6>出行方式</h6>
+                        </div>
+                        <div class="p-table-grid-info">
+                            <a href="#"><img src="images/p1.jpg" alt=""></a>[[
+                            <div class="room-basic-info">
+                                <a href="#">张家界景区服务</a>
+                                <h6>将为您展示所有的收费项目</h6>
+                                <p>一次付清享受所有服务</p>
                             </div>
                         </div>
                     </div>
@@ -227,13 +252,14 @@
                             <h5>将最优给您</h5>
                             <span class="p-offer">¥980</span>
                             <span class="p-last-price">¥1280</span>
+                            <input type="submit" style="background-color: deepskyblue;border: 0;color: white;padding: 10px 30px 10px 30px;font-size: 18px;border-radius: 12px;margin-top: 18px" value="支  付"/>
                         </div>
                     </div>
 
                     <div class="clearfix"></div>
                 </div>
             </div>
-
+            </form>
 
         </div>
     </div>

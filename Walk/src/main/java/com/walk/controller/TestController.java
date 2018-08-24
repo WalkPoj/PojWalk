@@ -1,18 +1,11 @@
 package com.walk.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -73,7 +66,7 @@ public class TestController {
                 try {
                     long  startTime=System.currentTimeMillis();
                     //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
-                    files[i].transferTo(new File(fileDir+fileName));
+                    files[i].transferTo(new File(fileDir+newFileName));
                     long  endTime=System.currentTimeMillis();
                     System.out.println("采用file.Transto的运行时间："+String.valueOf(endTime-startTime)+"ms");
 //                    FileOutputStream fos = new FileOutputStream(path
