@@ -1,4 +1,4 @@
-<html class=" js csstransforms3d js csstransforms3d" style="">
+<html class=" js csstransforms3d js csstransforms3d" style="" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title>P-single</title>
     <!-- Custom Theme files -->
@@ -43,9 +43,9 @@
     <link rel="stylesheet" href="css/kuCity.css">
     <!--//pop-up-->
 </head>
-<body>
+<body >
 <!-- banner-bottom -->
-<div class="banner-bottom">
+<div class="banner-bottom" th:fragment="pBo">
     <!-- container -->
     <div class="container">
         <div class="faqs-top-grids">
@@ -53,7 +53,7 @@
             <div class="single-page">
                 <div class="col-md-8 single-gd-lt">
                     <div class="single-pg-hdr">
-                        <h2>张家界，周末特惠</h2>
+                        <h2>张家界，周末特惠<span th:text="${jsb}"></span></h2>
                         <p>赶快咨询吧，过时不待呦~ +86 132****9089</p>
                     </div>
                     <div class="flexslider">

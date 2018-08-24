@@ -9,7 +9,7 @@ function reinitIframe(){
     }catch (ex){}
 }
 
-var timer1 = window.setInterval("reinitIframe()", 1500); //定时调用开始
+var timer1 = window.setInterval("reinitIframe()", 500); //定时调用开始
 
 //完毕后干掉定时器
 function IframeLoadEND(){

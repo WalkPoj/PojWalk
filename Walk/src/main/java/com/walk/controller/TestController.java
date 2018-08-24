@@ -15,6 +15,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -25,9 +26,18 @@ import java.util.UUID;
 public class TestController {
 
     @RequestMapping("/index")
-    public String test(Model mod){
-        mod.addAttribute("index","a");
-        return "fileUpload";
+    public String test(HttpSession session){
+        return "details";
+    }
+
+    /**
+     * 所有的iframe的src将使用请求的形式加载
+     * @param mod
+     * @return
+     */
+    @RequestMapping("/xqifa")
+    public String load(Model mod){
+        return "cpts_398_pn/p-single";
     }
 
     /**
@@ -48,14 +58,11 @@ public class TestController {
         System.out.println("进来了");
 
         List<String> list = new ArrayList<String>();
-        // 获得项目的路径
-        ServletContext sc = request.getSession().getServletContext();
         // 上传位置
         String path = fileDir; // 设定文件保存的目录
         File f = new File(path);
         if (!f.exists())
             f.mkdirs();
-
         for (int i = 0; i < files.length; i++) {
             // 获得原始文件名
             String fileName = files[i].getOriginalFilename();
@@ -64,15 +71,20 @@ public class TestController {
             String newFileName = UUID.randomUUID() + fileName;
             if (!files[i].isEmpty()) {
                 try {
-                    FileOutputStream fos = new FileOutputStream(path
-                            + newFileName);
-                    InputStream in = files[i].getInputStream();
-                    int b = 0;
-                    while ((b = in.read()) != -1) {
-                        fos.write(b);
-                    }
-                    fos.close();
-                    in.close();
+                    long  startTime=System.currentTimeMillis();
+                    //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+                    files[i].transferTo(new File(fileDir+fileName));
+                    long  endTime=System.currentTimeMillis();
+                    System.out.println("采用file.Transto的运行时间："+String.valueOf(endTime-startTime)+"ms");
+//                    FileOutputStream fos = new FileOutputStream(path
+//                            + newFileName);
+//                    InputStream in = files[i].getInputStream();
+//                    int b = 0;
+//                    while ((b = in.read()) != -1) {
+//                        fos.write(b);
+//                    }
+//                    fos.close();
+//                    in.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

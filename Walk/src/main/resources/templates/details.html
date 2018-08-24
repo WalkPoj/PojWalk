@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>漫行-景点详情</title>
 
@@ -109,14 +109,14 @@
 					</header>
 					<!-- One -->
 						<section class="wrapper style4 container">
-
 							<div class="row 150%" style="padding: 0px;margin: 0 auto;">
-
+								<!--<div class="panelBar" th:replace="../templates/cpts_389_pn/p-single::xqdiv"></div>-->
 							</div>
 						</section>
 
 					<!-- Two -->
 						<section id="gd" class="wrapper style1 container special">
+
 
 						</section>
 				</article>
@@ -165,11 +165,9 @@
 			<script src="assets/js/main.js"></script>
 	<script type="text/javascript">
         $(window).load(function(){
-            $(".row").append("<iframe src=\"cpts_398_pn/p-single.html\" id=\"ifa\" name=\"iframepage\" frameBorder=0 scrolling=no width=\"100%\" onLoad=\"IframeLoadEND();\" style=\"margin-left: -60px\"></iframe>")
+            $(".row").append("<iframe src=\"nbs\" id=\"ifa\" name=\"iframepage\" frameBorder=0 scrolling=no width=\"100%\" onLoad=\"IframeLoadEND();\" style=\"margin-left: -60px\"></iframe>")
 			$("#gd").append("<iframe src=\"cpts_398_pn/gundong.html\" width=\"100%\" height=\"193px\"></iframe>")
 		})
-
-
 		$(function () {
 
             var data = new Date();
