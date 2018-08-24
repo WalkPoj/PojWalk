@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Walk">
+    <output-path>$PROJECT_DIR$</output-path>
+    <root id="archive" name="Walk.war">
+      <element id="dir-copy" path="$PROJECT_DIR$" />
+    </root>
+  </artifact>
+</component>

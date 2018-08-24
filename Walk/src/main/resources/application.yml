@@ -3,11 +3,11 @@ server:
     context-path: /MX
 
 Mydir:
-  serverURI: http://www.nieanshow.cn:8080/img/
+  serverURI: C:/AllApp/test/
 
 
 getPic:
-  serverURI: C:\AllApp\jqwb/
+  serverURI: C:/AllApp/test/
 
 mybatis:
   type-aliases-package: com.walk.pojo
@@ -38,7 +38,7 @@ spring:
 #thymeleaf end
 
   resources:
-    static-locations: classpath:/templates/
+    static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/
     add-mappings: true
 
   servlet:
