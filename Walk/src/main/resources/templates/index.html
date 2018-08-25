@@ -79,8 +79,10 @@
         <header class="special container">
             <h2><!--[-->为您推荐<!--]--></h2>
         </header>
-        <iframe src="cpts_398_pn/deals.html" name="iframepage" height="900px" frameBorder=0 scrolling=auto width="100%"
-                ></iframe>
+        <div id="syifa">
+
+        </div>
+
         <!-- Three -->
         <section class="wrapper style3 container special">
             <footer class="major">
@@ -132,7 +134,10 @@
 <script src="assets/js/login.js"></script>
 <!--[if lte IE 8]>
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="assets/js/main.js"></script>
-
+<script type="text/javascript">
+    $(window).load(function(){
+        $("#syifa").append(" <iframe src=\"cpts_398_pn/deals.html\" name=\"iframepage\" height=\"900px\" frameBorder=0 scrolling=auto width=\"100%\"\n"+"></iframe>");
+    })
+</script>
 </body>
 </html>
