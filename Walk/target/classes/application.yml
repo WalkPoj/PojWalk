@@ -3,11 +3,11 @@ server:
     context-path: /MX
 
 Mydir:
-  serverURI: C:/AllApp/test/
+  serverURI: C:\AllApp\Tools\apache-tomcat-8.5.32\webapps\WalkFile\WalkImg/
 
 
 getPic:
-  serverURI: C:/AllApp/test/
+  serverURI: C:\AllApp\Tools\apache-tomcat-8.5.32\webapps\WalkFile\WalkImg/
 
 mybatis:
   type-aliases-package: com.walk.pojo

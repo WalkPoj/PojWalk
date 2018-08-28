@@ -135,44 +135,16 @@
                         <div class="p-table-grad-heading" style="width: 143%">
                             <h6>景点特色</h6>
                         </div>
-                        <div class="p-table-grid-info">
-                            <a href="#"><img src="images/5b47685c9814f7a0cbf60f0ba966e26e.jpg" alt=""></a>
-                            <div class="room-basic-info">
-                                <a href="#"></a>
-                                <h4>大型歌舞剧表演</h4>
-                                <p>A large musical performance</p>
-                            </div>
-                        </div>
                         <ul style="list-style: none">
                             <li>
                                 <div class="p-table-grid-info">
                                     <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
-                                    <div class="room-basic-info">
-                                        <a href="#"></a>
-                                        <h4>天门山</h4>
-                                        <p>The tianmen mountain</p>
-                                    </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="p-table-grid-info">
                                     <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
-                                    <div class="room-basic-info">
-                                        <a href="#"></a>
-                                        <h4>天门山</h4>
-                                        <p>The tianmen mountain</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="p-table-grid-info">
-                                    <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
-                                    <div class="room-basic-info">
-                                        <a href="#"></a>
-                                        <h4>天门山</h4>
-                                        <p>The tianmen mountain</p>
-                                        <a href="#top" name="zf">回到顶部</a>
-                                    </div>
+                                    <a href="#top" name="zf">回到顶部</a>
                                 </div>
                             </li>
                         </ul>
@@ -189,10 +161,10 @@
                             <h6>出行位置/世界时间</h6>
                         </div>
                         <div class="p-table-grid-info">
-                            <div class="room-basic-info">
+                            <div class="room-basic-info" style="font-weight: 800">
                                 出发位置：<input type="text" placeholder="选择您的出发城市" class="search" name="se_strat" style="height: 39px;"/> To
                                 <input type="text" placeholder="商家位置" value="" name="se_end" style="height: 39px;"/><br/><br/><br/>
-                                出发时间：<input id="time" type="date" value=""/>
+                                出发时间：<input type="date" id="time" value="">
                             </div>
                         </div>
                     </div>
@@ -201,11 +173,10 @@
                             <h6>出行方式</h6>
                         </div>
                         <div class="p-table-grid-info">
-                            <a href="#"><img src="images/p1.jpg" alt=""></a>[[
                             <div class="room-basic-info">
-                                <a href="#">张家界景区服务</a>
-                                <h6>将为您展示所有的收费项目</h6>
-                                <p>一次付清享受所有服务</p>
+                                <a href="#" style="font-size: 20px;">出发位置-->商家位置</a>
+                                <h3 style="font-weight: 800;margin-top: 15px">票价：<span style="color: red;font-weight: 800">￥</span><span id="cp">600</span></h3>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -250,12 +221,12 @@
                         </div>
                         <div class="avg-rate">
                             <h5>将最优给您</h5>
-                            <span class="p-offer">¥980</span>
+                            <span class="p-offer" >¥<span id="mp">980</span></span>
                             <span class="p-last-price">¥1280</span>
-                            <input type="submit" style="background-color: deepskyblue;border: 0;color: white;padding: 10px 30px 10px 30px;font-size: 18px;border-radius: 12px;margin-top: 18px" value="支  付"/>
+                            <span class="p-offer">合计：¥<span id="hj"></span></span><br/>
+                            <input type="submit" style="background-color: deepskyblue;border: 0;color: white;padding: 10px 30px 10px 30px;font-size: 18px;border-radius: 12px;margin-top: 18px;font-weight: 600" value="支  付"/>
                         </div>
                     </div>
-
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -275,12 +246,15 @@
 <script src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript">
+    var data = new Date();
     $(function () {
-        var data = new Date();
+        var mP = $("#mp").text();
+        var cP = $("#cp").text();
+        $("#hj").text(parseInt(mP)+parseInt(cP));
         var moth = "";
         if(parseInt(data.getMonth()+1)<10){
             moth = "0"+parseInt(data.getMonth()+1);
-        }else{
+        }else if (parseInt(data.getMonth()+1) >= 10) {
             moth = parseInt(data.getMonth()+1);
         }
         $("#time").val(data.getFullYear()+"-"+moth+"-"+parseInt(data.getDate()+1));
@@ -290,5 +264,6 @@
         })
     })
 </script>
+
 </body>
 </html>
