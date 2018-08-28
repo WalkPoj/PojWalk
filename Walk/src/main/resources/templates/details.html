@@ -15,8 +15,6 @@
 		<link rel="shortcut icon" href="images/bitbug_favicon.ico" />
 		<!--城市选择插件-->
 		<link rel="stylesheet" href="assets/css/kuCity.css">
-        <!--login-->
-        <link rel="stylesheet" href="assets/css/login.css">
 		<style type="text/css">
 			.serr{
 				text-align: center;
@@ -96,7 +94,7 @@
 						</li>
 						<!--登录成功后显示个人中心
                 		<li><a href="../center/index.html" target="_blank">个人中心</a></li>-->
-						<li><a href="javascript:log()" class="button special">登录</a></li>
+						<li><a href="login/index.html" class="button special">登录</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -129,27 +127,6 @@
 					<li>解释权由漫行所有</li>
 				</ul>
 			</footer>
-            <div id="max"></div>
-            <div class="login">
-				<img src="assets/css/images/TIM图片20180818152614.jpg" height="30" width="150" style="margin-top: 8px;margin-left:165px;"/>
-                <div class="close"><a href="javascript:clo()" title="关闭">X</a></div>
-                <form action="#" name="login">
-                    <table align="center">
-                        <tr>
-                            <td valign="">用户名：</td>
-                            <td><input type="text" name="uname" class="input"></td>
-                        </tr>
-                        <tr>
-                            <td>密码：</td>
-                            <td><input type="password" name="upwd" class="input"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="bb" align="center"><input id="butlogin" type="submit" value="登    录"></td>
-                            <td><a href="register.html" id="nodemo">没有账号？现在注册！</a></td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
 		</div>
 
 		<!-- Scripts -->
@@ -160,13 +137,12 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/kuCity.js"></script>
-        	<script src="assets/js/login.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 	<script type="text/javascript">
         $(window).load(function(){
-            $(".row").append("<iframe src=\"nbs\" id=\"ifa\" name=\"iframepage\" frameBorder=0 scrolling=no width=\"100%\" onLoad=\"IframeLoadEND();\" style=\"margin-left: -60px\"></iframe>")
-			$("#gd").append("<iframe src=\"cpts_398_pn/gundong.html\" width=\"100%\" height=\"193px\"></iframe>")
+            $(".row").append("<iframe src=\"xqifa\" id=\"ifa\" name=\"iframepage\" frameBorder=0 scrolling=no width=\"100%\" onLoad=\"IframeLoadEND();\" style=\"margin-left: -60px\"></iframe>")
+			$("#gd").append("<iframe src=\"gd\" width=\"100%\" height=\"193px\"></iframe>")
 		})
 		$(function () {
 
