@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商家管理</title>
+    <script type="text/javascript" src="js/easyui/themes/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/public.css">
+    <script type="text/javascript" src="js/easyui/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+        function addTab(title, src) {
+            if ($('#tt').tabs('exists', title)) {
+                $('#tt').tabs('select', title);
+            } else {
+                //var content = '<iframe scrolling="auto" frameborder="0"  src="view.action" style="width:100%;height:100%;"></iframe>';
+                var content = '<iframe scrolling="auto" frameborder="0"  src="' + src + '" style="width:100%;height:100%;"></iframe>';
+                $('#tt').tabs('add', {
+                    title: title,
+                    //href:'refresh.html', //src //显示网页中body部分
+                    content: content,	   //使用iframe不能直接href,除非使用的简单无样式页面
+                    closable: true
+                });
+            }
+        }
+    </script>
+    <script type="text/css">
+        .author-image img {
+            margin-top: 15px;
+            border-radius: 30px;
+            max-width: 100%;
+            overflow: hidden;
+            float: left;
+            margin-right: 35px;
+        }
+    </script>
+</head>
+<body>
+<div data-options="region:'north',title:'North Title',split:true" style="height:100px;">
+    <div class="public-header-warrp">
+        <div class="public-header">
+            <div class="content">
+                <div class="public-header-logo"><a href=""><i>WALK</i><h3>漫行网络科技</h3></a></div>
+                <div class="public-header-admin fr">
+                    <p class="admin-name">****管理员 您好！</p>
+                    <div class="public-header-fun fr">
+                        <a href="" class="public-header-man">管理</a>
+                        <a href="" class="public-header-loginout">安全退出</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cc" class="easyui-layout" style="width:100%;height:1000px;">
+    <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>
+
+    <div data-options="region:'west',title:'分类管理',split:true" style="width:400px;">
+        <div id="aa" class="easyui-accordion" style="width:100%;height:100%;">
+            <div title="个人中心" data-options="iconCls:'icon-reload',selected:true" style="padding:10px;">
+                <h3><a href="javascript:addTab('我的信息','')" style="color:#0099FF;text-decoration: none">我的信息</a></h3>
+                <h3><a href="javascript:addTab('景点管理','sss.html')" style="color:#0099FF;text-decoration: none">景点管理</a></h3>
+                <h3><a href="javascript:addTab('订单管理','datagrid2.html')" style="color: #0099FF;text-decoration: none"  plain="true" >订单管理</a></h3>
+                <h3> <a href="#" style="color:#0099FF;text-decoration: none">联系我们</a></h3>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;">
+        <div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
+            <div title="我的信息" style="padding:20px;display:none;" >
+                <div id="ation" style="border: #0f0f0f solid 0px;width: 60%;margin-left: 15%;margin-top: 30px">
+                    <div class="author-image" style=" margin: 20px 20px 20px 100px;"><img src="img/author_image.png" alt=""></div>
+                    <table class="table">
+                        <tr>
+                            <td>店铺名称：</td>
+                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
+                        </tr>
+                        <tr>
+                            <td>绑定手机：</td>
+                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
+                            <td><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改绑定手机</a></td>
+                        </tr>
+                        <tr>
+                            <td>用户名：</td>
+                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
+                        </tr>
+                        <tr>
+                            <td>地址：</td>
+                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
