@@ -1,20 +1,14 @@
 package com.walk.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -25,27 +19,43 @@ import java.util.UUID;
 public class TestController {
 
     @RequestMapping("/index")
-    public String test(Model mod){
-        mod.addAttribute("index","a");
-        return "fileUpload";
+    public String test(HttpSession session){
+        return "details";
     }
 
+    /**
+     * 所有的iframe的src将使用请求的形式加载
+     * @param mod
+     * @return
+     */
+    @RequestMapping("/xqifa")
+    public String load(Model mod){
+        return "cpts_398_pn/p-single";
+    }
+
+    /**
+     * 获取yml文件中自定义属性
+     */
     @Value("${Mydir.serverURI}")
     private String fileDir;
 
+    /**
+     * 文件上传
+     * @param request
+     * @param files
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/upload")
     public String upload( HttpServletRequest request,@RequestParam("file") MultipartFile[] files) throws IOException{
         System.out.println("进来了");
 
         List<String> list = new ArrayList<String>();
-        // 获得项目的路径
-        ServletContext sc = request.getSession().getServletContext();
         // 上传位置
         String path = fileDir; // 设定文件保存的目录
         File f = new File(path);
         if (!f.exists())
             f.mkdirs();
-
         for (int i = 0; i < files.length; i++) {
             // 获得原始文件名
             String fileName = files[i].getOriginalFilename();
@@ -54,15 +64,20 @@ public class TestController {
             String newFileName = UUID.randomUUID() + fileName;
             if (!files[i].isEmpty()) {
                 try {
-                    FileOutputStream fos = new FileOutputStream(path
-                            + newFileName);
-                    InputStream in = files[i].getInputStream();
-                    int b = 0;
-                    while ((b = in.read()) != -1) {
-                        fos.write(b);
-                    }
-                    fos.close();
-                    in.close();
+                    long  startTime=System.currentTimeMillis();
+                    //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+                    files[i].transferTo(new File(fileDir+newFileName));
+                    long  endTime=System.currentTimeMillis();
+                    System.out.println("采用file.Transto的运行时间："+String.valueOf(endTime-startTime)+"ms");
+//                    FileOutputStream fos = new FileOutputStream(path
+//                            + newFileName);
+//                    InputStream in = files[i].getInputStream();
+//                    int b = 0;
+//                    while ((b = in.read()) != -1) {
+//                        fos.write(b);
+//                    }
+//                    fos.close();
+//                    in.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -100,6 +115,49 @@ public class TestController {
             out.flush();
         }
         out.close();
+    }
+
+    /**
+     * 获取图片位置，即磁盘位置
+     */
+    @Value("${getPic.serverURI}")
+    private String getDir;
+    /**
+     * 获取所有图片
+     * @return
+     */
+    @RequestMapping("getPic")
+    public String getPic(Model mod){
+        List<String> list = getFiles(getDir);
+        System.out.println(getDir);
+        mod.addAttribute("list",list);
+        return "fileUpload";
+    }
+    /**
+     * 递归获取某路径下的所有文件，文件夹，并输出
+     */
+    public static List getFiles(String path) {
+        File file = new File(path);
+        List<String> pname = new ArrayList<>();
+        // 如果这个路径是文件夹
+        if (file.isDirectory()) {
+            // 获取路径下的所有文件
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                // 如果还是文件夹 递归获取里面的文件 文件夹
+                if (files[i].isDirectory()) {
+                    System.out.println("目录：" + files[i].getPath());
+                    getFiles(files[i].getPath());
+                } else {
+                    System.out.println("文件：" + files[i].getName());
+                    pname.add(files[i].getName());
+                }
+            }
+        } else {
+            System.out.println("文件：" + file.getPath());
+        }
+        System.out.println(pname.size());
+        return pname;
     }
 
 }

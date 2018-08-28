@@ -32,7 +32,6 @@
                 <li class="submenu">
                     <a href="#">更多</a>
                     <ul>
-
                         <li class="submenu">
                             <a href="#">默认</a>
                             <ul>
@@ -43,7 +42,7 @@
                 </li>
                 <!--登录成功后显示个人中心
                 <li><a href="../center/index.html" target="_blank">个人中心</a></li>-->
-                <li><a href="javascript:log()" class="button special">登   录</a></li>
+                <li><a href="login/index.html" class="button special">登   录</a></li>
             </ul>
         </nav>
     </header>
@@ -79,8 +78,10 @@
         <header class="special container">
             <h2><!--[-->为您推荐<!--]--></h2>
         </header>
-        <iframe src="cpts_398_pn/deals.html" name="iframepage" height="900px" frameBorder=0 scrolling=auto width="100%"
-                ></iframe>
+        <div id="syifa">
+
+        </div>
+
         <!-- Three -->
         <section class="wrapper style3 container special">
             <footer class="major">
@@ -100,27 +101,6 @@
         </ul>
 
     </footer>
-    <div id="max"></div>
-    <div class="login">
-        <div class="close"><a href="javascript:clo()" title="关闭">X</a></div>
-        <form action="#" name="login">
-            <table align="center">
-                <img src="assets/css/images/TIM图片20180818152614.jpg" height="30" width="150" style="margin-top: 8px;margin-left:165px;"/>
-                <tr>
-                    <td valign="">用户名：</td>
-                    <td><input type="text" name="uname" class="input"></td>
-                </tr>
-                <tr>
-                    <td>密码：</td>
-                    <td><input type="password" name="upwd" class="input"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="bb" align="center"><input id="butlogin" type="submit" value="登    录"></td>
-                    <td><a href="register.html" id="nodemo">没有账号？现在注册！</a></td>
-                </tr>
-            </table>
-        </form>
-    </div>
 </div>
 <!-- Scripts -->
 <script src="center/js/jquery.min.js"></script>
@@ -129,10 +109,12 @@
 <script src="assets/js/jquery.scrollgress.min.js"></script>
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
-<script src="assets/js/login.js"></script>
 <!--[if lte IE 8]>
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="assets/js/main.js"></script>
-
+<script type="text/javascript">
+    $(window).load(function(){
+        $("#syifa").append(" <iframe src=\"cpts_398_pn/deals.html\" name=\"iframepage\" height=\"900px\" frameBorder=0 scrolling=auto width=\"100%\"\n"+"></iframe>");
+    })
+</script>
 </body>
 </html>
