@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.walk.dao.SelectDao">
+	<select id="indexSelect" resultType="Scenery">
+		SELECT s_id,s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery WHERE s_num &gt; 1 AND s_price &gt; 2000 AND s_price &lt; 3000 LIMIT 0,9
+	</select>
+</mapper>
