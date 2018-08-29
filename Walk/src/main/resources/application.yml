@@ -20,7 +20,7 @@ mybatis:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://111.230.232.46:3306/walk
+    url: jdbc:mysql://111.230.232.46:3306/walk?useSSL=false
     username: root
     password: 1234
 
