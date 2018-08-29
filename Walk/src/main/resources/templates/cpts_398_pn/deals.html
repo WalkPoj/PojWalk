@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Deals</title>
 <!-- Custom Theme files -->
@@ -19,6 +19,7 @@
 <!-- //js -->
 <!-- fonts -->
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,500italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <!-- //fonts -->	
 <script type="text/javascript">
@@ -45,214 +46,22 @@
 			<!--banner-bottom-grids为一行，三个景区简述为一行，首页固定显示九条数据，即三行-->
 			<div class="banner-bottom-grids">
 				<!---class为col-md-4 weekend-grids.则为景区简述-->
-				<div class="col-md-4 weekend-grids">
+				<div class="col-md-4 weekend-grids" th:each="sce,SbStat:${scenery}">
 					<div class="weekend-grid">
 						<!--跳转至详情页面-->
 						<a href="../details.html" target="_blank">
 							<!--景区图片-->
-							<img src="images/w1.jpg" alt="正在加载..." />
+							<img th:src="'http://localhost:9352/'+${sce.getS_fmImg()}" alt="正在加载..." />
 							<div class="deals-info-grid">
 								<div class="deals-grids">
 									<div class="col-md-8 deals-rating">
-										<h3>张家界  周末特惠</h3>
+										<h3 th:text="${sce.getS_title()}">张家界  周末特惠</h3>
 										<!--评分，单个span作为一星-->
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+										<span style="color:#FDD000" th:text="'评分：'+${sce.getS_num()}" aria-hidden="true"></span>
 									</div>
 									<div class="col-md-4 deals-price">
-										<p class="now">¥ 1280</p>
-										<p>¥ 980</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w2.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 530</p>
-										<p>$ 290</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w3.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 810</p>
-										<p>$ 750</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="banner-bottom-grids">
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w4.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 770</p>
-										<p>$ 340</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w1.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 750</p>
-										<p>$ 540</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w2.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 760</p>
-										<p>$ 490</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="banner-bottom-grids">
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w3.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 760</p>
-										<p>$ 590</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w4.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 500</p>
-										<p>$ 320</p>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 weekend-grids">
-					<div class="weekend-grid">
-						<a href="products.html">
-							<img src="images/w1.jpg" alt="" />
-							<div class="deals-info-grid">
-								<div class="deals-grids">
-									<div class="col-md-8 deals-rating">
-										<h3>Lorem ipsum dolor sit amet</h3>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-									</div>
-									<div class="col-md-4 deals-price">
-										<p class="now">$ 680</p>
-										<p>$ 550</p>
+										<p class="now" th:text="'￥'+${sce.getS_price_yuan()}">¥ 1280</p>
+										<p th:text="'￥'+${sce.getS_price()}">¥ 980</p>
 									</div>
 									<div class="clearfix"> </div>
 								</div>

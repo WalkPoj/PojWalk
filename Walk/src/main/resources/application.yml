@@ -3,11 +3,11 @@ server:
     context-path: /MX
 
 Mydir:
-  serverURI: C:\AllApp\Tools\apache-tomcat-8.5.32\webapps\WalkFile\WalkImg/
+  serverURI: C:\tomcat_media\webapps\walk_img/
 
 
 getPic:
-  serverURI: C:\AllApp\Tools\apache-tomcat-8.5.32\webapps\WalkFile\WalkImg/
+  serverURI: C:\tomcat_media\webapps\walk_img/
 
 mybatis:
   type-aliases-package: com.walk.pojo
@@ -20,7 +20,7 @@ mybatis:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://111.230.232.46:3306/walk
+    url: jdbc:mysql://111.230.232.46:3306/walk?useSSL=false
     username: root
     password: 1234
 
