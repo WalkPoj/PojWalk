@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Products</title>
     <!-- Custom Theme files -->
@@ -63,6 +63,7 @@
     <script src="js/menu_jquery.js"></script>
 
 
+
     <!--//pop-up-->
 </head>
 <body>
@@ -74,346 +75,183 @@
             <div class="product-grids">
                 <div class="col-md-3 product-left">
                     <div class="h-class">
-                        <h5>Hotel Class</h5>
+                        <h5>评分</h5>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="checkbox">
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(5);">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">5 Stars (18)</span>
+                                <span class="starTextLabel">5.0 (18)</span>
                             </label>
                         </div>
                         <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox" checked="checked" data-track="HOT:SR:StarRating:5Star">
+                            <label class="check" >
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(4)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">4 Stars (30)</span>
+                                <span class="starTextLabel">4.0+ (30)</span>
                             </label>
                         </div>
                         <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox">
+                            <label class="check" >
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(3)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">3 Stars (106)</span>
+                                <span class="starTextLabel">3.0+ (106)</span>
                             </label>
                         </div>
                         <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox">
+                            <label class="check" >
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(2)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">2 Stars (78)</span>
+                                <span class="starTextLabel">2.0+ (78)</span>
                             </label>
                         </div>
                         <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox">
+                            <label class="check" >
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(1)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">1 Stars (10)</span>
+                                <span class="starTextLabel">1.0+ (10)</span>
                             </label>
                         </div>
                     </div>
                     <div class="h-class p-day">
-                        <h5>Price per day</h5>
+                        <h5>价格区间</h5>
                         <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox" checked="checked" data-track="HOT:SR:StarRating:5Star">
-                                <span class="p-day-grid">Less than $100 (76)</span>
+                            <label class="check" >
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <span class="p-day-grid"><1000</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">$100 to $200 (132)</span>
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <span class="p-day-grid">1000-2500</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">$300 to $300 (223)</span>
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <span class="p-day-grid">2500-4000</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">$300 to $400 (84)</span>
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <span class="p-day-grid">4000-5000</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">$500 to $600 (23)</span>
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <span class="p-day-grid">>6000</span>
                             </label>
                         </div>
                     </div>
                     <div class="h-class">
-                        <h5>Area</h5>
+                        <h5>地区</h5>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="radio" name="hideRegionId" checked="checked" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">London</span>
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <span class="p-day-grid">张家界</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">Newyork</span>
+                                <span class="p-day-grid">四川</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">New Zealand</span>
+                                <span class="p-day-grid">西藏</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">Los Angeles</span>
+                                <span class="p-day-grid">三亚</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">Sydney</span>
+                                <span class="p-day-grid">青海</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">Agra</span>
+                                <span class="p-day-grid">厦门</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">Greece</span>
+                                <span class="p-day-grid">北京</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">Singapore</span>
+                                <span class="p-day-grid">西安</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">Paris</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="h-class p-day">
-                        <h5>Accommodation Type</h5>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox" checked="checked" data-track="HOT:SR:StarRating:5Star">
-                                <span class="p-day-grid">Hotel resort (67)</span>
+                                <span class="p-day-grid">青岛</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">Hotel (84)</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">Guest house (24)</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">Apartment (34)</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox">
-                                <span class="p-day-grid">Country House (32)</span>
+                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <span class="p-day-grid">海南</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9 product-right">
+                <script type="text/javascript">
+                    $(function () {
+                        $(".p-day-grid").click(function () {
+                            alert($(this).text());
+                        });
+                    })
+                    //获取评分
+                    function SendNum(data){
+                        alert(data);
+                        location.href = "Send?data="+data;
+                    }
+                </script>
+                <div class="col-md-9 product-right" th:each="listv,UState:${scenery}">
                     <div class="product-right-grids">
                         <div class="product-right-top">
                             <div class="p-left">
-                                <div class="p-right-img">
-                                    <a href="p-single.html"> </a>
-                                </div>
+                                <img width="108%" th:src="'http://localhost:9352/'+${listv.getS_fmImg()}" alt="正在加载..." />
                             </div>
                             <div class="p-right">
                                 <div class="col-md-6 p-right-left">
-                                    <a href="p-single.html">Lorem ipsum dolor sit amet</a>
+                                    <a href="p-single.html" th:text="${listv.s_title}">Lorem ipsum dolor sit amet</a>
                                     <div class="p-right-price">
                                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                     </div>
-                                    <p>Vestibulum molestie id orci eget vulputate</p>
-                                    <p class="p-call">+1 234 567 890</p>
+                                    <p>漫行，伴您而行</p>
                                 </div>
                                 <div class="col-md-6 p-right-right">
-                                    <h6>Rating : 4.1/5</h6>
-                                    <p>(123) Views</p>
-                                    <span class="p-offer">$140</span><span class="p-last-price">$230</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="product-right-grids">
-                        <div class="product-right-top">
-                            <div class="p-left">
-                                <div class="p-right-img p-right-img1">
-                                    <a href="p-single.html"> </a>
-                                </div>
-                            </div>
-                            <div class="p-right">
-                                <div class="col-md-6 p-right-left">
-                                    <a href="p-single.html">Lorem ipsum dolor sit amet</a>
-                                    <div class="p-right-price">
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    </div>
-                                    <p>Vestibulum molestie id orci eget vulputate</p>
-                                    <p class="p-call">+1 234 567 890</p>
-                                </div>
-                                <div class="col-md-6 p-right-right">
-                                    <h6>Rating : 4.1/5</h6>
-                                    <p>(123) Views</p>
-                                    <span class="p-offer">$240</span><span class="p-last-price">$430</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="product-right-grids">
-                        <div class="product-right-top">
-                            <div class="p-left">
-                                <div class="p-right-img p-right-img2">
-                                    <a href="p-single.html"> </a>
-                                </div>
-                            </div>
-                            <div class="p-right">
-                                <div class="col-md-6 p-right-left">
-                                    <a href="p-single.html">Lorem ipsum dolor sit amet</a>
-                                    <div class="p-right-price">
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    </div>
-                                    <p>Vestibulum molestie id orci eget vulputate</p>
-                                    <p class="p-call">+1 234 567 890</p>
-                                </div>
-                                <div class="col-md-6 p-right-right">
-                                    <h6>Rating : 4.1/5</h6>
-                                    <p>(123) Views</p>
-                                    <span class="p-offer">$120</span><span class="p-last-price">$310</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="product-right-grids">
-                        <div class="product-right-top">
-                            <div class="p-left">
-                                <div class="p-right-img p-right-img3">
-                                    <a href="p-single.html"> </a>
-                                </div>
-                            </div>
-                            <div class="p-right">
-                                <div class="col-md-6 p-right-left">
-                                    <a href="p-single.html">Lorem ipsum dolor sit amet</a>
-                                    <div class="p-right-price">
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    </div>
-                                    <p>Vestibulum molestie id orci eget vulputate</p>
-                                    <p class="p-call">+1 234 567 890</p>
-                                </div>
-                                <div class="col-md-6 p-right-right">
-                                    <h6>Rating : 4.1/5</h6>
-                                    <p>(123) Views</p>
-                                    <span class="p-offer">$140</span><span class="p-last-price">$230</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="product-right-grids">
-                        <div class="product-right-top">
-                            <div class="p-left">
-                                <div class="p-right-img p-right-img1">
-                                    <a href="p-single.html"> </a>
-                                </div>
-                            </div>
-                            <div class="p-right">
-                                <div class="col-md-6 p-right-left">
-                                    <a href="p-single.html">Lorem ipsum dolor sit amet</a>
-                                    <div class="p-right-price">
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    </div>
-                                    <p>Vestibulum molestie id orci eget vulputate</p>
-                                    <p class="p-call">+1 234 567 890</p>
-                                </div>
-                                <div class="col-md-6 p-right-right">
-                                    <h6>Rating : 4.1/5</h6>
-                                    <p>(123) Views</p>
-                                    <span class="p-offer">$380</span><span class="p-last-price">$540</span>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="product-right-grids">
-                        <div class="product-right-top">
-                            <div class="p-left">
-                                <div class="p-right-img p-right-img2">
-                                    <a href="p-single.html"> </a>
-                                </div>
-                            </div>
-                            <div class="p-right">
-                                <div class="col-md-6 p-right-left">
-                                    <a href="p-single.html">Lorem ipsum dolor sit amet</a>
-                                    <div class="p-right-price">
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    </div>
-                                    <p>Vestibulum molestie id orci eget vulputate</p>
-                                    <p class="p-call">+1 234 567 890</p>
-                                </div>
-                                <div class="col-md-6 p-right-right">
-                                    <h6>Rating : 4.1/5</h6>
-                                    <p>(123) Views</p>
-                                    <span class="p-offer">$360</span><span class="p-last-price">$750</span>
+                                    <h6>评分 : <span th:text="${listv.s_num}"></span></h6>
+                                    <p>(<span th:text="${listv.s_click}"></span>) 浏览</p>
+                                    <span class="p-offer">￥<span th:text="${#numbers.formatDecimal(listv.s_price,0,0)}"></span></span><span class="p-last-price">￥<span th:text="${#numbers.formatDecimal(listv.s_price_yuan,0,0)}"></span></span>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -441,15 +279,17 @@
 </body>
 <script type="text/javascript">
     $("#pagination2").pagination({
-        currentPage: 3,
-        totalPage: 12,
+        currentPage: [[${pageNext}]],
+        totalPage:  [[${pageNum}]],
         isShow: false,
         count: 6,
         prevPageText: "< 上一页",
         nextPageText: "下一页 >",
         callback: function (current) {
+            location.href = "listView?sPage="+current+"&ePage=5";
             $("#current2").text(current)
         }
     });
+
 </script>
 </html>

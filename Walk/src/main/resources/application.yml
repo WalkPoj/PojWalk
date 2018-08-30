@@ -48,9 +48,9 @@ spring:
       max-request-size: 50Mb
 
 
-#pagehelper:
-#    helperDialect: oracle
-#    returnPageInfo: check
-#    supportMethodsArguments: true
-#    reasonable: true
-#    params: count=countSql
+pagehelper:
+    helperDialect: mysql
+    returnPageInfo: check
+    supportMethodsArguments: true
+    reasonable: true
+    params: count=countSql

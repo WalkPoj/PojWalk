@@ -4,6 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.walk.dao.SelectDao">
 	<select id="indexSelect" resultType="Scenery">
-		SELECT s_id,s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery WHERE s_num &gt; 1 AND s_price &gt; 2000 AND s_price &lt; 3000 LIMIT 0,9
+		SELECT s_id,s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery WHERE s_num &gt; 4.5 AND s_price &gt; 2000 AND s_price &lt; 3000 LIMIT 0,9
+	</select>
+	<select id="listView" resultType="Scenery">
+		SELECT s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery
+		<where>
+			<if test="s_num != null and s_num != '' and s_num = 5">
+				s_num = 5
+			</if>
+			<!--<if test="s_num != null and s_num != '' and s_num = 4">-->
+				<!--s_num &lt; 5 and s_num &gt;= 4;-->
+			<!--</if>-->
+			<!--<if test="s_num != null and s_num != '' and s_num = 3">-->
+				<!--s_num &lt; 5 and s_num &gt;= 4;-->
+			<!--</if>-->
+			<!--<if test="s_num != null and s_num != '' and s_num = 2">-->
+				<!--s_num &lt; 5 and s_num &gt;= 4;-->
+			<!--</if>-->
+			<!--<if test="s_num != null and s_num != '' and s_num = 1">-->
+				<!--s_num &lt; 5 and s_num &gt;= 4;-->
+			<!--</if>-->
+		</where>
 	</select>
 </mapper>

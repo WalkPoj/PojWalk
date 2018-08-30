@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>漫行</title>
     <meta charset="utf-8"/>
@@ -55,8 +55,7 @@
             <header class="major">
                 <h2><!--[-->度假胜地<!--]--> <strong><!--[-->就在此处<!--]--></strong></h2>
             </header>
-            <div class="row">
-                <iframe src="cpts_398_pn/products.html" name="indexifa" frameBorder=0 height="1260" scrolling=no width="100%"></iframe>
+            <div class="row" id="listViewifa">
             </div>
         </section>
 
@@ -80,6 +79,11 @@
 <!--[if lte IE 8]>
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
+<script type="text/javascript">
+    $(window).load(function(){
+        $("#listViewifa").append(" <iframe src=\"listView?sPage=1&ePage=5\" name=\"iframepage\" height=\"1260px\" frameBorder=0 scrolling=auto width=\"100%\"\n"+"></iframe>");
+    })
+</script>
 
 </body>
 </html>

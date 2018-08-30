@@ -1430,6 +1430,7 @@ ul#flexiselDemo1 li a h4:hover{
 .deals-info-grid {
     background: #FFF;
     padding: 1em;
+    margin-bottom: 15px;
 }
 .deals-rating h3{
     color: #337ab7;
@@ -1908,10 +1909,11 @@ span.starTextLabel {
 .p-left{
 	float:left;
 	width:30%;
+    margin-right: 22px;
 }
 .p-right{
     float: left;
-    width: 70%;
+    width: 66%;
     padding: 1em 0;
 }
 .p-right-img a{
