@@ -78,7 +78,7 @@
                         <h5>评分</h5>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(5);">
+                                <input type="checkbox" data-track="HOT:SR:Area" onclick="javascript:SendNum(5);">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="hotel-price">
                             <label class="check" >
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(4)">
+                                <input type="checkbox" onclick="javascript:SendNum(4)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="hotel-price">
                             <label class="check" >
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(3)">
+                                <input type="checkbox" onclick="javascript:SendNum(3)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="hotel-price">
                             <label class="check" >
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(2)">
+                                <input type="checkbox"  onclick="javascript:SendNum(2)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="starTextLabel">2.0+ (78)</span>
@@ -116,7 +116,7 @@
                         </div>
                         <div class="hotel-price">
                             <label class="check" >
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area" onclick="javascript:SendNum(1)">
+                                <input type="checkbox" onclick="javascript:SendNum(1)">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 <span class="starTextLabel">1.0+ (10)</span>
                             </label>
@@ -126,31 +126,31 @@
                         <h5>价格区间</h5>
                         <div class="hotel-price">
                             <label class="check" >
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <input type="checkbox"  data-track="HOT:SR:Area">
                                 <span class="p-day-grid"><1000</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <input type="checkbox"  data-track="HOT:SR:Area">
                                 <span class="p-day-grid">1000-2500</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <input type="checkbox"  data-track="HOT:SR:Area">
                                 <span class="p-day-grid">2500-4000</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <input type="checkbox" data-track="HOT:SR:Area">
                                 <span class="p-day-grid">4000-5000</span>
                             </label>
                         </div>
                         <div class="hotel-price">
                             <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
+                                <input type="checkbox"  data-track="HOT:SR:Area">
                                 <span class="p-day-grid">>6000</span>
                             </label>
                         </div>
@@ -224,7 +224,7 @@
                         $(".p-day-grid").click(function () {
                             alert($(this).text());
                         });
-                    })
+                    });
                     //获取评分
                     function SendNum(data){
                         alert(data);
