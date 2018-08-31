@@ -46,7 +46,7 @@
                 <div class="public-header-admin fr">
                     <p class="admin-name" th:text="${session.mark.m_name}+'管理员 您好！'">****管理员 您好！</p>
                     <div class="public-header-fun fr">
-                        <a href="" class="public-header-man">管理</a>
+                        <a th:href="@{center/Guang(uid=${session.user.getU_id()},mid=${session.mark.m_id})}" class="public-header-man">管理</a>
                         <a href="" class="public-header-loginout">安全退出</a>
                     </div>
                 </div>
