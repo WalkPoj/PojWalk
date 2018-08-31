@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -29,14 +30,12 @@ public class SelectController {
     }
 
     @RequestMapping("listView")
-    public String ListView(Model mod,int sPage,int ePage){
-        List<Scenery> s = sdaos.listView(sPage,ePage);
-        PageInfo<Scenery> pageInfo = new PageInfo<>(s);
+    public String ListView( Model mod,int sPage, int ePage){
+        PageInfo<Scenery> pageInfo=sdaos.listView(mod,sPage,ePage);
         //总页数
         mod.addAttribute("pageNum",pageInfo.getPages());
         //当前页数
         mod.addAttribute("pageNext",pageInfo.getPageNum());
-        mod.addAttribute("scenery",s);
         return "cpts_398_pn/products";
     }
 

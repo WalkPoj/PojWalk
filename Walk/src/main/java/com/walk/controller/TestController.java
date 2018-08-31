@@ -1,7 +1,5 @@
 package com.walk.controller;
 
-import com.walk.pojo.Scenery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +20,7 @@ public class TestController {
 
     @RequestMapping("/index")
     public String test(HttpSession session){
-        return "index";
+        return "details";
     }
 
     /**
@@ -30,9 +28,9 @@ public class TestController {
      * @param mod
      * @return
      */
-    @RequestMapping("/dels")
+    @RequestMapping("/xqifa")
     public String load(Model mod){
-        return "cpts_398_pn/deals";
+        return "cpts_398_pn/p-single";
     }
 
     /**
@@ -71,6 +69,15 @@ public class TestController {
                     files[i].transferTo(new File(fileDir+newFileName));
                     long  endTime=System.currentTimeMillis();
                     System.out.println("采用file.Transto的运行时间："+String.valueOf(endTime-startTime)+"ms");
+//                    FileOutputStream fos = new FileOutputStream(path
+//                            + newFileName);
+//                    InputStream in = files[i].getInputStream();
+//                    int b = 0;
+//                    while ((b = in.read()) != -1) {
+//                        fos.write(b);
+//                    }
+//                    fos.close();
+//                    in.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -115,7 +122,6 @@ public class TestController {
      */
     @Value("${getPic.serverURI}")
     private String getDir;
-
     /**
      * 获取所有图片
      * @return
@@ -153,6 +159,5 @@ public class TestController {
         System.out.println(pname.size());
         return pname;
     }
-
 
 }
