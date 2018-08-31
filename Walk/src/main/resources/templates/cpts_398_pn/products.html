@@ -75,6 +75,7 @@
             <div class="product-grids">
                 <div class="col-md-3 product-left">
                     <div class="h-class">
+                        <input type="submit">
                         <h5>评分</h5>
                         <div class="hotel-price">
                             <label class="check">
@@ -127,7 +128,7 @@
                         <div class="hotel-price">
                             <label class="check" >
                                 <input type="checkbox"  data-track="HOT:SR:Area">
-                                <span class="p-day-grid"><1000</span>
+                                <span class="p-day-grid">0-1000</span>
                             </label>
                         </div>
                         <div class="hotel-price">
@@ -151,7 +152,7 @@
                         <div class="hotel-price">
                             <label class="check">
                                 <input type="checkbox"  data-track="HOT:SR:Area">
-                                <span class="p-day-grid">>6000</span>
+                                <span class="p-day-grid">6000-99999</span>
                             </label>
                         </div>
                     </div>
@@ -220,9 +221,23 @@
                     </div>
                 </div>
                 <script type="text/javascript">
+                    var price_1 = 0;
+                    var price_2 = 0;
                     $(function () {
                         $(".p-day-grid").click(function () {
-                            alert($(this).text());
+                            var t = $(this).text();
+                            var arr = t.split("-");
+                            if (arr != ""){
+                                //获取价格
+                                price_1 = arr[0];
+                                price_2 = arr[1];
+                                alert(price_1)
+                            }else{
+                                //获取地址
+                                var address = t;
+                                alert(t)
+                            }
+
                         });
                     });
                     //获取评分
@@ -231,7 +246,7 @@
                         location.href = "Send?data="+data;
                     }
                 </script>
-                <div class="col-md-9 product-right" th:each="listv,UState:${scenery}">
+                <div class="col-md-9 product-right" th:each="listv,UState:${sList}">
                     <div class="product-right-grids">
                         <div class="product-right-top">
                             <div class="p-left">
@@ -240,12 +255,6 @@
                             <div class="p-right">
                                 <div class="col-md-6 p-right-left">
                                     <a href="p-single.html" th:text="${listv.s_title}">Lorem ipsum dolor sit amet</a>
-                                    <div class="p-right-price">
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                    </div>
                                     <p>漫行，伴您而行</p>
                                 </div>
                                 <div class="col-md-6 p-right-right">

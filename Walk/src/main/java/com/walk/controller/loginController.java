@@ -97,4 +97,5 @@ public class loginController {
         System.out.println(mark.getM_name());
         return "center/index";
     }
+
 }

@@ -24,10 +24,10 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     }
 
     @Override
-    public PageInfo<Scenery> listView(Model mod,int sPage, int ePage) {
+    public PageInfo<Scenery> listView(Model mod,int sPage,int ePage) {
         PageHelper.startPage(sPage,ePage);
         List<Scenery> s=sdao.listView();
-        PageInfo<Scenery> pageInfo=new PageInfo<>(s);
+        PageInfo<Scenery> pageInfo = new PageInfo<>(s);
         mod.addAttribute("scenery",s);
         return pageInfo;
     }

@@ -57,11 +57,11 @@
 									<div class="col-md-8 deals-rating">
 										<h3 th:text="${sce.getS_title()}">张家界  周末特惠</h3>
 										<!--评分，单个span作为一星-->
-										<span style="color:#FDD000" th:text="'评分：'+${sce.getS_num()}" aria-hidden="true"></span>
+										<span style="color:#FDD000" th:text="'评分：'+${#numbers.formatDecimal(sce.getS_num(),0,1)}" aria-hidden="true"></span>
 									</div>
 									<div class="col-md-4 deals-price" style="padding: 10px;">
-										<p class="now" th:text="'￥'+${sce.getS_price_yuan()}">¥ 1280</p>
-										<p th:text="'￥'+${sce.getS_price()}">¥ 980</p>
+										<p class="now" th:text="'￥'+${#numbers.formatDecimal(sce.getS_price_yuan(),0,0)}">¥ 1280</p>
+										<p th:text="'￥'+${#numbers.formatDecimal(sce.getS_price(),0,0)}">¥ 980</p>
 									</div>
 									<div class="clearfix"> </div>
 								</div>

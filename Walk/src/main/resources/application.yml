@@ -23,6 +23,19 @@ spring:
     url: jdbc:mysql://111.230.232.46:3306/walk?useSSL=false
     username: root
     password: 1234
+# Redis数据库
+  redis:
+    database: 0
+    host: 111.230.232.46
+    port: 6379
+    password: 2418
+    timeout: 60s
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1
 
   jackson:
     date-format: yyyy-MM-dd HH:mm
@@ -36,6 +49,8 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 #thymeleaf end
+
+
 
   resources:
     static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/,classpath:/templates/center/
