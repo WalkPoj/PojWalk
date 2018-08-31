@@ -1,5 +1,10 @@
 package com.walk.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Mark {
     //商家id，主键
     private int m_id;
