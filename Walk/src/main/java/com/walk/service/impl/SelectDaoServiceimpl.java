@@ -1,12 +1,14 @@
 package com.walk.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.walk.dao.SelectDao;
 import com.walk.pojo.Scenery;
 import com.walk.service.SelectDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -22,8 +24,11 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     }
 
     @Override
-    public List<Scenery> listView(int sPage,int ePage) {
+    public PageInfo<Scenery> listView(Model mod,int sPage,int ePage) {
         PageHelper.startPage(sPage,ePage);
-        return sdao.listView();
+        List<Scenery> s=sdao.listView();
+        PageInfo<Scenery> pageInfo = new PageInfo<>(s);
+        mod.addAttribute("scenery",s);
+        return pageInfo;
     }
 }
