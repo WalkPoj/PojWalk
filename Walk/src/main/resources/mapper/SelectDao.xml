@@ -8,10 +8,10 @@
 	</select>
 	<select id="listView" resultType="Scenery">
 		SELECT s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery
-		<where>
-			<if test="s_num != null and s_num != '' and s_num = 5">
-				s_num = 5
-			</if>
+		<!--<where>-->
+			<!--<if test="s_num != null and s_num != '' and s_num = 5">-->
+				<!--s_num = 5-->
+			<!--</if>-->
 			<!--<if test="s_num != null and s_num != '' and s_num = 4">-->
 				<!--s_num &lt; 5 and s_num &gt;= 4;-->
 			<!--</if>-->
@@ -24,6 +24,6 @@
 			<!--<if test="s_num != null and s_num != '' and s_num = 1">-->
 				<!--s_num &lt; 5 and s_num &gt;= 4;-->
 			<!--</if>-->
-		</where>
+		<!--</where>-->
 	</select>
 </mapper>

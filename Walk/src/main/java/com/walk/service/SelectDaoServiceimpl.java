@@ -21,8 +21,8 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     }
 
     @Override
-    public List<Scenery> listView(int s_num,int price,String address,int sPage,int ePage) {
+    public List<Scenery> listView(int sPage,int ePage) {
         PageHelper.startPage(sPage,ePage);
-        return sdao.listView(s_num,price,address);
+        return sdao.listView();
     }
 }

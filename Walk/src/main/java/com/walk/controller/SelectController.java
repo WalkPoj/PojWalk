@@ -29,8 +29,8 @@ public class SelectController {
     }
 
     @RequestMapping("listView")
-    public String ListView(Model mod,int s_num,String price,String address,int sPage,int ePage){
-        List<Scenery> s = sdaos.listView(s_num,price,address,sPage,ePage);
+    public String ListView(Model mod,int sPage,int ePage){
+        List<Scenery> s = sdaos.listView(sPage,ePage);
         PageInfo<Scenery> pageInfo = new PageInfo<>(s);
         //总页数
         mod.addAttribute("pageNum",pageInfo.getPages());
