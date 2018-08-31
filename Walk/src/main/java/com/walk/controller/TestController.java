@@ -1,6 +1,9 @@
 package com.walk.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -159,5 +162,6 @@ public class TestController {
         System.out.println(pname.size());
         return pname;
     }
+
 
 }

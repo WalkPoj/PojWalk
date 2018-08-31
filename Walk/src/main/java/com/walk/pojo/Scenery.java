@@ -3,9 +3,11 @@ package com.walk.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class Scenery {
+public class Scenery implements Serializable {
     //景区id
     private int s_id;
     //景区评分

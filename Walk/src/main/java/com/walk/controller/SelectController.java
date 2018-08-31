@@ -14,6 +14,7 @@ import java.util.List;
 
 @Controller
 public class SelectController {
+
     @Autowired
     public SelectDaoService sdaos;
 
@@ -36,7 +37,8 @@ public class SelectController {
         mod.addAttribute("pageNum",pageInfo.getPages());
         //当前页数
         mod.addAttribute("pageNext",pageInfo.getPageNum());
+        //
+        mod.addAttribute("sList",pageInfo.getList());
         return "cpts_398_pn/products";
     }
-
 }
