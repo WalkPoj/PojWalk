@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.walk.dao.UserDao">
+    <select id="selectUser" resultType="User">
+        SELECT * FROM `user` WHERE `u_nickname`=#{u_nickname} AND `u_password`=#{u_password}
+	</select>
+    <select id="isRoot" resultType="int">
+        SELECT `u_root` FROM `user` WHERE `u_nickname`=#{u_nickname} AND `u_password`=#{u_password}
+    </select>
+</mapper>

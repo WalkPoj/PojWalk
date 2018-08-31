@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>商家管理</title>
@@ -43,7 +44,7 @@
             <div class="content">
                 <div class="public-header-logo"><a href=""><i>WALK</i><h3>漫行网络科技</h3></a></div>
                 <div class="public-header-admin fr">
-                    <p class="admin-name">****管理员 您好！</p>
+                    <p class="admin-name" th:text="${session.mark.m_name}+'管理员 您好！'">****管理员 您好！</p>
                     <div class="public-header-fun fr">
                         <a href="" class="public-header-man">管理</a>
                         <a href="" class="public-header-loginout">安全退出</a>
@@ -55,8 +56,7 @@
 </div>
 <div id="cc" class="easyui-layout" style="width:100%;height:1000px;">
     <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>
-
-    <div data-options="region:'west',title:'分类管理',split:true" style="width:400px;">
+    <div data-options="region:'west',title:'分类管理',split:true,collapsible:false" style="width:400px;">
         <div id="aa" class="easyui-accordion" style="width:100%;height:100%;">
             <div title="个人中心" data-options="iconCls:'icon-reload',selected:true" style="padding:10px;">
                 <h3><a href="javascript:addTab('我的信息','')" style="color:#0099FF;text-decoration: none">我的信息</a></h3>
@@ -69,27 +69,29 @@
     <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;">
         <div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
             <div title="我的信息" style="padding:20px;display:none;" >
-                <div id="ation" style="border: #0f0f0f solid 0px;width: 60%;margin-left: 15%;margin-top: 30px">
+                <div id="ation" style="border: #0f0f0f solid 0px;width: 60%;margin-left: 15%;margin-top: 30px;text-align:center">
                     <div class="author-image" style=" margin: 20px 20px 20px 100px;"><img src="img/author_image.png" alt=""></div>
-                    <table class="table">
-                        <tr>
-                            <td>店铺名称：</td>
-                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
-                        </tr>
-                        <tr>
-                            <td>绑定手机：</td>
-                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
-                            <td><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改绑定手机</a></td>
-                        </tr>
-                        <tr>
-                            <td>用户名：</td>
-                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
-                        </tr>
-                        <tr>
-                            <td>地址：</td>
-                            <td><input class="easyui-textbox" data-options="" style="width:300px;"></td>
-                        </tr>
-                    </table>
+                        <table class="table" style="margin-left: 370px">
+                            <tr>
+                                <td>店铺名称：</td>
+                                <td th:text="${session.mark.m_name}"></td>
+                            </tr>
+                            <tr>
+                                <td>绑定手机：</td>
+                                <td th:text="${session.mark.getM_phone()}"></td>
+                                <td><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改绑定手机</a></td>
+                            </tr>
+                            <tr>
+                                <td>用户名：</td>
+                                <td th:text="${session.user.getU_nickname()}"></td>
+                                <!--<td><input class="easyui-textbox" data-options="" style="width:300px;"></td>-->
+                            </tr>
+                            <tr>
+                                <td>地址：</td>
+                                <td th:text="${session.mark.getM_address()}"></td>
+                                <!--<td><input class="easyui-textbox" data-options="" style="width:300px;"></td>-->
+                            </tr>
+                        </table>
                 </div>
             </div>
         </div>
