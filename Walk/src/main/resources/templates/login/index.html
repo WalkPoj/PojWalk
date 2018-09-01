@@ -54,9 +54,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div class="w3table-topimg">
 									<img src="images/海边.jpg">
 								</div>
-								<form action="#" method="post"> 
-									<input type="text" name="Username" placeholder="昵称/手机号" required=""/>
-									<input type="Password" name="Password" placeholder="密码" required=""/>
+								<form action="#" method="post">
+									<input type="text" name="Username" placeholder="昵称/手机号"  required oninvalid="setCustomValidity
+									('昵称/手机号不能为空！')" oninput="setCustomValidity('')"/>
+									<input type="Password" name="Password" placeholder="密码" required oninvalid="setCustomValidity
+									('密码不能为空！')" oninput="setCustomValidity('')"/>
 									<input type="submit" class="btn" value="登  录">
 								</form>
 							</div>
@@ -67,8 +69,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<div class="w3table-cell">   
 								<form action="#" method="post">  
 									<p>注意！在注册之后，系统将自动分配您初始密码！请在注册后48小时内修改密码！</p>
-									<input type="text" name="uname" placeholder="您的真实姓名" required=""/>
-									<input type="email" name="uphone" placeholder="手机号" required=""/>
+									<input type="text" name="uname" placeholder="您的真实姓名" required oninvalid="setCustomValidity('真实姓名不能为空！')" oninput="setCustomValidity('')"/>
+									<input type="email" name="uphone" placeholder="手机号" required oninvalid="setCustomValidity('手机号不能为空！')" oninput="setCustomValidity('')"/>
 									<span></span><a href="#" id="vCont">获取短信验证码</a>
 									<input type="submit" class="btn" value="注  册">
 								</form>

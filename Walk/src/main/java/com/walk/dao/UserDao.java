@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserDao {
     /**
      * 商家登录验证
-     * @param u_name
+     * @param u_nickname
      * @param u_nickname
      * @return
      */
