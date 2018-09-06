@@ -6,7 +6,18 @@
     <select id="selectUser" resultType="User">
         SELECT * FROM `user` WHERE `u_nickname`=#{u_nickname} AND `u_password`=#{u_password}
 	</select>
+
     <select id="isRoot" resultType="int">
         SELECT `u_root` FROM `user` WHERE `u_nickname`=#{u_nickname} AND `u_password`=#{u_password}
+    </select>
+
+    <!-- 前台普通用户登录 -->
+    <select id="OrdinaryLogin" resultType="User">
+        SELECT * FROM `user` WHERE (`u_nickname`=#{u_nickname}  OR `u_phone`=#{u_phone}) AND `u_password`=#{u_password}
+    </select>
+
+    <!-- 前台注册判断手机号是否存在 -->
+    <select id="PhoneExists" resultType="int" parameterType="String">
+        SELECT COUNT(u_phone) FROM `user` WHERE u_phone=#{u_phone}
     </select>
 </mapper>

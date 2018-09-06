@@ -28,6 +28,13 @@ public class SelectController {
         return "cpts_398_pn/deals";
     }
 
+    /**
+     * 查看更多
+     * @param mod
+     * @param sPage
+     * @param ePage
+     * @return
+     */
     @RequestMapping("listView")
     public String ListView(Model mod,int sPage,int ePage){
         PageInfo<Scenery> pageInfo = sdaos.listView(mod,sPage,ePage);

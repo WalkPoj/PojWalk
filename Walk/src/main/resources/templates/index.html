@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
-
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>漫行</title>
     <meta charset="utf-8"/>
@@ -42,7 +41,12 @@
                 </li>
                 <!--登录成功后显示个人中心
                 <li><a href="../center/index.html" target="_blank">个人中心</a></li>-->
-                <li><a href="login/index.html" class="button special">登   录</a></li>
+                <li th:if="${session.user} eq null"><a href="indexLogin.action" class="button special">登   录</a></li>
+                <li th:if="${session.user} ne null">
+                    <label  class="button special" th:text="'欢迎回来:'+${session.user.u_nickname}">登   录</label>
+                    <a href="#" class="button special">退   出</a>
+                </li>
+
             </ul>
         </nav>
     </header>

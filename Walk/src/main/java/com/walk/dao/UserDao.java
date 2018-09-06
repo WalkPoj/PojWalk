@@ -19,4 +19,18 @@ public interface UserDao {
      * @return
      */
     public int isRoot(@Param("u_nickname") String u_nickname,@Param("u_password") String u_password);
+
+    /**
+     * 前台普通用户登录
+     * @param user
+     * @return
+     */
+    public User OrdinaryLogin(User user);
+
+    /**
+     * 前台注册判断手机号是否存在
+     * @param u_phone
+     * @return
+     */
+    public int PhoneExists(@Param("u_phone") String u_phone);
 }
