@@ -1,7 +1,7 @@
 package com.walk.service;
 
 import com.github.pagehelper.PageInfo;
-import com.walk.pojo.Scenery;
+import com.walk.pojo.*;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -12,4 +12,20 @@ public interface SelectDaoService {
 
     //分类查询
     public PageInfo<Scenery> listView(Model mod,int sPage,int ePage);
+
+    //查询景区详情
+    public Scenery selectDeal(int s_id);
+
+    //查询线路id
+    public int selectSeid(DataPiao dataPiao);
+
+    //查询汽车
+    public List<Carclass> selectCar(DataPiao dataPiao);
+
+    //查火车
+    public List<Trainclass> selectTrain(DataPiao dataPiao);
+
+    //查火车
+    public List<Planeclass> selectPlane(DataPiao dataPiao);
+
 }

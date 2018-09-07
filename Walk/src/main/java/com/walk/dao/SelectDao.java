@@ -1,6 +1,7 @@
 package com.walk.dao;
 
-import com.walk.pojo.Scenery;
+import com.walk.pojo.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,5 +11,20 @@ public interface SelectDao {
 
     //分类查询
     public List<Scenery> listView();
+
+    //查询景区详情
+    public Scenery selectDeal(@Param("s_id")int s_id);
+
+    //查询线路id
+    public int selectSeid(DataPiao dataPiao);
+
+    //查询汽车
+    public List<Carclass> selectCar(DataPiao dataPiao);
+
+    //查火车
+    public List<Trainclass> selectTrain(DataPiao dataPiao);
+
+    //查火车
+    public List<Planeclass> selectPlane(DataPiao dataPiao);
 }
 

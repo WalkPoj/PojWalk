@@ -20,4 +20,6 @@ public class Planeclass {
     private int p_typeid;
     //机票价格，固定线路固定价格
     private double pc_price;
+    //飞机类型
+    private String p_type;
 }

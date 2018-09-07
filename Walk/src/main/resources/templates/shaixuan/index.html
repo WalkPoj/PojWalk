@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="max-age=300" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div style="width:946px; margin:0 auto;">
+    <div class="clearfix">
+        <p class="shaixuan-tj floatLeft clearfix">
+            <span><a href="/">所有景区</a></span>
+            <i class="icon-angle-right"></i>
+            <span><strong>筛选</strong></span>
+            <i class="icon-angle-right"></i>
+        </p>
+        <p id="sxbtn" class="shaixuan-btn clearfix"><span><em>点击查询</em></span></p>
+    </div>
+    <div id="page-search-store" class="mb10 border sxcon">
+        <div class="search-by by-category relative">
+            <dl class="relative clearfix">
+                <dt class="floatLeft"><a href="/">评分:</a></dt>
+                <dd class="floatLeft show-con">
+                    <a href="/" class="">五分</a>
+                    <a href="/" class="">四分 - 五分</a>
+                    <a href="/" class="">三分 - 四分</a>
+                    <a href="/" class="">两分 - 三分</a>
+                    <a href="/" class="">一分 - 两分</a>
+                </dd>
+                <dd class="floatLeft show-more"><h3 class="pointer clearfix"><span>更多</span><i class="icon-angle-down"></i></h3></dd>
+            </dl>
+            <dl class="relative clearfix" style="border-bottom:0">
+                <dt class="floatLeft"><a href="/">价格区间:</a></dt>
+                <dd class="floatLeft show-con">
+                    <a href="/" class="">0-1000</a>
+                    <a href="/" class="">1000-2500</a>
+                    <a href="/" class="">2500-3500</a>
+                    <a href="/" class="">3500-5500</a>
+                    <a href="/" class="">5500-9500</a>
+                    <a href="/" class="">9500-999999</a>
+                </dd>
+            </dl>
+            <dl class="relative clearfix" style="border-bottom:0">
+                <dt class="floatLeft"><a href="/">地区:</a></dt>
+                <dd class="floatLeft show-con">
+                    <a href="/" class="">张家界</a>
+                    <a href="/" class="">四川</a>
+                    <a href="/" class="">西藏</a>
+                    <a href="/" class="">三亚</a>
+                    <a href="/" class="">青海</a>
+                    <a href="/" class="">厦门</a>
+                    <a href="/" class="">北京</a>
+                    <a href="/" class="">西安</a>
+                    <a href="/" class="">青岛</a>
+                    <a href="/" class="">海南</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".shaixuan-tj span.crumb-select-item").live('hover',function(event){
+            if(event.type=='mouseenter'){ 
+            $(this).addClass("crumb-select-itemon");
+            }else{ 
+            $(this).removeClass("crumb-select-itemon");
+            } 
+        });
+        $(".shaixuan-tj span.crumb-select-item").live('click', function(event){
+            event.preventDefault();
+            $(this).remove();
+            var TTR = $(this).find("em").text();
+            $(".show-con a").each(function(){
+                var TT = $(this).text();
+                    THI = $(this);
+                    THIPP = $(this).parents("dl");
+                if(TTR==TT){
+                    THI.removeClass("nzw12");
+                    THIPP.css("display","block");
+                }
+            })
+        });
+        $(".show-con a").click(function(event){
+            event.preventDefault();
+                 THIP = $(this).parents("dl");
+            if($(this).hasClass("nzw12")){
+            }else{
+                $(this).addClass("nzw12");
+                var zhiclass = $(this).parents("dd").siblings("dt").find("a").text();
+                    zhicon = $(this).text();
+                    //获取参数
+                    alert(zhicon);
+                    tianjaneir="<span class='crumb-select-item'><a href='/'><b>"+zhiclass+"</b><em>"+zhicon+"</em><i class='icon-remove'></i></a></span>"
+                $(".shaixuan-tj").children().last().after(tianjaneir);
+                THIP.css("display","none");
+            }
+        });
+        $(".show-more").click(function(event){
+            event.preventDefault();
+            var ticon = $(this).find("i");
+                tspan = $(this).find("span");
+                if($(this).hasClass("zk")){
+                    $(this).siblings(".show-con").css("height","30px");
+                    ticon.removeClass("icon-angle-up");
+                    ticon.addClass("icon-angle-down");
+                    tspan.html("更多");
+                    $(this).removeClass("zk")
+                }else{
+                    $(this).siblings(".show-con").css("height","auto");
+                    ticon.removeClass("icon-angle-down");
+                    ticon.addClass("icon-angle-up");
+                    tspan.html("收起");
+                    $(this).addClass("zk")
+                }
+        });
+        $("#sxbtn").click(function(event){
+            var arr = $(".crumb-select-item").text();
+            alert(arr)
+        })
+    })
+</script>
+</body>
+</html>

@@ -129,39 +129,14 @@ public class TestController {
      * 获取所有图片
      * @return
      */
-    @RequestMapping("getPic")
-    public String getPic(Model mod){
-        List<String> list = getFiles(getDir);
-        System.out.println(getDir);
-        mod.addAttribute("list",list);
-        return "fileUpload";
-    }
-    /**
-     * 递归获取某路径下的所有文件，文件夹，并输出
-     */
-    public static List getFiles(String path) {
-        File file = new File(path);
-        List<String> pname = new ArrayList<>();
-        // 如果这个路径是文件夹
-        if (file.isDirectory()) {
-            // 获取路径下的所有文件
-            File[] files = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                // 如果还是文件夹 递归获取里面的文件 文件夹
-                if (files[i].isDirectory()) {
-                    System.out.println("目录：" + files[i].getPath());
-                    getFiles(files[i].getPath());
-                } else {
-                    System.out.println("文件：" + files[i].getName());
-                    pname.add(files[i].getName());
-                }
-            }
-        } else {
-            System.out.println("文件：" + file.getPath());
-        }
-        System.out.println(pname.size());
-        return pname;
-    }
+//    @RequestMapping("getPic")
+//    public String getPic(Model mod){
+//        List<String> list = getFiles(getDir);
+//        System.out.println(getDir);
+//        mod.addAttribute("list",list);
+//        return "fileUpload";
+//    }
+
 
 
 }

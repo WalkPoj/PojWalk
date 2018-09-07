@@ -20,4 +20,6 @@ public class Trainclass {
     private int t_typeid;
     //火车票价
     private double tc_price;
+    //火车类型
+    private String t_type;
 }

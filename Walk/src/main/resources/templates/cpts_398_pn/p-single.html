@@ -1,9 +1,10 @@
-<html class=" js csstransforms3d js csstransforms3d" style="" xmlns:th="http://www.thymeleaf.org" >
+<html style="" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title>P-single</title>
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
     <meta name="keywords" content="Govihar Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design">
     <script type="application/x-javascript"> addEventListener("load", function () {
@@ -20,6 +21,7 @@
     <link type="text/css" rel="stylesheet" href="css/JFFormStyle-1.css">
     <!-- js -->
     <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MZUo2VfmSZDwgV0dNNhprapCEYugzwze"></script>
     <script src="js/modernizr.custom.js"></script>
     <!-- //js -->
     <script type="text/javascript">
@@ -35,11 +37,20 @@
     <script src="js/menu_jquery.js"></script>
     <script src="js/kuCity.js"></script>
     <link rel="stylesheet" href="css/kuCity.css">
+    <style type="text/css">
+        .room-basic-info table tr td{
+            padding: 10px 30px 10px 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/MX/alert/easydialog.css">
+    <script src="http://127.0.0.1:8080/MX/alert/easydialog.js"></script>
     <!--//pop-up-->
 </head>
 <body >
+<!--百度地图，但不作显示-->
+<div id="allmap" style="display: none"></div>
 <!-- banner-bottom -->
-<div class="banner-bottom" th:fragment="pBo">
+<div class="banner-bottom">
     <!-- container -->
     <div class="container">
         <div class="faqs-top-grids">
@@ -47,7 +58,7 @@
             <div class="single-page">
                 <div class="col-md-8 single-gd-lt">
                     <div class="single-pg-hdr">
-                        <h2>张家界，周末特惠</h2>
+                        <h2 th:text="${s_Details.s_title}">张家界，周末特惠</h2>
                         <p>赶快咨询吧，过时不待呦~ +86 132****9089</p>
                     </div>
                     <div class="flexslider">
@@ -59,14 +70,11 @@
                             <ul class="slides"
                                 style="width: 4600%; transition-duration: 0.6s; transform: translate3d(-7623px, 0px, 0px);">
                                 <!--图片轮播至少两张照片-->
-                                <li data-thumb="images/p1.jpg" style="width: 693px; float: left; display: block;"
+                                <li th:each="img,imgStat:${imglb}" style="width: 693px; float: left; display: block;"
                                     class="clone">
-                                    <img src="images/p1.jpg" alt="">
-                                </li>
-                                <li data-thumb="images/p3.jpg" class="clone"
-                                    style="width: 693px; float: left; display: block;">
-                                    <img src="images/p3.jpg" alt="">
-                                </li>
+                                    <img th:src="'http://localhost:9352/walk_img/'+${Dir}+'/'+'lb/'+${img}" alt="">
+                                </li>=
+
                             </ul>
                         </div>
                     </div>
@@ -77,7 +85,9 @@
                         $(window).load(function () {
                             $('.flexslider').flexslider({
                                 animation: "slide",
-                                controlNav: "thumbnails"
+                                slideshowSpeed:3000,
+                                prevText: " > ", //String: 上一项的文字
+                                nextText: " > " //String: 下一项的文字
                             });
                         });
                     </script>
@@ -97,16 +107,16 @@
                             </script>
                         </div>
                         <div class="sp-bor-btn text-right">
-                            <h4><span>¥ 1280</span> ¥ 980</h4>
+                            <h4><span th:text="'￥ '+${#numbers.formatDecimal(s_Details.s_price_yuan,0,0)}"></span><u th:text="'￥ '+${#numbers.formatDecimal(s_Details.s_price,0,0)}"></u></h4>
                             <p class="best-pri">最优价格</p>
-                            <a class="best-btn" href="#zf">现在支付</a>
+                            <a class="best-btn" href="listOrder" target="_blank">现在支付</a>
                         </div>
                     </div>
 
                     <div class="other-comments" style="margin-top: 30px;">
                         <div class="comments-head">
                             <h3>评价</h3>
-                            <p>4.5/5</p>
+                            <p th:text="${s_Details.s_num}+'/5.0'"></p>
                             <div class="clearfix"></div>
                         </div>
                         <!--单个comments-bot 为评论-->
@@ -129,22 +139,59 @@
             <!--//single-page-->
         </div>
         <div class="c-rooms">
+            <!--提交支付信息-->
+            <form action="#" method="post" style="margin-top: 18px">
+                <div class="p-table">
+                    <div class="p-table-grids">
+                        <div class="col-md-3 p-table-grid" style="width: 100%">
+                            <div class="p-table-grad-heading" style="width: 100%">
+                                <h6>出行位置/世界时间</h6>
+                            </div>
+                            <div class="p-table-grid-info">
+                                <div class="room-basic-info" style="font-weight: 800">
+                                    出发位置：<input type="text" value="" placeholder="请选择城市" class="se_start_cit" name="se_strat"/> =->
+                                    <input type="text" placeholder="景区位置" value="张家界" class="se_end" name="se_end"/><br/><br/><br/>
+                                    出发时间：<input type="date" id="time" value="" style="line-height: 20px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 p-table-grid" style="width: 100%">
+                            <div class="p-table-grad-heading" >
+                                <h6>出行方式</h6>
+                            </div>
+                            <div class="p-table-grid-info">
+                                <div class="room-basic-info">
+                                    <table border="1" bgcolor="#F4F7F9" style="text-align: center">
+                                        <tr id="th" style="background-color: #F4F7F9;color: black;font-weight: 600;font-size: 20px;">
+                                            <td>漫行推荐</td>
+                                            <td>班次号</td>
+                                            <td>出发时间</td>
+                                            <td>预计到达</td>
+                                            <td>票价</td>
+                                            <td>操作</td>
+                                        </tr>
+                                        <tr style="font-size: 17px;font-weight: 600;">
+
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
             <div class="p-table">
                 <div class="p-table-grids">
                     <div class="col-md-3 p-table-grid" style="width: 70%">
-                        <div class="p-table-grad-heading" style="width: 143%">
+                        <div class="p-table-grad-heading" style="width: 142.9%">
                             <h6>景点特色</h6>
                         </div>
                         <ul style="list-style: none">
-                            <li>
+                            <li th:each="imgxq,imgStat:${imgXq}">
                                 <div class="p-table-grid-info">
-                                    <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="p-table-grid-info">
-                                    <a href="#"><img src="images/16d61d8ba1d1b5e7608b163c1f95491f.jpg" alt=""></a>
-                                    <a href="#top" name="zf">回到顶部</a>
+                                    <a href="#"><img th:src="'http://localhost:9352/walk_img/'+${Dir}+'/'+'xq/'+${imgxq}" alt=""></a>
                                 </div>
                             </li>
                         </ul>
@@ -152,95 +199,12 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <!--提交支付信息-->
-            <form action="#" method="post" style="margin-top: 18px">
-            <div class="p-table">
-                <div class="p-table-grids">
-                    <div class="col-md-3 p-table-grid" style="width: 50%">
-                        <div class="p-table-grad-heading" style="width: 100%">
-                            <h6>出行位置/世界时间</h6>
-                        </div>
-                        <div class="p-table-grid-info">
-                            <div class="room-basic-info" style="font-weight: 800">
-                                出发位置：<input type="text" placeholder="选择您的出发城市" class="search" name="se_strat" style="height: 39px;"/> To
-                                <input type="text" placeholder="商家位置" value="" name="se_end" style="height: 39px;"/><br/><br/><br/>
-                                出发时间：<input type="date" id="time" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 p-table-grid" style="width: 50%">
-                        <div class="p-table-grad-heading" >
-                            <h6>出行方式</h6>
-                        </div>
-                        <div class="p-table-grid-info">
-                            <div class="room-basic-info">
-                                <a href="#" style="font-size: 20px;">出发位置-->商家位置</a>
-                                <h3 style="font-weight: 800;margin-top: 15px">票价：<span style="color: red;font-weight: 800">￥</span><span id="cp">600</span></h3>
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="p-table">
-
-                <div class="p-table-grids">
-                    <div class="col-md-3 p-table-grid" style="width:300px">
-                        <div class="p-table-grad-heading">
-                            <h6>服务名称</h6>
-                        </div>
-                        <div class="p-table-grid-info">
-                            <a href="#"><img src="images/p1.jpg" alt=""></a>
-                            <div class="room-basic-info">
-                                <a href="#">张家界景区服务</a>
-                                <h6>将为您展示所有的收费项目</h6>
-                                <p>一次付清享受所有服务</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 p-table-grid" style="width: 425px">
-                        <div class="p-table-grad-heading">
-                            <h6>服务内容</h6>
-                        </div>
-                        <div class="rate-features">
-                            <ul>
-                                <li>天门山景点门票</li>
-                                <li>索道缆往返票</li>
-                                <li>惊险刺激的玻璃栈道</li>
-                                <li>戈登五星级酒店，三天三夜</li>
-                                <li>大型歌舞剧表演</li>
-                                <li>观光缆车，来回接送，准点到达</li>
-                                <li>出行必备饮用水，三瓶装</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 p-table-grid"  style="width: 413px">
-                        <div class="p-table-grad-heading">
-                            <h6>价格</h6>
-                        </div>
-                        <div class="avg-rate">
-                            <h5>将最优给您</h5>
-                            <span class="p-offer" >¥<span id="mp">980</span></span>
-                            <span class="p-last-price">¥1280</span>
-                            <span class="p-offer">合计：¥<span id="hj"></span></span><br/>
-                            <input type="submit" style="background-color: deepskyblue;border: 0;color: white;padding: 10px 30px 10px 30px;font-size: 18px;border-radius: 12px;margin-top: 18px;font-weight: 600" value="支  付"/>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            </form>
 
         </div>
     </div>
     <!-- //container -->
 </div>
 <!-- //banner-bottom -->
-<!-- footer -->
-
-<!-- //footer -->
-
 <script defer="" src="js/jquery.flexslider.js"></script>
 <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
 <script src="js/jquery-ui.js"></script>
@@ -255,14 +219,105 @@
         if(parseInt(data.getMonth()+1)<10){
             moth = "0"+parseInt(data.getMonth()+1);
         }else if (parseInt(data.getMonth()+1) >= 10) {
-            moth = parseInt(data.getMonth()+1);
+            moth =parseInt(data.getMonth()+1);
         }
-        $("#time").val(data.getFullYear()+"-"+moth+"-"+parseInt(data.getDate()+1));
-        $(".search").kuCity();
+        var day = "";
+        if (parseInt(data.getDate()+1) >= 10){
+            day = parseInt(data.getDate()+1)
+        }else{
+            day ="0"+parseInt(data.getDate()+1)
+        }
+        $("#time").val(data.getFullYear()+"-"+moth+"-"+day);
+        $(".se_start_city").kuCity();
+        $(".se_end").kuCity();
         $("#Sq").click(function () {
             $("#Sqmin").slideToggle(500);
         })
     })
+    //发送ajax查询车票
+    function SendData_selectTools() {
+        var start_city=$(".se_start_city").val();
+        var end_city = $(".se_end").val();
+        $.post("Select_Bin?start_city="+start_city+"&end_city="+end_city,function (i) {
+
+        })
+    }
+    function SendData_Train(se_id) {
+        var stime = $("#time").val();
+        $.post("Select_Train?se_id="+se_id+"&stime="+stime,function (train) {
+            if (train.length > 0) {
+                for (var i = 0;i < train.length ;i++){
+                    var js = train[i];
+                    $(".room-basic-info").next().append(
+                        " <td>"+js.t_type+"</td>\n" +
+                        " <td>"+js.tc_id+"</td>\n" +
+                        " <td>"+js.tc_send+"</td>\n" +
+                        " <td>"+js.tc_end+"</td>\n" +
+                        " <td><span style=\"color: red;font-weight: 800\">￥</span><span id=\"cp\">"+js.tc_price+"</span></td>\n" +
+                        " <td><a href=\"#\">选择此方式</a></td>");
+                }
+                return true;
+            }else{
+                return false;
+            }
+        })
+    }
+    function SendData_Car(se_id) {
+        var stime = $("#time").val();
+        $.post("Select_Car?se_id="+se_id+"&stime="+stime,function (car) {
+            if (car.length > 0) {
+                for (var i = 0;i < car.length ;i++){
+                    var js = car[i];
+                    $(".room-basic-info").next().append(
+                        " <td>"+js.c_type+"</td>\n" +
+                        " <td>"+js.cc_id+"</td>\n" +
+                        " <td>"+js.cc_send+"</td>\n" +
+                        " <td>"+js.cc_end+"</td>\n" +
+                        " <td><span style=\"color: red;font-weight: 800\">￥</span><span id=\"cp\">"+js.cc_price+"</span></td>\n" +
+                        " <td><a href=\"#\">选择此方式</a></td>");
+                }
+                return true;
+            }else{
+                return false;
+            }
+        })
+    }
+    function SendData_Plane(se_id) {
+        var stime = $("#time").val();
+        $.post("Select_Plane?se_id="+se_id+"&stime="+stime,function (plane) {
+            if (plane.length > 0) {
+                for (var i = 0;i < car.length ;i++){
+                    var js = plane[i];
+                    $(".room-basic-info").next().append(
+                        " <td>"+js.p_type+"</td>\n" +
+                        " <td>"+js.pc_id+"</td>\n" +
+                        " <td>"+js.pc_send+"</td>\n" +
+                        " <td>"+js.pc_end+"</td>\n" +
+                        " <td><span style=\"color: red;font-weight: 800\">￥</span><span id=\"cp\">"+js.pc_price+"</span></td>\n" +
+                        " <td><a href=\"#\">选择此方式</a></td>");
+                }
+            }
+        })
+    }
+    $(".se_start_city").blur(function () {
+        SendData_selectTools();
+    });
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.331398,39.897445);
+    map.centerAndZoom(point,12);
+    function myFun(result){
+        var cityName = result.name;
+        map.setCenter(cityName);
+        if (cityName == "全国"){
+            $(".se_start_city").val("长沙市");
+        }else{
+            $(".se_start_city").val(cityName);
+            SendData_selectTools();
+        }
+    }
+    var myCity = new BMap.LocalCity();
+    myCity.get(myFun);
 </script>
 
 </body>

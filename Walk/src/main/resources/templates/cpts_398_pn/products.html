@@ -27,8 +27,7 @@
     <style type="text/css">
         .box {
             width: 165px;
-            margin: 100px auto 0;
-            height: 34px;
+            margin: 0 auto;
         }
 
         .page {
@@ -61,9 +60,6 @@
     </script>
     <!--pop-up-->
     <script src="js/menu_jquery.js"></script>
-
-
-
     <!--//pop-up-->
 </head>
 <body>
@@ -73,179 +69,6 @@
     <div class="container">
         <div class="faqs-top-grids">
             <div class="product-grids">
-                <div class="col-md-3 product-left">
-                    <div class="h-class">
-                        <input type="submit">
-                        <h5>评分</h5>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox" data-track="HOT:SR:Area" onclick="javascript:SendNum(5);">
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">5.0 (18)</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check" >
-                                <input type="checkbox" onclick="javascript:SendNum(4)">
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">4.0+ (30)</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check" >
-                                <input type="checkbox" onclick="javascript:SendNum(3)">
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">3.0+ (106)</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check" >
-                                <input type="checkbox"  onclick="javascript:SendNum(2)">
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">2.0+ (78)</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check" >
-                                <input type="checkbox" onclick="javascript:SendNum(1)">
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <span class="starTextLabel">1.0+ (10)</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="h-class p-day">
-                        <h5>价格区间</h5>
-                        <div class="hotel-price">
-                            <label class="check" >
-                                <input type="checkbox"  data-track="HOT:SR:Area">
-                                <span class="p-day-grid">0-1000</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox"  data-track="HOT:SR:Area">
-                                <span class="p-day-grid">1000-2500</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox"  data-track="HOT:SR:Area">
-                                <span class="p-day-grid">2500-4000</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">4000-5000</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="checkbox"  data-track="HOT:SR:Area">
-                                <span class="p-day-grid">6000-99999</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="h-class">
-                        <h5>地区</h5>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">张家界</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">四川</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">西藏</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">三亚</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">青海</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">厦门</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">北京</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">西安</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">青岛</span>
-                            </label>
-                        </div>
-                        <div class="hotel-price">
-                            <label class="check">
-                                <input type="radio" name="hideRegionId" data-track="HOT:SR:Area">
-                                <span class="p-day-grid">海南</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    var price_1 = 0;
-                    var price_2 = 0;
-                    $(function () {
-                        $(".p-day-grid").click(function () {
-                            var t = $(this).text();
-                            var arr = t.split("-");
-                            if (arr != ""){
-                                //获取价格
-                                price_1 = arr[0];
-                                price_2 = arr[1];
-                                alert(price_1)
-                            }else{
-                                //获取地址
-                                var address = t;
-                                alert(t)
-                            }
-
-                        });
-                    });
-                    //获取评分
-                    function SendNum(data){
-                        alert(data);
-                        location.href = "Send?data="+data;
-                    }
-                </script>
                 <div class="col-md-9 product-right" th:each="listv,UState:${sList}">
                     <div class="product-right-grids">
                         <div class="product-right-top">
@@ -295,7 +118,7 @@
         prevPageText: "< 上一页",
         nextPageText: "下一页 >",
         callback: function (current) {
-            location.href = "listView?sPage="+current+"&ePage=5";
+            location.href = "listView?sPage="+current+"&ePage=11";
             $("#current2").text(current)
         }
     });

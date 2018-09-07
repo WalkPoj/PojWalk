@@ -93,10 +93,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script  src="js/jquery-1.12.3.min.js"></script>
 	<script src="alert/easydialog.min.js"></script>
 	<script>
-            var time = 61;
+            var time = 31;
             var res = true;
             function djs() {
-                $("#vCont").prev().text("(60s)获取验证");
+                $("#vCont").prev().text("(30s)获取验证");
                 time--;
                 if(time == 0){
                     $("#vCont").show();
@@ -138,7 +138,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				if(u_phone.trim().length>0&&u_phone!=""){
                     $.post("PhoneExists?u_phone="+u_phone,function (json) {
                         if(json){
-                            bounced("温馨提示：手机号已存在！");
+                            bounced("温馨提示：该手机号已被注册！");
                         }else{
                             bounced("温馨提示：手机号可用！");
                             $(".easyDialog_wrapper .easyDialog_text ").css("color","green");

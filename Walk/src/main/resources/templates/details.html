@@ -5,7 +5,9 @@
 		<title>漫行-景点详情</title>
 
 		<meta charset="utf-8" />
+		<meta name="toTop" content="true">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="toTop" content="true">
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -67,6 +69,8 @@
 			}
 		</style>
 		<script src="assets/js/autoiframe.js"></script>
+
+
 	</head>
 	<body class="right-sidebar">
 
@@ -113,10 +117,8 @@
 						<section id="gd" class="wrapper style1 container special">
 						</section>
 				</article>
-
 			<!-- Footer -->
 			<footer id="footer" style="padding: 5em 5em 8em 5em;">
-
 				<ul class="copyright">
 					<li>漫行 &copy; 2018</li>
 					<li>解释权由漫行所有</li>
@@ -125,6 +127,7 @@
 		</div>
 		<!-- Scripts -->
 			<script src="center/js/jquery.min.js"></script>
+			<script src="assets/js/toTop.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollgress.min.js"></script>
@@ -135,11 +138,9 @@
 			<script src="assets/js/main.js"></script>
 	<script type="text/javascript">
         $(window).load(function(){
-            $(".row").append("<iframe src=\"xqifa\" id=\"ifa\" name=\"iframepage\" frameBorder=0 scrolling=no width=\"100%\" onLoad=\"IframeLoadEND();\" style=\"margin-left: -60px\"></iframe>")
-			$("#gd").append("<iframe src=\"gd\" width=\"100%\" height=\"193px\"></iframe>")
-		})
+            $(".row").append("<iframe src=\"listDetails?s_id=[[${s_id}]]\" name=\"ifd\" onload=\"this.height=ifd.document.body.scrollHeight+100\" width=\"100%\" scrolling=\"no\" frameborder=\"0\" style=\"margin-left: -60px\"></iframe>");
+		});
 		$(function () {
-
             var data = new Date();
             var moth = "";
             if(parseInt(data.getMonth()+1)<10){
@@ -152,7 +153,7 @@
 			$("#Sq").click(function () {
 				$("#Sqmin").slideToggle(500);
             })
-        })
+        });
 	</script>
 	</body>
 </html>

@@ -108,7 +108,7 @@ public class loginController {
      * 跳转首页
      * @return
      */
-    @RequestMapping("/index.action")
+    @RequestMapping("/index.html")
     public String index(){
         return "index";
     }
