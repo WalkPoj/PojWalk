@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+
+<head>
+    <script type="text/javascript" src="js/easyui/themes/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/public.css">
+</head>
+<html>
+<body>
+<style type="text/css">
+    .tops tr td{
+        line-height: 50px;
+        font-size: 18px;
+    }
+    #picture{
+        margin-left: 30px;
+    }
+</style>
+<div id="picture">
+
+    <form  method="POST" name="xiangmu" id="xiangmu"
+          enctype="multipart/form-data">
+        <table class="tops">
+            <tr>
+                <td colspan="2" style="text-align: center"><h2>添加景点</h2></td>
+            </tr>
+            <tr>
+                <td>标题:</td>
+                <td><input type="text" name="s_title" style="width: 95%;height: 25px"/></td><td><span class="title" style="display:block;"></td>
+            </tr>
+            <tr>
+                <td>景点价格:</td>
+                <td><input type="text" name="s_price"style="width: 95%;height: 25px"/></td><td><span class="price" style="display:block;"></td>
+            </tr>
+            <tr>
+                <td>景点原价:</td>
+                <td><input type="text" name="s_price_yuan"style="width: 95%;height: 25px"/></td><td><span class="prices" style="display:block;"></td>
+            </tr>
+            <tr style="margin-top: 20px">
+                <td>详情：</td>
+                <td><textarea name="s_txt" style="width: 95%; height: 80px;resize:none"></textarea></td><td><span class="txt" style="display:block;"></td>
+            </tr>
+            <tr>
+                <td>景点封面图片：</td>
+                <td class="lb"><input type=file name="filess" id="docc">
+                </td><td><span class="filea" style="display:block;"></td>
+            </tr>
+            <tr><td></td><td><p style="border: #0f9ae0 solid 1px"></p></td></tr>
+                <tr>
+                    <td>景点轮播图片：</td>
+                    <td class="lb"><input type=file name="files" id="doc" multiple="multiple">
+                    </td><td><span class="fileb" style="display:block;"></td>
+                </tr>
+            <tr><td></td><td><p style="border: #0f9ae0 solid 1px"></p></td></tr>
+            <tr>
+                <td>详情介绍图片:</td>
+                <!-- 为了实现张图片上传，上传框这个name要都一样 -->
+                <td><input type="file" name="myfiles" id="doc1" multiple="multiple" ><br>
+                </td><td><span class="filec" style="display:block;"></td>
+            </tr>
+            <tr>
+                <td><input type="button" onclick="ahscs()" value="提交" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+    function ahscs() {
+        //var data = $("#xiangmu").serialize();
+        var input = $(":input[name]");
+        var price = /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/;
+        for (var i =0;i<input.length;i++) {
+            switch (i){
+                case 0:
+                    if (input.eq(i).val() == "") {
+                        // $.messager.alert("消息提醒", "验证码错误!", "warning");
+                        $(".title").text("请填写景点标题!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+                case 1:
+                    if (input.eq(i).val() == "") {
+                        if (!price.test(input.eq(i).val())){
+                             input.eq(i).val("");
+                             alert('只能输入数字，小数点后只能保留两位');
+                        }
+                        $(".price").text("请填写价格!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+                case 2:
+                    if (input.eq(i).val() == "") {
+                        if (!price.test(input.eq(i).val())){
+                            input.eq(i).val("");
+                            alert('只能输入数字，小数点后只能保留两位');
+                        }
+                        $(".prices").text("请填写原价!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+                case 3:
+                    if (input.eq(i).val() == "") {
+                        $(".txt").text("请填写详情!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+                case 4:
+                    if (input.eq(i).val() == "") {
+                        $(".filea").text("请选中一张景点封面!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+                case 5:
+                    if (input.eq(i).val() == "") {
+                        $(".fileb").text("至少选择一张图片!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+                case 6:
+                    if (input.eq(i).val() == "") {
+                        $(".filec").text("至少选择一张图片!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+            }
+        }
+
+        var formData = new FormData($('#xiangmu')[0]);
+        $.ajax({
+               type: "post",
+                url:"center/filesUpload",
+                cache: false,
+                data:formData,
+                processData: false,
+                contentType: false,
+                async: false,
+                success: function(msg){
+                    alert(msg);
+                    if ("nomax"==msg){
+                        $.messager.alert("消息提醒", "景点轮播最多只能传6张!", "warning");
+                    }else if("nomin"==msg){
+                        $.messager.alert("消息提醒", "景点详情最少传1张!", "warning");
+                    }else if("shib"==msg){
+                        $.messager.show({
+                            title:'温馨提示',
+                            msg:'系统维护中...',
+                            timeout:2000,
+                            showType:'show',
+                            style:{
+                                right:'',
+                                top:document.body.scrollTop+document.documentElement.scrollTop,
+                                bottom:''
+                            }
+
+                        });
+                    }else {
+                        $.messager.show({
+                            title:'我的消息',
+                            msg:'提交成功<br>消息将在3秒后关闭。',
+                            timeout:3000,
+                            showType:'show',
+                            style:{
+                                right:'',
+                                top:document.body.scrollTop+document.documentElement.scrollTop,
+                                bottom:''
+                            }
+
+                        });
+
+                        $('#hh').dialog("close");
+                        $('#dg').datagrid('reload');
+                    }
+                }
+            }
+
+        )
+    }
+    $("#xiangmu").keyup(function () {
+        var input = $(":input[name]");
+        var price = /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/;
+        for (var i =0;i<4;i++) {
+            switch (i){
+                case 0:
+                    if (input.eq(i).val() != "") {
+                        $(".title").text("")
+                    }
+                    break;
+                case 1:
+                    if (input.eq(i).val()!="") {
+                        if (!price.test(input.eq(i).val())){
+                            input.eq(i).val("");
+                            alert('只能输入数字，小数点后只能保留两位');
+                        }
+                        $(".price").text("")
+                    }
+                    break;
+                case 2:
+                    if (input.eq(i).val() != "") {
+                        if (!price.test(input.eq(i).val())){
+                            input.eq(i).val("");
+                            alert('只能输入数字，小数点后只能保留两位');
+                        }
+                        $(".prices").text("");
+
+                    }
+                    break;
+                case 3:
+                    if (input.eq(i).val() != "") {
+                        $(".txt").text("");
+
+                    }
+                    break;
+            }
+        }
+    });
+</script>
+</body>
+</html>
