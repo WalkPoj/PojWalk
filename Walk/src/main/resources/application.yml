@@ -67,3 +67,4 @@ pagehelper:
     supportMethodsArguments: true
     reasonable: true
     params: count=countSql
+
