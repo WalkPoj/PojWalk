@@ -1,15 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>商家中心信息修改</title>
     <link href="css/style.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/public.css">
     <script src="js/style.js"></script>
+    <script type="text/javascript">
+        <!--密码修改验证-->
+        function  sub() {
+            var uid = [[${uid}]];
+            var input = $("input[name],select");
+            for(var i=0;i<3;i++){
+                switch (i){
+                    case 0:
+                        if (input.eq(i).val() == "") {
+                            // $.messager.alert("消息提醒", "验证码错误!", "warning");
+                            $(".title").text("请填写用户名!").css("color","red");
+                            $("input[name=psw],select").eq(i).focus();
+                            return false;
+                        }
+                        break;
+                    case 1:
+                        if (input.eq(i).val() == "") {
+                            $(".psw").text("请填写新密码!").css("color","red");
+                            $("input[name=psw],select").eq(i).focus();
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (input.eq(i).val() == "") {
+                            $(".npsw").text("请再次填写新密码!").css("color","red");
+                            $("input[name=psw],select").eq(i).focus();
+                            return false;
+                        }else if(input.eq(i).val() != input.eq(1).val()){
+                            $(".npsw").text("两次输入的密码不一致!").css("color","red");
+                            $("input[name=psw],select").eq(i).focus();
+                            return false;
+                        }
+                        break;
+                }
+            }
+            var data = $("#jbj").serialize();
+            $.ajax({
+                type: "post",
+                url: "DeletePassword",
+                data: data+"&uid="+uid,
+                dataType: "text", //返回数据类型
+                success: function(msg){
+                    if("errorpsw"==msg){
+                        $.messager.alert("消息提醒", "原密码错误!", "warning");
+                    }else if("different"==msg){
+                        $.messager.alert("消息提醒", "两次输入的密码不一致!", "warning");
+                    }else if("failure"==msg){
+                        $.messager.alert("消息提醒", "系统正忙，请稍后再试!", "warning");
+                    }else if("success"==msg){
+                        $.messager.alert("消息提醒", "修改成功!", "warning");
+                    }
+                  }
+            });
+   }
+    </script>
 </head>
 <body>
-
+<div style="width: 100%;height: 80px">
+    <div class="public-header-warrp">
+        <div class="public-header">
+            <div class="content">
+                <div class="public-header-logo"><a th:href="@{../SystemServlet}"><i>WALK</i><h3>漫行网络科技</h3></a></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="Safety">
     <dl>
         <dt>
@@ -19,23 +87,23 @@
             <em>修改</em>
         </dt>
         <dd>
-            <form action="index.html" id="jbj" method="post">
+            <form  id="jbj" method="post">
                 <table width="100%" class="safForm">
                     <tr>
                         <td width="35%" align="right">当前密码：</td>
-                        <td><input type="text" name="psw" class="safinput1" /> <span class="title" style="display:block;"></span></td>
+                        <td><input type="text" name="jpsw" class="safinput1" /> <span class="title" style="display:block;"></span></td>
                     </tr>
                     <tr>
                         <td width="35%" align="right">设置新密码：</td>
-                        <td><input type="password" name="psw"  class="safinput1" /><span class="psw" style="display:block;"></span></td>
+                        <td><input type="password" name="xpsw"  class="safinput1" /><span class="psw" style="display:block;"></span></td>
                     </tr>
                     <tr>
                         <td width="35%" align="right">确认新密码：</td>
-                        <td><input type="password" name="psw"  class="safinput1" /><span class="npsw" style="display:block;"></span></td>
+                        <td><input type="password" name="npsw"  class="safinput1" /><span class="npsw" style="display:block;"></span></td>
                     </tr>
                     <tr>
                         <td width="35%" align="right">&nbsp;</td>
-                        <td><input type="submit" value="修改登录密码"></td>
+                        <td><input type="button" onclick="sub()" class="safSub" value="修改登录密码"></td>
                     </tr>
                 </table>
             </form>
@@ -117,26 +185,6 @@
                     <tr>
                         <td width="35%" align="right">身份证号：</td>
                         <td><input type="text" class="safinput1" /></td>
-                    </tr>
-                    <tr>
-                        <td width="35%" align="right">正面证件照</td>
-                        <td><input type="file" name="_f" /> </td>
-                    </tr>
-                    <tr>
-                        <td width="35%" align="right">&nbsp;</td>
-                        <td>
-                            <img src="http://gb.cri.cn/mmsource/images/2004/08/26/nc040826017.jpg" width="280" height="188" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="35%" align="right">背面证件照</td>
-                        <td><input type="file" name="_f" /> </td>
-                    </tr>
-                    <tr>
-                        <td width="35%" align="right">&nbsp;</td>
-                        <td>
-                            <img src="#" width="280" height="188" />
-                        </td>
                     </tr>
                     <tr>
                         <td width="35%" align="right">&nbsp;</td>

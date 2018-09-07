@@ -18,16 +18,17 @@ public interface UserService {
     public int isRoot(User user);
 
     /**
-     * 前台普通用户登录
-     * @param user
+     * 修改密码验证（查询原密码）
+     * @param uid
      * @return
      */
-    public User OrdinaryLogin(User user);
+    public String ispsw(int uid);
 
     /**
-     * 前台注册判断手机号是否存在
-     * @param u_phone
+     * 密码修改
+     * @param u_password
+     * @param u_id
      * @return
      */
-    public boolean PhoneExists(String u_phone);
+    public  boolean updatepsw(String u_password,int u_id);
 }

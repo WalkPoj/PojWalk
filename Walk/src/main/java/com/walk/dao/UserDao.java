@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserDao {
     /**
      * 商家登录验证
-     * @param u_nickname
+     * @param u_name
      * @param u_nickname
      * @return
      */
@@ -21,16 +21,17 @@ public interface UserDao {
     public int isRoot(@Param("u_nickname") String u_nickname,@Param("u_password") String u_password);
 
     /**
-     * 前台普通用户登录
-     * @param user
+     * 修改密码验证（查询原密码）
+     * @param u_id
      * @return
      */
-    public User OrdinaryLogin(User user);
+    public String ispsw(int u_id);
 
     /**
-     * 前台注册判断手机号是否存在
-     * @param u_phone
+     * 密码修改
+     * @param u_password
+     * @param u_id
      * @return
      */
-    public int PhoneExists(@Param("u_phone") String u_phone);
+    public  int updatepsw(String u_password,int u_id);
 }
