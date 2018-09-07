@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.walk.dao.SceneryDao">
+
+    <select id='findSceneryCount' resultType='long' parameterType="Scenery">
+        SELECT COUNT(s_id) FROM `scenery` <include refid="condition"/>
+    </select>
+
+    <sql id="condition">
+        <where>
+            <if test="s_id!=null and s_id!=0">
+                s_id=#{s_id}
+            </if>
+            <if test="s_title!=null and s_title!=''">
+                or s_title like concat('%',#{s_title},'%')
+            </if>
+            m_id=#{m_id}
+        </where>
+    </sql>
+    <select id="findByCondition" resultType="Scenery" parameterType="map">
+        SELECT `s_id`,`s_title`,`s_fmImg`,`s_click`,`s_price`,`s_price_yuan`,`s_num`,`s_state` FROM `scenery`
+        <include refid="condition"/>
+        order by ${sort} ${order} limit #{page},#{rows}
+    </select>
+    <insert id="insertScenry" parameterType="InsertScenry">
+        INSERT INTO `scenery`(`m_id`,`s_title`,`s_txt`,`s_img`,`s_fmImg`,`s_price`,`s_price_yuan`) VALUES(#{m_id},#{s_title},#{s_txt},#{s_img},#{s_fmImg},#{s_price},#{s_price_yuan})
+    </insert>
+</mapper>
