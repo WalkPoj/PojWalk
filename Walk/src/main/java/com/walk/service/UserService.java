@@ -16,4 +16,19 @@ public interface UserService {
      * @return
      */
     public int isRoot(User user);
+
+    /**
+     * 修改密码验证（查询原密码）
+     * @param uid
+     * @return
+     */
+    public String ispsw(int uid);
+
+    /**
+     * 密码修改
+     * @param u_password
+     * @param u_id
+     * @return
+     */
+    public  boolean updatepsw(String u_password,int u_id);
 }
