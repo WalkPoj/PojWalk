@@ -144,9 +144,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 if(u_phone.trim().length>0&&u_phone!=""){
                     $.post("PhoneExists?u_phone="+u_phone,function (json) {
                         if(json){
-                            bounced("温馨提示：该手机号已被注册！");
+                            bounced("温馨提示：该手机号已被注册！2秒后关闭...");
                         }else if(phone.test(u_phone)==false){
-                            bounced("温馨提示：手机号不合法！");
+                            bounced("温馨提示：手机号不合法！2秒后关闭...");
                         }else{
                             return true;
                         }
