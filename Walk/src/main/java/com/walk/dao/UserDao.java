@@ -7,7 +7,7 @@ public interface UserDao {
     /**
      * 商家登录验证
      * @param u_nickname
-     * @param u_nickname
+     * @param u_password
      * @return
      */
     public User selectUser(@Param("u_nickname") String u_nickname,@Param("u_password") String u_password);
@@ -19,6 +19,21 @@ public interface UserDao {
      * @return
      */
     public int isRoot(@Param("u_nickname") String u_nickname,@Param("u_password") String u_password);
+
+    /**
+     * 修改密码验证（查询原密码）
+     * @param u_id
+     * @return
+     */
+    public String ispsw(int u_id);
+
+    /**
+     * 密码修改
+     * @param u_password
+     * @param u_id
+     * @return
+     */
+    public  int updatepsw(String u_password,int u_id);
 
     /**
      * 前台普通用户登录

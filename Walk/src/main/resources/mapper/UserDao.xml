@@ -6,10 +6,15 @@
     <select id="selectUser" resultType="User">
         SELECT * FROM `user` WHERE `u_nickname`=#{u_nickname} AND `u_password`=#{u_password}
 	</select>
-
     <select id="isRoot" resultType="int">
         SELECT `u_root` FROM `user` WHERE `u_nickname`=#{u_nickname} AND `u_password`=#{u_password}
     </select>
+    <select id="ispsw" resultType="String">
+         SELECT `u_password` FROM `user` WHERE `u_id`=#{u_id}
+    </select>
+    <update id="updatepsw">
+         UPDATE `user` SET `u_password`=#{u_password} WHERE `u_id`=#{u_id}
+    </update>
 
     <!-- 前台普通用户登录 -->
     <select id="OrdinaryLogin" resultType="User">

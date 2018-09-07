@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>datagrid2</title>
@@ -13,24 +14,16 @@
         $(function(){
             //添加方法
             function addData(){
-                if(editRow!=null){
-                    //取消当前正在编辑的行
-                    $dgg.datagrid('cancelEdit',editRow);
-                    editRow=null;
-                }
-                if(editRow==null){
-                    $dgg.datagrid('insertRow',{
-                        index: 0,	// 索引从0开始
-                        row: {
-                            id:0,
-                            username:'输入用户名',
-                            password:'请输入密码'
-                        }
-                    });
-                    editRow=0;
-                    //将索引为editRow的行变成可编辑状态
-                    $dgg.datagrid('beginEdit',editRow);
-                }
+                $("#hh").dialog(
+                    {title:'新增商品',
+                        width:600,
+                        height:800,
+                        href:"center/xinzeng",
+                        closed:false,
+                        cache:false,
+                        modal:true
+                    }
+                )
             }
 
             //编辑方法
@@ -104,7 +97,7 @@
 
             //DataGrid
             var $dgg = $('#dg').datagrid({
-                url:'dataGrid2.action', //要有url点击翻页才会发请求
+                url:'center/dataGrid', //要有url点击翻页才会发请求
                 striped:true,			//隔行变色
                 fitColumns:true,		//匹配列宽，false使用固定值
                 fit:true,				//匹配父容器，panel属性
@@ -116,12 +109,12 @@
                 pageSize:5,
                 pageList:[5,10,15,18],
                 //排序
-                sortName:'id',
+                sortName:'s_id',
                 sortOrder:'desc',
 
                 //冻结列
                 frozenColumns:[[
-                    {field:'id',title:'序号',width:100,sortable:true,
+                    {field:'s_id',title:'序号',width:100,sortable:true,
                         styler:function(value){
                             if(value<30){
                                 return  'color:red;';
@@ -135,46 +128,60 @@
                     //alert(value);
                     //return '333';
                     //}},
-                    {field:'username',title:'产品名称',width:100,
-                        formatter:function(value,row){
-                            return '<span title=提示:"'+value+'">'+value+'</span>';
-                        },
-                        editor:{
-                            type:'validatebox',
-                            options:{required:true}
-                        }
-                    }
                 ]],
-                columns:[[
-                    {field:'password',title:'订单号',width:100,
-                        editor:{
-                            type:'validatebox',
-                            options:{required:true}
+                columns:[[{field:'s_title',title:'产品名称',width:100,
+                    formatter:function(value,row){
+                        return '<span title=提示:"'+value+'">'+value+'</span>';
+                    },
+                    editor:{
+                        type:'validatebox',
+                        options:{required:true}
+                    }
+                },{field:'s_fmImg',title:'景区封面',width:100,
+                        formatter:function (value,row,index) {
+                            return'<img height="40px" src="http://127.0.0.1:9352/'+row.s_fmImg+'">';
                         }
                     },
                     //视图映射
-                    {field:'house.hid',title:'价格',width:250,
-                        formatter:function(value,row){
-                            //return row.name;
-                            /*if(row.name.length>6){ //造成新增无法编辑
-                                return "<span title='"+row.hid+"'>"+row.name+"</span>";
-                            }*/
-                            return "<span title='"+row.name+"'>"+row.name+"</span>";
-                        },editor:{
+                    {field:'s_click',title:'景区点击量',width:100,
+
+                    },{field:'s_price',title:'景区价格',width:100,
+                        editor:{
                             type:'validatebox',
-                            options:{
-                                required:true
-                            }
+                            options:{required:true}
                         }
-                    },
-                    {field:'bornDate',title:'时间',width:800,
-                        editor:{type:'datebox',options:{}}}
+                    },{field:'s_price_yuan',title:'原价',width:100,
+                        editor:{
+                            type:'validatebox',
+                            options:{required:true}
+                        }
+                    },{field:'s_num',title:'平分',width:100,
+
+                    },{field:'s_state',title:'状态',width:100,
+                        formatter:function(value,row,index){
+                            if(row.s_state==1){return '已认证'}
+                            else if(row.s_state==0){return '未认证'}
+                        }
+                    }
                 ]],
                 toolbar: [{
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: function(){
+                        //alert('准备添加');
+                        addData();
+                    }
+                },'_',{
                     text: '删除',
                     iconCls: 'icon-remove',
                     handler: function(){
                         deleteData();
+                    }
+                },'-',{
+                    text: '编辑',
+                    iconCls: 'icon-edit',
+                    handler: function(){
+                        updateData();
                     }
                 },'-',{
                     text: '保存',
@@ -282,9 +289,10 @@
 </head>
 
 <body>
+<div id="hh"></div>
 <form id='fm' style="margin-top: 20px">
-    编号：<input type="text" id='id' name="id" />
-    用户名：<input type="text" id='username' name="username" />
+    编号：<input type="text" id='s_id' name="s_id" />
+    用户名：<input type="text" id='s_title' name="s_title" />
     <a id="qry" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
     <a id="cls" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">清空</a>
 </form>
