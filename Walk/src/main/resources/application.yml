@@ -50,10 +50,8 @@ spring:
     suffix: .html
 #thymeleaf end
 
-
-
   resources:
-    static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/,classpath:/templates/center/
+    static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/,classpath:/templates/center/,classpath:/templates/login/
     add-mappings: true
 
   servlet:

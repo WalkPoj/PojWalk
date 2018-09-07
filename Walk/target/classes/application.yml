@@ -22,7 +22,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://111.230.232.46:3306/walk?useSSL=false
     username: root
-    password: 1234
+    password: z@2418
 # Redis数据库
   redis:
     database: 0
@@ -50,10 +50,8 @@ spring:
     suffix: .html
 #thymeleaf end
 
-
-
   resources:
-    static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/,classpath:/templates/center/
+    static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/,classpath:/templates/center/,classpath:/templates/login/
     add-mappings: true
 
   servlet:
