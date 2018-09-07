@@ -31,4 +31,18 @@ public interface UserService {
      * @return
      */
     public  boolean updatepsw(String u_password,int u_id);
+
+    /**
+     * 前台普通用户登录
+     * @param user
+     * @return
+     */
+    public User OrdinaryLogin(User user);
+
+    /**
+     * 前台注册判断手机号是否存在
+     * @param u_phone
+     * @return
+     */
+    public boolean PhoneExists(String u_phone);
 }

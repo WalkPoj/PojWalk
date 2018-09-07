@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 public interface UserDao {
     /**
      * 商家登录验证
-     * @param u_name
      * @param u_nickname
+     * @param u_password
      * @return
      */
     public User selectUser(@Param("u_nickname") String u_nickname,@Param("u_password") String u_password);
@@ -34,4 +34,18 @@ public interface UserDao {
      * @return
      */
     public  int updatepsw(String u_password,int u_id);
+
+    /**
+     * 前台普通用户登录
+     * @param user
+     * @return
+     */
+    public User OrdinaryLogin(User user);
+
+    /**
+     * 前台注册判断手机号是否存在
+     * @param u_phone
+     * @return
+     */
+    public int PhoneExists(@Param("u_phone") String u_phone);
 }
