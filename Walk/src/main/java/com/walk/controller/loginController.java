@@ -8,7 +8,10 @@ import com.walk.service.UserService;
 import com.walk.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +69,7 @@ public class loginController {
         if(us == null){
             return "loginError";
         }
-        if (uve.isRoot(user)!=2){
+        if (uve.isRoot(user)!=1){
             return "NoIsMerchants";
         }
         HttpSession session = request.getSession();
@@ -121,7 +124,7 @@ public class loginController {
      * @return
      */
     @RequestMapping("/login.action")
-    public String OrdinaryLogin(User user,@RequestParam("name") String name,HttpSession session){
+    public String OrdinaryLogin(User user, @RequestParam("name") String name, HttpSession session){
         if (name.length()==11){
             user.setU_nickname(name);
             user.setU_phone(name);
@@ -154,4 +157,5 @@ public class loginController {
         response.setContentType("text/html;charset=GBK");
         return uve.PhoneExists(u_phone);
     }
+
 }
