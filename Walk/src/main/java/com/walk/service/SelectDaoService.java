@@ -21,4 +21,10 @@ public interface SelectDaoService {
 
     //查询汽车
     public List<Carclass> selectCar(DataPiao dataPiao);
+
+    //查火车
+    public List<Trainclass> selectTrain(DataPiao dataPiao);
+
+    //查飞机
+    public List<Planeclass> selectPlane(DataPiao dataPiao);
 }

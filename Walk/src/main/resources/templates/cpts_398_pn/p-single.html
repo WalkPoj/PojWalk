@@ -149,9 +149,10 @@
                             </div>
                             <div class="p-table-grid-info">
                                 <div class="room-basic-info" style="font-weight: 800">
-                                    出发位置：<input type="text" value="" placeholder="请选择城市" class="se_start_city" name="se_strat"/> =->
-                                    <input type="text" placeholder="景区位置" value="张家界" class="se_end" name="se_end"/><br/><br/><br/>
-                                    出发时间：<input type="date" id="time" value="" style="line-height: 20px;">
+                                    出发位置：<input type="text" value="" placeholder="请选择城市" class="se_start_city" name="se_strat"/>
+                                    --><input type="text" placeholder="景区位置" value="张家界" readonly class="se_end" name="se_end"/><br/><br/><br/>
+                                    出发时间：<input type="date" id="time" value="" style="line-height: 20px;">&nbsp;
+                                    人数：<input name="person_num" value="2">
                                 </div>
                             </div>
                         </div>
@@ -161,7 +162,7 @@
                             </div>
                             <div class="p-table-grid-info">
                                 <div class="room-basic-info">
-                                    <table id="tabb" border="1" bgcolor="#F4F7F9" style="text-align: center">
+                                   <table id="tabb" border="1" bgcolor="#F4F7F9" style="text-align: center">
                                         <tr id="th" style="background-color: #F4F7F9;color: black;font-weight: 600;font-size: 20px;">
                                             <td>漫行推荐</td>
                                             <td>班次号</td>
@@ -169,9 +170,6 @@
                                             <td>预计到达</td>
                                             <td>票价</td>
                                             <td>操作</td>
-                                        </tr>
-                                        <tr style="font-size: 17px;font-weight: 600;">
-
                                         </tr>
                                     </table>
                                 </div>
@@ -234,13 +232,21 @@
             $("#Sqmin").slideToggle(500);
         })
     })
+    //提交订单
+    function Order_Data() {
+        location.href = "listOrder"
+    }
+
     //发送ajax查询车票
     function SendData_selectTools() {
+        $("#th").siblings().text("")
         var start_city=$(".se_start_city").val();
         var end_city = $(".se_end").val();
         $.post("Select_Bin?start_city="+start_city+"&end_city="+end_city,function (i) {
-            var res = SendData_Car(i);
-            alert(res)
+            //先查询汽车，再查询火车，最后查询飞机
+            SendData_Car(i);
+            SendData_Train(i);
+            SendData_Plane(i)
         })
     }
     function SendData_Car(se_id) {
@@ -255,9 +261,35 @@
                 }
             }
         })
-
+    }
+    function SendData_Train(se_id) {
+        var stime = $("#time").val();
+        $.post("Select_Train?se_id="+se_id+"&stime="+stime,function (train) {
+            if (train.length > 0) {
+                var html = "";
+                for (var i = 0;i < train.length ;i++){
+                    var js = train[i];
+                    $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
+                        "<td>"+js.t_type+"</td><td>"+js.tc_id+"</td><td>"+js.tc_send+"</td><td>"+js.tc_end+"</td><td>"+js.tc_price+"</td><td><a href='#'>选择此方式</a></td></tr>")
+                }
+            }
+        })
+    }
+    function SendData_Plane(se_id) {
+        var stime = $("#time").val();
+        $.post("Select_Plane?se_id="+se_id+"&stime="+stime,function (plane) {
+            if (plane.length > 0) {
+                var html = "";
+                for (var i = 0;i < plane.length ;i++){
+                    var js = plane[i];
+                    $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
+                        "<td>"+js.p_type+"</td><td>"+js.pc_id+"</td><td>"+js.pc_send+"</td><td>"+js.pc_end+"</td><td>"+js.pc_price+"</td><td><a href='#'>选择此方式</a></td></tr>")
+                }
+            }
+        })
     }
     $(".se_start_city").blur(function () {
+        $("#th").siblings().text("")
         SendData_selectTools();
     });
     // 百度地图API功能

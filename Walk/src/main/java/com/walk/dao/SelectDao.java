@@ -24,7 +24,7 @@ public interface SelectDao {
     //查火车
     public List<Trainclass> selectTrain(DataPiao dataPiao);
 
-    //查火车
+    //查飞机
     public List<Planeclass> selectPlane(DataPiao dataPiao);
 }
 

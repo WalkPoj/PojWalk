@@ -101,6 +101,20 @@ public class SelectController {
         System.out.println("查询汽车票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+cl.size());
         return cl;
     }
+    @PostMapping("Select_Train")
+    @ResponseBody
+    public List<Trainclass> Select_Train(DataPiao dp){
+        List<Trainclass> tl = sdaos.selectTrain(dp);
+        System.out.println("查询火车票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+tl.size());
+        return tl;
+    }
+    @PostMapping("Select_Plane")
+    @ResponseBody
+    public List<Planeclass> Select_Plane(DataPiao dp){
+        List<Planeclass> pl = sdaos.selectPlane(dp);
+        System.out.println("查询飞机票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+pl.size());
+        return pl;
+    }
     /**
      * 加载订单
      * @return
