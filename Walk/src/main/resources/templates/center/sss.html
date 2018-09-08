@@ -64,14 +64,14 @@
                     //获取要删除的id数组
                     var ids = [];
                     $(rows).each(function(i,obj){
-                        ids.push(obj.id);
+                        ids.push(obj.s_id);
                     });
                     console.info(ids);
-
+                    alert(ids.join(','));
                     $.messager.confirm('确定','您确定要删除选定的记录？',function(r){
                         if(r){
                             $.ajax({
-                                url:'dataDel.action',
+                                url:'center/dataDel.action',
                                 data:{id:ids.join(',')}, //1,3,5
                                 dataType:'json',
                                 success:function(r){
@@ -252,7 +252,6 @@
                     }else if(item.name=='exit'){
                         $('#mm').menu('hide');
                     }else if(item.name=='remove'){
-                        alert('remove');
                         deleteData();
                     }
                 }
@@ -281,9 +280,24 @@
                 //alert($.param($('#fm').serializeArray()));
                 //alert(JSON.stringify($('#fm').serializeArray()));
                 //alert(JSON.stringify(serializeToObject($('#fm'))));
-
-                $('#dg').datagrid('load',serializeToObject($('#fm')));
+                var s_id = $("#id").val();
+                var s_title = $("#username").val();
+                if (s_id==""){
+                    s_id=0;
+                }
+                alert(s_id);
+                alert(s_title);
+                $('#dg').datagrid('load',{
+                    s_id:s_id,
+                    s_title:s_title
+                });
             });
+            //清空
+            $('#cls').click(function(){
+                $("#id").val("");
+               $("#username").val("");
+            });
+
         });
     </script>
 </head>
@@ -291,14 +305,15 @@
 <body>
 <div id="hh"></div>
 <form id='fm' style="margin-top: 20px">
-    编号：<input type="text" id='s_id' name="s_id" />
-    用户名：<input type="text" id='s_title' name="s_title" />
+    景点编号：<input type="text" id='id' name="id" />
+    景点名：<input type="text" id='username' name="username" />
     <a id="qry" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
     <a id="cls" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">清空</a>
 </form>
 
 <!-- 右键菜单 -->
 <div id="mm" class="easyui-menu" style="width:120px;display:none;">
+    <div data-options="name:'add',iconCls:'icon-add'">添加</div>
     <div data-options="name:'remove',iconCls:'icon-remove'">删除</div>
     <div class="menu-sep"></div>
     <div data-options="name:'exit',iconCls:'icon-exit'" >退出</div>

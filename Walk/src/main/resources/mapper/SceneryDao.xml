@@ -10,13 +10,13 @@
 
     <sql id="condition">
         <where>
+            m_id=#{m_id}
             <if test="s_id!=null and s_id!=0">
-                s_id=#{s_id}
+              and s_id=#{s_id}
             </if>
             <if test="s_title!=null and s_title!=''">
-                or s_title like concat('%',#{s_title},'%')
+              and s_title like concat('%',#{s_title},'%')
             </if>
-            m_id=#{m_id}
         </where>
     </sql>
     <select id="findByCondition" resultType="Scenery" parameterType="map">
@@ -27,4 +27,11 @@
     <insert id="insertScenry" parameterType="InsertScenry">
         INSERT INTO `scenery`(`m_id`,`s_title`,`s_txt`,`s_img`,`s_fmImg`,`s_price`,`s_price_yuan`) VALUES(#{m_id},#{s_title},#{s_txt},#{s_img},#{s_fmImg},#{s_price},#{s_price_yuan})
     </insert>
+    <delete id="deleteScenry" parameterType="list">
+        DELETE FROM `scenery` WHERE `s_id` IN
+        <foreach collection="list" item="item" index="index">
+            open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
