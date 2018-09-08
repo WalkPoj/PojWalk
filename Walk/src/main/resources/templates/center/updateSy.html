@@ -23,44 +23,44 @@
 <div id="picture" style="margin-top: 40px">
 
     <form  method="POST" name="xiangmu" id="xiangmu"
-          enctype="multipart/form-data">
+           enctype="multipart/form-data">
         <table class="tops">
             <tr>
                 <td colspan="2" style="text-align: center"></td>
             </tr>
             <tr>
                 <td>标题:</td>
-                <td><input type="text" name="s_title" style="width: 95%;height: 25px" th:value="${session.s_fmimg}"/></td><td><span class="title" style="display:block;" /></td>
+                <td><input type="text" name="s_title" style="width: 95%;height: 25px" th:value="${scenery.s_title}"/></td><td><span class="title" style="display:block;" /></td>
             </tr>
             <tr>
                 <td>景点价格:</td>
-                <td><input type="text" name="s_price"style="width: 95%;height: 25px"/></td><td><span class="price" style="display:block;"/></td>
+                <td><input type="text" name="s_price"style="width: 95%;height: 25px" th:value="{scenery.s_price}"/></td><td><span class="price" style="display:block;"/></td>
             </tr>
             <tr>
                 <td>景点原价:</td>
-                <td><input type="text" name="s_price_yuan"style="width: 95%;height: 25px"/></td><td><span class="prices" style="display:block;"/></td>
+                <td><input type="text" name="s_price_yuan"style="width: 95%;height: 25px"th:value="{scenery.s_prices}"/></td><td><span class="prices" style="display:block;"/></td>
             </tr>
             <tr style="margin-top: 20px">
                 <td>详情：</td>
-                <td><textarea name="s_txt" style="width: 95%; height: 80px;resize:none"></textarea></td><td><span class="txt" style="display:block;"/></td>
+                <td><textarea name="s_txt" style="width: 95%; height: 80px;resize:none"th:value="scenery.s_txt" ></textarea></td><td><span class="txt" style="display:block;"/></td>
             </tr>
             <tr>
                 <td>景点封面图片：</td>
                 <td class="lb"><input type=file name="filess" id="docc" th:value="${session.s_fmimg}" >
-                </td><td><span class="filea" style="display:block;"></td>
+                </td><td><span class="filea" style="display:block;"/></td>
             </tr>
             <tr><td></td><td><p style="border: #0f9ae0 solid 1px"></p></td></tr>
-                <tr>
-                    <td>景点轮播图片：</td>
-                    <td class="lb"><input type=file name="files" id="doc" multiple="multiple">
-                    </td><td><span class="fileb" style="display:block;"></td>
-                </tr>
+            <tr>
+                <td>景点轮播图片：</td>
+                <td class="lb"><input type=file name="files" id="doc" multiple="multiple">
+                </td><td><span class="fileb" style="display:block;"/></td>
+            </tr>
             <tr><td></td><td><p style="border: #0f9ae0 solid 1px"></p></td></tr>
             <tr>
                 <td>详情介绍图片:</td>
                 <!-- 为了实现张图片上传，上传框这个name要都一样 -->
                 <td><input type="file" name="myfiles" id="doc1" multiple="multiple" ><br>
-                </td><td><span class="filec" style="display:block;"></td>
+                </td><td><span class="filec" style="display:block;"/></td>
             </tr>
             <tr>
                 <td><input type="button" onclick="ahscs()" value="提交" />
@@ -82,10 +82,10 @@
                     break;
                 case 3:
                     if (input.eq(i).val()!="") {
-                    if (!price.test(input.eq(i).val())){
-                        input.eq(i).val("");
-                        alert('只能输入数字，小数点后只能保留两位');
-                    }
+                        if (!price.test(input.eq(i).val())){
+                            input.eq(i).val("");
+                            alert('只能输入数字，小数点后只能保留两位');
+                        }
                         $(".price").text("")
                     }
                     break;
@@ -143,34 +143,13 @@
                         return false;
                     }
                     break;
-                case 6:
-                    if (input.eq(i).val() == "") {
-                        $(".filea").text("请选中一张景点封面!").css("color","red");
-                        input.eq(i).focus();
-                        return false;
-                    }
-                    break;
-                case 5:
-                    if (input.eq(i).val() == "") {
-                        $(".fileb").text("至少选择一张图片!").css("color","red");
-                        input.eq(i).focus();
-                        return false;
-                    }
-                    break;
-                case 7:
-                    if (input.eq(i).val() == "") {
-                        $(".filec").text("至少选择一张图片!").css("color","red");
-                        input.eq(i).focus();
-                        return false;
-                    }
-                    break;
             }
         }
 
         var formData = new FormData($('#xiangmu')[0]);
         $.ajax({
-               type: "post",
-                url:"center/filesUpload",
+                type: "post",
+                url:"center/syupdele",
                 cache: false,
                 data:formData,
                 processData: false,

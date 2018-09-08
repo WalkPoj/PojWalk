@@ -3,6 +3,7 @@ package com.walk.dao;
 
 import com.walk.pojo.InsertScenry;
 import com.walk.pojo.Scenery;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +36,11 @@ public interface SceneryDao {
      * @return
      */
     public int deleteScenry(List<Integer> ids);
+
+    /**
+     * 查询单个景点
+     * @param s_id
+     * @return
+     */
+    public  Scenery selectnoeScenery(@Param("s_id") int s_id);
 }

@@ -20,7 +20,23 @@
         var e, t = document.createElement("style");
         return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e
     };
-    supportsCssVars() || alert("Please view this in a modern browser such as latest version of Chrome or Microsoft Edge.");</script>
+    supportsCssVars() || alert("Please view this in a modern browser such as latest version of Chrome or Microsoft Edge.");
+    </script>
+
+    <style type="text/css">
+        label{
+            width: 113px;
+            line-height: 25px;
+        }
+        .xg{
+            width: 264px;
+            line-height: 25px;
+        }
+        .item_input{
+            width: 264px;
+            line-height: 23px;
+        }
+    </style>
 
 </head>
 
@@ -28,13 +44,14 @@
 <div id="tm-bg"></div>
 <div id="tm-wrap">
     <div class="tm-main-content">
-        <div class="container tm-site-header-container">
+        <div class="container tm-site-header-container" style="background-color: rgba(0,0,0,0.36)">
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-md-col-xl-6 mb-md-0 mb-sm-4 mb-4 tm-site-header-col">
                     <div class="tm-site-header">
                         <h1 class="mb-4">个人中心</h1>
                         <img src="img/underline.png" class="img-fluid mb-4">
                         <p>您可以在此查看订单，也可修改您的基本信息</p>
+                        <p>秋天到了，注意保暖呦</p>
                     </div>
                 </div>
 
@@ -56,11 +73,16 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <p>真实姓名：老蒋</p>
-                                                <p>昵称：我是老蒋B</p>
-                                                <p><input type="text" readonly value="wwww">手机号：13827382349</p>
-                                                <p>身份证号：430723200007012418</p>
-                                                <p><input type="button" value="编辑资料"></p>
+                                                <label style="margin-bottom: 17px;">真实姓名：老蒋</label>
+                                                <p class="xg">昵称：<span class="xgs">我是老蒋B</span></p>
+                                                <p class="xg">手机号：<span class="xgs">13827382349</span></p>
+                                                <p class="xg">身份证号：<span class="xgs">430723200007012418</span></p>
+                                                <p>
+                                                    <a id="edit" onclick="test()" href="#">
+                                                        <span class="bj">编辑资料</span>
+                                                        <span class="bc" style="display: none">保存</span>
+                                                    </a>
+                                                </p>
                                             </div>
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <p>注意，修改手机号或身份证都需要验证，请确保是本人操作</p>
@@ -76,14 +98,14 @@
                                 <div class="product">
                                     <div class="tm-nav-link">
                                         <i class="fas fa-users fa-3x tm-nav-icon"></i>
-                                        <span class="tm-nav-text">Our Team</span>
+                                        <span class="tm-nav-text">评论</span>
                                         <div class="product__bg"></div>
                                     </div>
                                     <div class="product__description">
                                         <div class="p-sm-4 p-2">
                                             <div class="row mb-3">
                                                 <div class="col-12">
-                                                    <h2 class="tm-page-title">Background of Our Team</h2>
+                                                    <h2 class="tm-page-title">评论</h2>
                                                 </div>
                                             </div>
                                             <div class="row tm-reverse-sm">
@@ -113,27 +135,31 @@
                                 <div class="product">
                                     <div class="tm-nav-link">
                                         <i class="fas fa-handshake fa-3x tm-nav-icon"></i>
-                                        <span class="tm-nav-text">Our Work</span>
+                                        <span class="tm-nav-text">我的订单</span>
                                         <div class="product__bg"></div>
                                     </div>
                                     <div class="product__description">
                                         <div class="p-sm-4 p-2">
                                             <div class="row mb-3">
                                                 <div class="col-12">
-                                                    <h2 class="tm-page-title">Our Work</h2>
+                                                    <h2 class="tm-page-title">我的订单</h2>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-12">
-                                                    <p>Aliquam interdum, nisl sed faucibus tempor, massa velit laoreet
-                                                        ipsum, et faucibus sapien magna at enim. Suspendisse a dictum
-                                                        tortor, vel rhoncus libero. Integer at lacus velit. Nullam
-                                                        dapibus venenatis placerat.</p>
+                                                    <p>订单号:<span>1</span></p>
+                                                    <p>联系人:<span>2</span></p>
+                                                    <p>商家&nbsp;:<span>3</span></p>
+                                                    <p>旅游景点:<span>4</span></p>
+                                                    <p>旅客人数:<span>5</span></p>
+                                                    <p>乘坐方式:<span>6</span></p>
+                                                    <p>乘坐班次:<span>7</span></p>
+                                                    <p>价格&nbsp;:<span>8</span></p>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div class="p-sm-4 p-2 tm-img-container">
+                                                   <!-- <div class="p-sm-4 p-2 tm-img-container">
                                                         <div class="tm-img-slider" id="tmImgSlider">
                                                             <img src="img/gallery-img-01-tn.jpg" alt="Image"
                                                                  class="tm-slider-img">
@@ -148,7 +174,7 @@
                                                             <img src="img/gallery-img-06-tn.jpg" alt="Image"
                                                                  class="tm-slider-img">
                                                         </div>
-                                                    </div>
+                                                    </div>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -160,22 +186,19 @@
                                 <div class="product">
                                     <div class="tm-nav-link">
                                         <i class="fas fa-comments fa-3x tm-nav-icon"></i>
-                                        <span class="tm-nav-text">Contact</span>
+                                        <span class="tm-nav-text">联系我们</span>
                                         <div class="product__bg"></div>
                                     </div>
                                     <div class="product__description">
                                         <div class="pt-sm-4 pb-sm-4 pl-sm-5 pr-sm-5 pt-2 pb-2 pl-3 pr-3">
                                             <div class="row mb-3">
                                                 <div class="col-12">
-                                                    <h2 class="tm-page-title">Contact Us</h2>
+                                                    <h2 class="tm-page-title">建议/反馈</h2>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
                                                 <div class="col-12">
-                                                    <p>Lorem ipsum dolor site amet, consectetur adipiscing elit. Aliquam
-                                                        interdum, nisl sed faucibus tempor, massa velit laoreet ipsum,
-                                                        et faucibus sapien magna at enim. Suspendisse a dictum tortor,
-                                                        vel rhoncus libero.</p>
+                                                    <p>联系客服:</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -220,11 +243,47 @@
 </div>
 <!-- load JS -->
 <script src="js/jquery-3.2.1.slim.min.js"></script>         <!-- https://jquery.com/ -->
+<script>
+    var statu = 0;
+    var edit = document.getElementById('edit');
+    var item = document.getElementsByClassName('xgs');
+
+    function test(){
+        var item_length = item.length;
+        var item_value = new Array(item_length);
+
+        for(i = 0; i <item_length; i++){
+            item_value[i] = item[i].innerHTML;
+        }
+
+        if(statu == 0){
+            edit.innerHTML= '保存';
+            $(".bc").css("display","block");
+            $(".bj").css("display","none");
+            for(i = 0; i < item_length; i++){
+                item[i].innerHTML = '<input type="text" class="item_input" value="'+item_value[i]+'">';
+            }
+            statu = 1;
+        }else{
+            edit.innerHTML= '编辑';
+            $(".bc").css("display","none");
+            $(".bj").css("display","block");
+            var item_input = document.getElementsByClassName('item_input');
+            for(i = 0; i < item_length; i++){
+                item_value[i] = item_input[i].value;
+            }
+            for(i = 0; i < item_length; i++){
+                item[i].innerHTML = item_value[i];
+            }
+            statu = 0
+        }
+        return false;
+    }
+</script>
 <script src="slick/slick.min.js"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
 <script src="js/anime.min.js"></script>                     <!-- http://animejs.com/ -->
 <script src="js/main.js"></script>
 <script>
-
     function setupFooter() {
         var pageHeight = $('.tm-site-header-container').height() + $('footer').height() + 100;
 
@@ -249,9 +308,12 @@
         });
 
         $('.tm-current-year').text(new Date().getFullYear());  // Update year in copyright
-    });
 
+
+    });
 </script>
+
+
 
 </body>
 </html>
