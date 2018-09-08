@@ -29,9 +29,11 @@
     </insert>
     <delete id="deleteScenry" parameterType="list">
         DELETE FROM `scenery` WHERE `s_id` IN
-        <foreach collection="list" item="item" index="index">
-            open="(" separator="," close=")">
+        <foreach collection="list" item="item" index="index"  open="(" separator="," close=")">
             #{item}
         </foreach>
     </delete>
+    <select id="selectnoeScenery" resultType="Scenery">
+        SELECT * FROM `scenery` WHERE `s_id`=#{s_id}
+    </select>
 </mapper>

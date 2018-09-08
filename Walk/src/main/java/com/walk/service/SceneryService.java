@@ -2,6 +2,7 @@ package com.walk.service;
 
 import com.walk.pojo.InsertScenry;
 import com.walk.pojo.Scenery;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -38,4 +39,11 @@ public interface SceneryService {
      * @return
      */
     public int deleteScenry(List<Integer> ids);
+
+    /**
+     * 查询单个景点
+     * @param s_id
+     * @return
+     */
+    public  Scenery selectnoeScenery(int s_id);
 }

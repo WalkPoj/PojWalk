@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>datagrid2</title>
     <meta charset="UTF-8">
@@ -43,9 +44,20 @@
                     //只能选择一行编辑
                     if(rows.length==1){
                         if(editRow==null){
-                            //获得选中行索引
-                            editRow = $dgg.datagrid('getRowIndex',rows[0]);
-                            $dgg.datagrid('beginEdit',editRow);
+                            var s_id =rows[0].s_id;
+                            var s_fmimg =rows[0].s_fmImg;
+                            alert(s_fmimg);
+                            alert(s_id)
+                            $("#hh").dialog(
+                                {title:'修改商品',
+                                    width:600,
+                                    height:800,
+                                    href:"center/bianji?s_id="+s_id,
+                                    closed:false,
+                                    cache:false,
+                                    modal:true
+                                }
+                            )
                         }
                     }else{
                         $.messager.alert('提示','请选择要编辑的一行');
@@ -67,7 +79,6 @@
                         ids.push(obj.s_id);
                     });
                     console.info(ids);
-                    alert(ids.join(','));
                     $.messager.confirm('确定','您确定要删除选定的记录？',function(r){
                         if(r){
                             $.ajax({
@@ -78,7 +89,12 @@
                                     if(r.flag){
                                         $.messager.show({
                                             title:'消息',
-                                            msg:r.message
+                                            msg:r.message,
+                                            style:{
+                                                right:'',
+                                                top:document.body.scrollTop+document.documentElement.scrollTop,
+                                                bottom:''
+                                            }
                                         });
                                         $dgg.datagrid('reload');
                                         $dgg.datagrid('unselectAll');
@@ -161,6 +177,9 @@
                         formatter:function(value,row,index){
                             if(row.s_state==1){return '已认证'}
                             else if(row.s_state==0){return '未认证'}
+                            else if(row.s_state==2){
+                                return '认证失败'
+                            }
                         }
                     }
                 ]],

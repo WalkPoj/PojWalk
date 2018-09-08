@@ -47,4 +47,9 @@ public class SceneryServiceimpl implements SceneryService {
     public int deleteScenry(List<Integer> ids) {
         return sceneryDao.deleteScenry(ids);
     }
+
+    @Override
+    public Scenery selectnoeScenery(int s_id) {
+        return sceneryDao.selectnoeScenery(s_id);
+    }
 }

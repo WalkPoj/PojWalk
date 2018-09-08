@@ -76,6 +76,105 @@ public class GuangController {
         System.out.println("进来玩啊");
         return "redirect:../scsc.html";
     }
+
+    @RequestMapping("bianji")
+    public String bianji(int s_id,HttpSession session,HttpServletRequest request){
+        System.out.println("编辑id"+s_id);
+        List<String> list = new ArrayList<>();
+        list = getAllFile("C:/tomcat_media/webapps/walk_img/beiji_2018090737270",true);
+        for (String name: list) {
+            System.out.println("wj"+name);
+        }
+
+        Scenery scenery = this.sve.selectnoeScenery(s_id);
+        session.setAttribute("s_img",scenery.getS_img());
+        request.setAttribute("scenery",scenery);
+        return "center/updateSy";
+    }
+    public static List<String> getAllFile(String directoryPath,boolean isAddDirectory) {
+        List<String> list = new ArrayList<String>();
+        File baseFile = new File(directoryPath);
+        if (baseFile.isFile() || !baseFile.exists()) {
+            return list;
+        }
+        File[] files = baseFile.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                if(isAddDirectory){
+                    list.add(file.getAbsolutePath());
+                }
+                list.addAll(getAllFile(file.getAbsolutePath(),isAddDirectory));
+            } else {
+                list.add(file.getAbsolutePath());
+            }
+        }
+        return list;
+    }
+
+    @RequestMapping("/syupdele")
+    @ResponseBody
+    public  String syupdele(@RequestParam(name="files") MultipartFile[] files,
+                            @RequestParam(name="filess") MultipartFile filess,
+                            @RequestParam(name="myfiles") MultipartFile[] myfiles,
+                            InsertScenry insertScenry, HttpServletRequest request){
+        InsertScenry is = insertScenry;
+        List<String> list = new ArrayList<>();
+        String dz = is.getS_img();
+        String fm = is.getS_fmImg();
+        boolean orw = sve.insertScenry(is);
+        if (orw==false){
+            return "shib";
+        }else{
+            int isf = 0;//用来判断上传到哪个路径
+            if (filess!=null){
+                isf=2;
+                list = xiugaiFile(request,filess,list,isf,fm);
+            }
+
+        }
+
+
+
+
+        return "";
+    }
+    private List<String> xiugaiFile(HttpServletRequest request,
+                                  MultipartFile file, List<String> list,int isf,String path) {
+        if (!file.isEmpty()) {//判断文件是否为空
+            try {
+                // 保存的文件路径(如果用的是Tomcat服务器，文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中
+                // )
+//                String filePaths = request.getSession().getServletContext()
+//                        .getRealPath("/")
+//                        + "upload/" + file.getOriginalFilename();
+//                System.out.println("获取本地地址"+filePaths);
+
+
+                String min = file.getOriginalFilename();
+                String filePath="";
+                if(isf==0){
+                    filePath = path+"/lb/"+min;
+                }else if(isf==1) {
+                    filePath = path+"/xq/"+min;
+                }else if(isf==2){
+                    filePath = path+"/"+min;
+                }
+                list.add(file.getOriginalFilename());
+                File saveDir = new File(filePath);
+                if (!saveDir.getParentFile().exists())
+                    saveDir.getParentFile().mkdirs();
+                // 转存文件
+                file.transferTo(saveDir);
+                return list;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
+    }
+
+
     @RequestMapping("/filesUpload")
     @ResponseBody
     //requestParam要写才知道是前台的那个数组
@@ -91,7 +190,6 @@ public class GuangController {
         System.out.println("价格"+insertScenry.getS_price());
         System.out.println("原价"+insertScenry.getS_price_yuan());
         List<String> list = new ArrayList<>();
-       // List<String> lists = new ArrayList<>();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
         int s = (int)(Math.random()*100000)+1;
@@ -189,8 +287,8 @@ public class GuangController {
     }
 
     @RequestMapping("/dataDel.action")
+    @ResponseBody
     public Message dataDelUser(String id) throws IOException {
-
         System.out.println(id);
         String[] str = id.split(",");
         Integer[] is = new Integer[str.length];
@@ -208,7 +306,7 @@ public class GuangController {
             m.setFlag(false);
             m.setMessage("删除失败！");
         }
-
         return m;
     }
+
 }
