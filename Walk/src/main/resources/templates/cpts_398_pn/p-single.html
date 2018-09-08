@@ -149,7 +149,7 @@
                             </div>
                             <div class="p-table-grid-info">
                                 <div class="room-basic-info" style="font-weight: 800">
-                                    出发位置：<input type="text" value="" placeholder="请选择城市" class="se_start_cit" name="se_strat"/> =->
+                                    出发位置：<input type="text" value="" placeholder="请选择城市" class="se_start_city" name="se_strat"/> =->
                                     <input type="text" placeholder="景区位置" value="张家界" class="se_end" name="se_end"/><br/><br/><br/>
                                     出发时间：<input type="date" id="time" value="" style="line-height: 20px;">
                                 </div>
@@ -161,7 +161,7 @@
                             </div>
                             <div class="p-table-grid-info">
                                 <div class="room-basic-info">
-                                    <table border="1" bgcolor="#F4F7F9" style="text-align: center">
+                                    <table id="tabb" border="1" bgcolor="#F4F7F9" style="text-align: center">
                                         <tr id="th" style="background-color: #F4F7F9;color: black;font-weight: 600;font-size: 20px;">
                                             <td>漫行推荐</td>
                                             <td>班次号</td>
@@ -210,6 +210,7 @@
 <script src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript">
+    //出发日期，默认明天
     var data = new Date();
     $(function () {
         var mP = $("#mp").text();
@@ -229,7 +230,6 @@
         }
         $("#time").val(data.getFullYear()+"-"+moth+"-"+day);
         $(".se_start_city").kuCity();
-        $(".se_end").kuCity();
         $("#Sq").click(function () {
             $("#Sqmin").slideToggle(500);
         })
@@ -239,65 +239,23 @@
         var start_city=$(".se_start_city").val();
         var end_city = $(".se_end").val();
         $.post("Select_Bin?start_city="+start_city+"&end_city="+end_city,function (i) {
-
-        })
-    }
-    function SendData_Train(se_id) {
-        var stime = $("#time").val();
-        $.post("Select_Train?se_id="+se_id+"&stime="+stime,function (train) {
-            if (train.length > 0) {
-                for (var i = 0;i < train.length ;i++){
-                    var js = train[i];
-                    $(".room-basic-info").next().append(
-                        " <td>"+js.t_type+"</td>\n" +
-                        " <td>"+js.tc_id+"</td>\n" +
-                        " <td>"+js.tc_send+"</td>\n" +
-                        " <td>"+js.tc_end+"</td>\n" +
-                        " <td><span style=\"color: red;font-weight: 800\">￥</span><span id=\"cp\">"+js.tc_price+"</span></td>\n" +
-                        " <td><a href=\"#\">选择此方式</a></td>");
-                }
-                return true;
-            }else{
-                return false;
-            }
+            var res = SendData_Car(i);
+            alert(res)
         })
     }
     function SendData_Car(se_id) {
         var stime = $("#time").val();
         $.post("Select_Car?se_id="+se_id+"&stime="+stime,function (car) {
             if (car.length > 0) {
+                var html = "";
                 for (var i = 0;i < car.length ;i++){
                     var js = car[i];
-                    $(".room-basic-info").next().append(
-                        " <td>"+js.c_type+"</td>\n" +
-                        " <td>"+js.cc_id+"</td>\n" +
-                        " <td>"+js.cc_send+"</td>\n" +
-                        " <td>"+js.cc_end+"</td>\n" +
-                        " <td><span style=\"color: red;font-weight: 800\">￥</span><span id=\"cp\">"+js.cc_price+"</span></td>\n" +
-                        " <td><a href=\"#\">选择此方式</a></td>");
-                }
-                return true;
-            }else{
-                return false;
-            }
-        })
-    }
-    function SendData_Plane(se_id) {
-        var stime = $("#time").val();
-        $.post("Select_Plane?se_id="+se_id+"&stime="+stime,function (plane) {
-            if (plane.length > 0) {
-                for (var i = 0;i < car.length ;i++){
-                    var js = plane[i];
-                    $(".room-basic-info").next().append(
-                        " <td>"+js.p_type+"</td>\n" +
-                        " <td>"+js.pc_id+"</td>\n" +
-                        " <td>"+js.pc_send+"</td>\n" +
-                        " <td>"+js.pc_end+"</td>\n" +
-                        " <td><span style=\"color: red;font-weight: 800\">￥</span><span id=\"cp\">"+js.pc_price+"</span></td>\n" +
-                        " <td><a href=\"#\">选择此方式</a></td>");
+                    $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
+                        "<td>"+js.c_type+"</td><td>"+js.cc_id+"</td><td>"+js.cc_send+"</td><td>"+js.cc_end+"</td><td>"+js.cc_price+"</td><td><a href='#'>选择此方式</a></td></tr>")
                 }
             }
         })
+
     }
     $(".se_start_city").blur(function () {
         SendData_selectTools();
@@ -311,6 +269,7 @@
         map.setCenter(cityName);
         if (cityName == "全国"){
             $(".se_start_city").val("长沙市");
+            SendData_selectTools();
         }else{
             $(".se_start_city").val(cityName);
             SendData_selectTools();
@@ -319,6 +278,5 @@
     var myCity = new BMap.LocalCity();
     myCity.get(myFun);
 </script>
-
 </body>
 </html>

@@ -98,24 +98,8 @@ public class SelectController {
     @ResponseBody
     public List<Carclass> Select_Car(DataPiao dp){
         List<Carclass> cl = sdaos.selectCar(dp);
-        System.out.println("查询汽车票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+cl);
+        System.out.println("查询汽车票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+cl.size());
         return cl;
-    }
-
-    @PostMapping("Select_Train")
-    @ResponseBody
-    public List<Trainclass> Select_Train(DataPiao dp){
-        List<Trainclass> tl = sdaos.selectTrain(dp);
-        System.out.println("查询火车票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+tl);
-        return tl;
-    }
-
-    @PostMapping("Select_Plane")
-    @ResponseBody
-    public List<Planeclass> Select_Plane(DataPiao dp){
-        List<Planeclass> pl = sdaos.selectPlane(dp);
-        System.out.println("查询飞机票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+pl);
-        return pl;
     }
     /**
      * 加载订单
@@ -125,5 +109,4 @@ public class SelectController {
     public String OrderHtml(){
         return "order/index";
     }
-
 }

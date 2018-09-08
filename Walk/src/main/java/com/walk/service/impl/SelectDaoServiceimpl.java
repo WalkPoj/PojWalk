@@ -51,19 +51,8 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     public int selectSeid(DataPiao dataPiao) {
         return sdao.selectSeid(dataPiao);
     }
-
     @Override
     public List<Carclass> selectCar(DataPiao dataPiao) {
         return sdao.selectCar(dataPiao);
-    }
-
-    @Override
-    public List<Trainclass> selectTrain(DataPiao dataPiao) {
-        return sdao.selectTrain(dataPiao);
-    }
-
-    @Override
-    public List<Planeclass> selectPlane(DataPiao dataPiao) {
-        return sdao.selectPlane(dataPiao);
     }
 }
