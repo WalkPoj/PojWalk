@@ -51,7 +51,7 @@ spring:
 #thymeleaf end
 
   resources:
-    static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/,classpath:/templates/center/,classpath:/templates/login/
+    static-locations: classpath:/templates/,classpath:/templates/cpts_398_pn/,classpath:/templates/center/,classpath:/templates/login/,classpath:/templates/alert/,classpath:/templates/order/
     add-mappings: true
 
   servlet:

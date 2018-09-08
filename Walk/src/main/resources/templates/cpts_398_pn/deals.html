@@ -49,7 +49,7 @@
 				<div class="col-md-4 weekend-grids" th:each="sce,SbStat:${scenery}">
 					<div class="weekend-grid">
 						<!--跳转至详情页面-->
-						<a href="../details.html" target="_blank">
+						<a th:href="'details.html?s_id='+${sce.s_id}" target="_blank">
 							<!--景区图片-->
 							<img th:src="'http://localhost:9352/'+${sce.getS_fmImg()}" alt="正在加载..." />
 							<div class="deals-info-grid">

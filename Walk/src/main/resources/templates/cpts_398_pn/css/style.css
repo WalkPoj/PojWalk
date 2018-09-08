@@ -2112,7 +2112,6 @@ top:0;
 }
 .p-table-grad-heading h6{
     padding: 1em;
-    border-right: solid 1px #E1E7EA;
     font-size: 1em;
     font-weight: 600;
     color: #292929;
@@ -2121,7 +2120,7 @@ top:0;
     padding: 1em;
 }
 .p-table-grid-info a img{
-	width:100%;
+	width:145%;
 }
 .room-basic-info {
     padding: 1em 0;

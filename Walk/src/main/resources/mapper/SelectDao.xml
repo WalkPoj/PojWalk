@@ -9,5 +9,18 @@
 	<select id="listView" resultType="Scenery">
 		SELECT s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery
 	</select>
-
+	<select id="selectDeal" resultType="Scenery" parameterType="int">
+		SELECT * FROM scenery WHERE s_id = #{s_id}
+	</select>
+	<select id="selectSeid" resultType="int" parameterType="DataPiao">
+		SELECT se_id FROM sed
+		WHERE se_strat = (SELECT c_id FROM city WHERE c_name LIKE CONCAT(#{start_city},'%'))
+		AND se_end = (SELECT c_id FROM city WHERE c_name like CONCAT(#{end_city},'%'))
+	</select>
+	<select id="selectCar" resultType="Carclass" parameterType="DataPiao">
+SELECT cl.cc_id,cl.se_id,cl.cc_send,cl.cc_end,ca.c_type,cl.cc_price FROM carclass cl,cartype ca
+WHERE cl.c_typeid = ca.c_typeid
+AND cl.se_id = #{se_id}
+AND cc_send like CONCAT(#{stime},'%')
+	</select>
 </mapper>

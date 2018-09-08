@@ -20,4 +20,6 @@ public class Carclass {
     private int c_typeid;
     //汽车价格，固定线路固定价格
     private double cc_price;
+    //汽车类型，车型
+    private String c_type;
 }

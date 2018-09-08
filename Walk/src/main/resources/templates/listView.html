@@ -5,6 +5,7 @@
     <title>漫行</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="toTop" content="true">
     <!--[if lte IE 8]>
     <script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" href="assets/css/Flgo.css">
@@ -18,6 +19,7 @@
     <link rel="stylesheet" href="assets/css/oneCenter.css">
     <script src="assets/js/autoiframe.js"></script>
     <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/toTop.js"></script>
 
 </head>
 <body class="index">
@@ -55,6 +57,7 @@
             <header class="major">
                 <h2><!--[-->度假胜地<!--]--> <strong><!--[-->就在此处<!--]--></strong></h2>
             </header>
+            <iframe src="shaixuan/index.html" name="ifd" onload="this.height=ifd.document.body.scrollHeight" width="100%" scrolling="no" frameborder="0"></iframe>
             <div class="row" id="listViewifa">
             </div>
         </section>
@@ -76,14 +79,14 @@
 <script src="assets/js/jquery.scrollgress.min.js"></script>
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
+
 <!--[if lte IE 8]>
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
 <script type="text/javascript">
     $(window).load(function(){
-        $("#listViewifa").append(" <iframe src=\"listView?sPage=1&ePage=5\" name=\"iframepage\" height=\"1260px\" frameBorder=0 scrolling=auto width=\"100%\"\n"+"></iframe>");
+        $("#listViewifa").append("<iframe src=\"listView?sPage=1&ePage=11\" name=\"ifd\" onload=\"this.height=2250\" width=\"100%\" scrolling=\"no\" frameborder=\"0\" style=\"margin: 116px 0px -73px -70px;\"></iframe>");
     })
 </script>
-
 </body>
 </html>
