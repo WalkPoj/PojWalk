@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+
 <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
 
 <head>
@@ -69,13 +69,51 @@
     </form>
 </div>
 <script type="text/javascript">
+    $("#xiangmu").keyup(function () {
+        var input = $(":input[name]");
+        var price = /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/;
+        for (var i =2;i<6;i++) {
+            switch (i){
+                case 2:
+                    if (input.eq(i).val() != "") {
+                        $(".title").text("")
+                    }
+                    break;
+                case 3:
+                    if (input.eq(i).val()!="") {
+                    if (!price.test(input.eq(i).val())){
+                        input.eq(i).val("");
+                        alert('只能输入数字，小数点后只能保留两位');
+                    }
+                        $(".price").text("")
+                    }
+                    break;
+                case 4:
+                    if (input.eq(i).val() != "") {
+                        if (!price.test(input.eq(i).val())){
+                            input.eq(i).val("");
+                            alert('只能输入数字，小数点后只能保留两位');
+                        }
+                        $(".prices").text("");
+
+                    }
+                    break;
+                case 5:
+                    if (input.eq(i).val() != "") {
+                        $(".txt").text("");
+
+                    }
+                    break;
+            }
+        }
+    });
     function ahscs() {
         //var data = $("#xiangmu").serialize();
         var input = $(":input[name]");
         var price = /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/;
-        for (var i =0;i<input.length;i++) {
+        for (var i =2;i<input.length;i++) {
             switch (i){
-                case 0:
+                case 2:
                     if (input.eq(i).val() == "") {
                         // $.messager.alert("消息提醒", "验证码错误!", "warning");
                         $(".title").text("请填写景点标题!").css("color","red");
@@ -83,36 +121,28 @@
                         return false;
                     }
                     break;
-                case 1:
+                case 3:
                     if (input.eq(i).val() == "") {
-                        if (!price.test(input.eq(i).val())){
-                             input.eq(i).val("");
-                             alert('只能输入数字，小数点后只能保留两位');
-                        }
                         $(".price").text("请填写价格!").css("color","red");
                         input.eq(i).focus();
                         return false;
                     }
                     break;
-                case 2:
+                case 4:
                     if (input.eq(i).val() == "") {
-                        if (!price.test(input.eq(i).val())){
-                            input.eq(i).val("");
-                            alert('只能输入数字，小数点后只能保留两位');
-                        }
                         $(".prices").text("请填写原价!").css("color","red");
                         input.eq(i).focus();
                         return false;
                     }
                     break;
-                case 3:
+                case 5:
                     if (input.eq(i).val() == "") {
                         $(".txt").text("请填写详情!").css("color","red");
                         input.eq(i).focus();
                         return false;
                     }
                     break;
-                case 4:
+                case 6:
                     if (input.eq(i).val() == "") {
                         $(".filea").text("请选中一张景点封面!").css("color","red");
                         input.eq(i).focus();
@@ -126,7 +156,7 @@
                         return false;
                     }
                     break;
-                case 6:
+                case 7:
                     if (input.eq(i).val() == "") {
                         $(".filec").text("至少选择一张图片!").css("color","red");
                         input.eq(i).focus();
@@ -186,44 +216,6 @@
 
         )
     }
-    $("#xiangmu").keyup(function () {
-        var input = $(":input[name]");
-        var price = /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/;
-        for (var i =0;i<4;i++) {
-            switch (i){
-                case 0:
-                    if (input.eq(i).val() != "") {
-                        $(".title").text("")
-                    }
-                    break;
-                case 1:
-                    if (input.eq(i).val()!="") {
-                        if (!price.test(input.eq(i).val())){
-                            input.eq(i).val("");
-                            alert('只能输入数字，小数点后只能保留两位');
-                        }
-                        $(".price").text("")
-                    }
-                    break;
-                case 2:
-                    if (input.eq(i).val() != "") {
-                        if (!price.test(input.eq(i).val())){
-                            input.eq(i).val("");
-                            alert('只能输入数字，小数点后只能保留两位');
-                        }
-                        $(".prices").text("");
-
-                    }
-                    break;
-                case 3:
-                    if (input.eq(i).val() != "") {
-                        $(".txt").text("");
-
-                    }
-                    break;
-            }
-        }
-    });
 </script>
 </body>
 </html>

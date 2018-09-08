@@ -28,4 +28,11 @@ public interface SceneryDao {
      * @return
      */
     public  int insertScenry(InsertScenry insertScenry);
+
+    /**
+     * 删除景点
+     * @param ids
+     * @return
+     */
+    public int deleteScenry(List<Integer> ids);
 }

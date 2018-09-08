@@ -93,10 +93,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script  src="js/jquery-1.12.3.min.js"></script>
 	<script src="alert/easydialog.min.js"></script>
 	<script>
-            var time = 31;
+            var time = 61;
             var res = true;
             function djs() {
-                $("#vCont").prev().text("(30s)获取验证");
+                $("#vCont").prev().text("(60s)获取验证");
                 time--;
                 if(time == 0){
                     $("#vCont").show();
@@ -133,25 +133,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		$(function () {
 
-		    $(":input[name=u_phone]").blur(function () {
-		        var u_phone=$(this).val();
-				if(u_phone.trim().length>0&&u_phone!=""){
-                    $.post("PhoneExists?u_phone="+u_phone,function (json) {
-                        if(json){
-                            bounced("温馨提示：该手机号已被注册！");
-                        }else{
-                            bounced("温馨提示：手机号可用！");
-                            $(".easyDialog_wrapper .easyDialog_text ").css("color","green");
-                        }
-                    },'json');
-				}
-            });
-
             var con = true;
             //正则表达式(手机号,密码,验证码)
             var phone=/^1[3|4|5|7|8][0-9]{9}$/;
-            var password=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+            var password=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
             var validation=/^\d{6}$/;
+
+            $(":input[name=u_phone]").blur(function () {
+                var u_phone=$(this).val();
+                if(u_phone.trim().length>0&&u_phone!=""){
+                    $.post("PhoneExists?u_phone="+u_phone,function (json) {
+                        if(json){
+                            bounced("温馨提示：该手机号已被注册！2秒后关闭...");
+                        }else if(phone.test(u_phone)==false){
+                            bounced("温馨提示：手机号不合法！2秒后关闭...");
+                        }else{
+                            return true;
+                        }
+                    },'json');
+                }
+            });
+
             /*
             备注:bounced('提示的内容')- - - -> 调用弹框的方法
 			       xxx.val('')        - - - -> 清空val值
@@ -173,7 +175,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     $(":input[name=u_password]").focus();
                     con=false;
 				}else if(password.test($(":input[name=u_password]").val())==false){
-                    bounced('温馨提示：密码至少包含大写字母，小写字母，数字，且不少于8位！2秒后关闭...');
+                    bounced('温馨提示：密码至少字母，数字，且不少于8位！2秒后关闭...');
                     $(":input[name=u_password]").val("");
                     $(":input[name=u_password]").focus();
                     con=false;
@@ -192,11 +194,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     con=false;
 				}else if ($(":input[name=u_phone]").val()==""){
 				    bounced("温馨提示：手机号不能为空！2秒后关闭...");
-                    $(":input[name=u_phone]").focus();
-                    con=false;
-				}else if(phone.test($(":input[name=u_phone]").val())==false){
-                    bounced('温馨提示：手机号必须为11位！2秒后关闭...');
-                    $(":input[name=u_phone]").val("");
                     $(":input[name=u_phone]").focus();
                     con=false;
 				}else if($(":input[name=validation]").val()==""){

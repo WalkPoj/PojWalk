@@ -5,6 +5,7 @@ import com.walk.pojo.Mark;
 import com.walk.pojo.Scenery;
 import com.walk.service.SceneryService;
 import com.walk.service.UserService;
+import com.walk.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -184,5 +186,29 @@ public class GuangController {
             }
         }
         return list;
+    }
+
+    @RequestMapping("/dataDel.action")
+    public Message dataDelUser(String id) throws IOException {
+
+        System.out.println(id);
+        String[] str = id.split(",");
+        Integer[] is = new Integer[str.length];
+        for(int i=0;i<str.length;i++){
+            is[i]=Integer.parseInt(str[i]);
+            System.out.println("删除id"+is[i]);
+        }
+        List<Integer> list = Arrays.asList(is);
+
+        Message m = new Message();
+        if(this.sve.deleteScenry(list)>0){
+            m.setFlag(true);
+            m.setMessage("删除成功！");
+        }else{
+            m.setFlag(false);
+            m.setMessage("删除失败！");
+        }
+
+        return m;
     }
 }

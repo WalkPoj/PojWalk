@@ -42,4 +42,9 @@ public class SceneryServiceimpl implements SceneryService {
             return true;
         return false;
     }
+
+    @Override
+    public int deleteScenry(List<Integer> ids) {
+        return sceneryDao.deleteScenry(ids);
+    }
 }
