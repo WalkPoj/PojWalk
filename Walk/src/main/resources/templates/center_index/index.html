@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>漫行个人中心</title>
     <!-- Google web font "Open Sans" -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://localhost:8080/MX/center_index/css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="http://localhost:8080/MX/center_index/fontawesome/css/fontawesome-all.min.css">
     <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/MX/center_index/slick/slick.css"/>
     <!-- http://kenwheeler.github.io/slick/ -->
-    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
-    <link rel="stylesheet" href="css/tooplate-style.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/MX/center_index/slick/slick-theme.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/MX/center_index/css/tooplate-style.css">
 
     <script>document.documentElement.className = "js";
     var supportsCssVars = function () {
@@ -73,10 +73,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <label style="margin-bottom: 17px;">真实姓名：老蒋</label>
-                                                <p class="xg">昵称：<span class="xgs">我是老蒋B</span></p>
-                                                <p class="xg">手机号：<span class="xgs">13827382349</span></p>
-                                                <p class="xg">身份证号：<span class="xgs">430723200007012418</span></p>
+                                                <label style="margin-bottom: 17px;">真实姓名：<span th:text="${us.u_name}">老蒋</span></label>
+                                                <p class="xg">昵称：<span class="xgs" th:text="${us.u_nickname}">我是老蒋B</span></p>
+                                                <p class="xg">手机号：<span class="xgs" th:text="${us.u_phone}">13827382349</span></p>
+                                                <p class="xg">身份证号：<span class="xgs" th:text="${us.u_idcard}">430723200007012418</span></p>
                                                 <p>
                                                     <a id="edit" onclick="test()" href="#">
                                                         <span class="bj">编辑资料</span>
@@ -146,15 +146,21 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-12">
-                                                    <p>订单号:<span>1</span></p>
-                                                    <p>联系人:<span>2</span></p>
-                                                    <p>商家&nbsp;:<span>3</span></p>
-                                                    <p>旅游景点:<span>4</span></p>
-                                                    <p>旅客人数:<span>5</span></p>
-                                                    <p>乘坐方式:<span>6</span></p>
-                                                    <p>乘坐班次:<span>7</span></p>
-                                                    <p>价格&nbsp;:<span>8</span></p>
+                                                <div class="col-12" th:each="o,pd:${order}">
+                                                    <p>订单号:<span th:text="${o.o_id}">1</span></p>
+                                                    <p>联系人:<span th:text="${session.user.u_name}">2</span></p>
+                                                    <p>商家&nbsp;:<span th:text="${o.m_name}">3</span></p>
+                                                    <p>旅游景点:<span th:text="${o.s_title}">4</span></p>
+                                                    <p>旅客人数:<span th:text="${o.o_person}">5</span></p>
+                                                    <p>乘坐方式:
+                                                        <span th:if="${o.tools_id} eq 0">汽车</span>
+                                                        <span th:if="${o.tools_id} eq 1">火车</span>
+                                                        <span th:if="${o.tools_id} eq 2">飞机</span>
+                                                    </p>
+                                                    <p>乘坐班次:<span th:text="${o.class_id}">7</span></p>
+                                                    <p>价格&nbsp;:
+                                                        <span th:text="'￥'+${#numbers.formatDecimal(o.o_price,0,0)}">8</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -242,7 +248,7 @@
     </div> <!-- .tm-main-content -->
 </div>
 <!-- load JS -->
-<script src="js/jquery-3.2.1.slim.min.js"></script>         <!-- https://jquery.com/ -->
+<script src="http://localhost:8080/MX/center_index/js/jquery-3.2.1.slim.min.js"></script>         <!-- https://jquery.com/ -->
 <script>
     var statu = 0;
     var edit = document.getElementById('edit');
@@ -280,9 +286,9 @@
         return false;
     }
 </script>
-<script src="slick/slick.min.js"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
-<script src="js/anime.min.js"></script>                     <!-- http://animejs.com/ -->
-<script src="js/main.js"></script>
+<script src="http://localhost:8080/MX/center_index/slick/slick.min.js"></script>       <!-- http://kenwheeler.github.io/slick/ -->
+<script src="http://localhost:8080/MX/center_index/js/anime.min.js"></script>                     <!-- http://animejs.com/ -->
+<script src="http://localhost:8080/MX/center_index/js/main.js"></script>
 <script>
     function setupFooter() {
         var pageHeight = $('.tm-site-header-container').height() + $('footer').height() + 100;
