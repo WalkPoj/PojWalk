@@ -18,20 +18,14 @@
             <span><strong>筛选</strong></span>
             <i class="icon-angle-right"></i>
         </p>
-        <p id="sxbtn" class="shaixuan-btn clearfix"><span><em>点击查询</em></span></p>
     </div>
     <div id="page-search-store" class="mb10 border sxcon">
         <div class="search-by by-category relative">
             <dl class="relative clearfix">
                 <dt class="floatLeft"><a href="/">评分:</a></dt>
                 <dd class="floatLeft show-con">
-                    <a href="/" class="">五分</a>
-                    <a href="/" class="">四分 - 五分</a>
-                    <a href="/" class="">三分 - 四分</a>
-                    <a href="/" class="">两分 - 三分</a>
-                    <a href="/" class="">一分 - 两分</a>
+                    <a href="/" class="">从高到低</a>
                 </dd>
-                <dd class="floatLeft show-more"><h3 class="pointer clearfix"><span>更多</span><i class="icon-angle-down"></i></h3></dd>
             </dl>
             <dl class="relative clearfix" style="border-bottom:0">
                 <dt class="floatLeft"><a href="/">价格区间:</a></dt>
@@ -93,7 +87,8 @@
                 $(this).addClass("nzw12");
                 var zhiclass = $(this).parents("dd").siblings("dt").find("a").text();
                     zhicon = $(this).text();
-                    //获取参数
+                    //获取参数，发送Ajax
+
                     alert(zhicon);
                     tianjaneir="<span class='crumb-select-item'><a href='/'><b>"+zhiclass+"</b><em>"+zhicon+"</em><i class='icon-remove'></i></a></span>"
                 $(".shaixuan-tj").children().last().after(tianjaneir);
@@ -104,19 +99,7 @@
             event.preventDefault();
             var ticon = $(this).find("i");
                 tspan = $(this).find("span");
-                if($(this).hasClass("zk")){
-                    $(this).siblings(".show-con").css("height","30px");
-                    ticon.removeClass("icon-angle-up");
-                    ticon.addClass("icon-angle-down");
-                    tspan.html("更多");
-                    $(this).removeClass("zk")
-                }else{
-                    $(this).siblings(".show-con").css("height","auto");
-                    ticon.removeClass("icon-angle-down");
-                    ticon.addClass("icon-angle-up");
-                    tspan.html("收起");
-                    $(this).addClass("zk")
-                }
+
         });
         $("#sxbtn").click(function(event){
             var arr = $(".crumb-select-item").text();

@@ -7,7 +7,7 @@
 		SELECT s_id,s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery WHERE s_num &gt; 4.5 AND s_price &gt; 2000 AND s_price &lt; 3000 LIMIT 0,9
 	</select>
 	<select id="listView" resultType="Scenery">
-		SELECT s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery
+		SELECT s_id,s_fmImg,s_title,s_num,s_price,s_price_yuan FROM scenery
 	</select>
 	<select id="selectDeal" resultType="Scenery" parameterType="int">
 		SELECT * FROM scenery WHERE s_id = #{s_id}
@@ -41,7 +41,23 @@ AND pc_send LIKE CONCAT(#{stime},'%')
 	<insert id="Saveperson" parameterType="Person">
 INSERT INTO person(u_id,pe_name,pe_cardid,pe_phone) VALUES(#{u_id},#{pe_name},#{pe_cardid},#{pe_phone})
 	</insert>
-
-
+	<select id="selectByMod" parameterType="Scenery">
+		SELECT * FROM scenery
+		<where>
+			<if test="s_city &gt; 0 and s_price &lt;1000 ">
+				AND s_price &gt; 1000
+				AND s_price &lt; 2500
+			</if>
+			<if test="s_price &gt; 0 and s_price &lt;1000 ">
+				AND s_price &gt; 1000
+				AND s_price &lt; 2500
+			</if>
+		</where>
+		WHERE s_city = 5
+		AND s_price &gt; 1000
+		AND s_price &lt; 2500
+		ORDER BY s_num
+		DESC
+	</select>
 
 </mapper>

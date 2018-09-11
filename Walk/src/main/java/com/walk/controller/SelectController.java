@@ -185,7 +185,4 @@ public class SelectController {
         }
         return "index";
     }
-    public static void main(String[] args) {
-        System.out.println(FileUtil.getOrderIdByUUId());
-    }
 }
