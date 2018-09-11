@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>漫行个人中心</title>
+    <link rel="stylesheet" href="http://localhost:8080/MX/assets/css/main.css"/>
     <!-- Google web font "Open Sans" -->
     <link rel="stylesheet" href="http://localhost:8080/MX/center_index/css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
@@ -41,7 +42,20 @@
 </head>
 
 <body>
-<div id="tm-bg"></div>
+<header id="header" class="alt" style="z-index: 1">
+    <nav id="nav">
+        <ul>
+            <li class="current"><a href="index.action">返回首页</a></li>
+            <li th:if="${session.user} ne null">
+                <a th:href="@{Order.action(u_id=${session.user.u_id})}" th:text="'普通用户:'+${session.user.u_nickname}">登   录</a>
+            </li>
+            <li th:if="${session.user} ne null"><a href="#">退   出</a></li>
+        </ul>
+    </nav>
+</header>
+<div id="tm-bg">
+
+</div>
 <div id="tm-wrap">
     <div class="tm-main-content">
         <div class="container tm-site-header-container" style="background-color: rgba(0,0,0,0.36)">
@@ -271,7 +285,7 @@
             }
             statu = 1;
         }else{
-            edit.innerHTML= '编辑';
+            edit.innerHTML= '编辑资料';
             $(".bc").css("display","none");
             $(".bj").css("display","block");
             var item_input = document.getElementsByClassName('item_input');
