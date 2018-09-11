@@ -155,6 +155,7 @@ public class SelectController {
      */
     @PostMapping("SaveOrder")
     public String SaveOrder(HttpSession session,Order_info oi){
+        System.out.println(oi.getS_id());
         //生成订单号
         String Order_id = FileUtil.getOrderIdByUUId();
         //获取用户id

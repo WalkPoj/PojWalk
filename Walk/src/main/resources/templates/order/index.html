@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<form id="defaultForm" action="#" class="form-horizontal">
+<form id="defaultForm" action="SaveOrder" method="post" target="_parent" class="form-horizontal">
     <div class="border_top_cart">
         <div class="container">
             <div class="checkout-box">
@@ -27,6 +27,8 @@
                     <div class="xm-box">
                         <div class="box-bd">
                             <h2 style="color: #000000" th:text="${Data_order.text}">详情内容</h2>
+                            <input name="s_id" type="hidden" th:value="${Data_order.s_id}">
+                            <input name="m_id" type="hidden" th:value="${Data_order.m_id}">
                         </div>
                     </div>
                     <div class="xm-box">
@@ -108,7 +110,6 @@
                         <div class="box-bd">
                             <div style="border: 1px solid #c4e3f3;margin-bottom: 15px" th:each="i:${#numbers.sequence(1,Data_order.getPerson_num())}">
                                 <div cclass="form-group" style="color: #000000;text-align: center;margin-top: 10px;font-size: 20px;font-weight: bold" th:text="'旅客'+${i}">旅客</div>
-
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">中文姓名：</label>
                                     <div class="col-lg-5">
