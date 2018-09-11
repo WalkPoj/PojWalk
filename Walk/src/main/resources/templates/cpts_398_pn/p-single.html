@@ -53,6 +53,7 @@
 <div class="banner-bottom">
     <!-- container -->
     <div class="container">
+        <form target="_blank" action="listOrder" method="post" style="margin-top: 18px">
         <div class="faqs-top-grids">
             <!--single-page-->
             <div class="single-page">
@@ -107,9 +108,9 @@
                             </script>
                         </div>
                         <div class="sp-bor-btn text-right">
-                            <h4><span th:text="'￥ '+${#numbers.formatDecimal(s_Details.s_price_yuan,0,0)}"></span><u th:text="'￥ '+${#numbers.formatDecimal(s_Details.s_price,0,0)}"></u></h4>
+                            <h4><span th:text="'￥ '+${#numbers.formatDecimal(s_Details.s_price_yuan,0,0)}"></span><u th:text="'￥ '+${#numbers.formatDecimal(s_Details.s_price,0,0)}"></u><input name="price_order" type="hidden" th:value="${#numbers.formatDecimal(s_Details.s_price,0,0)}"></h4>
                             <p class="best-pri">最优价格</p>
-                            <a class="best-btn" href="listOrder" target="_blank">现在支付</a>
+                            <input type="submit" style="width: 97px;height: 36px;background-color: #464646;color: white;font-size: 18px;border: 0;" value="现在支付">
                         </div>
                     </div>
 
@@ -140,7 +141,6 @@
         </div>
         <div class="c-rooms">
             <!--提交支付信息-->
-            <form action="#" method="post" style="margin-top: 18px">
                 <div class="p-table">
                     <div class="p-table-grids">
                         <div class="col-md-3 p-table-grid" style="width: 100%">
@@ -149,8 +149,9 @@
                             </div>
                             <div class="p-table-grid-info">
                                 <div class="room-basic-info" style="font-weight: 800">
+                                    <input type="hidden" class="se_id" name="se_id" value="">
                                     出发位置：<input type="text" value="" placeholder="请选择城市" class="se_start_city" name="se_strat"/>
-                                    --><input type="text" placeholder="景区位置" value="张家界" readonly class="se_end" name="se_end"/><br/><br/><br/>
+                                    --><input type="text" placeholder="景区位置" value="张家界" class="se_end" name="se_end"/><br/><br/><br/>
                                     出发时间：<input type="date" id="time" value="" style="line-height: 20px;">&nbsp;
                                     人数：<input name="person_num" value="2">
                                 </div>
@@ -179,12 +180,12 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-            </form>
             <div class="p-table">
                 <div class="p-table-grids">
                     <div class="col-md-3 p-table-grid" style="width: 70%">
                         <div class="p-table-grad-heading" style="width: 142.9%">
                             <h6>景点特色</h6>
+                            <input type="hidden" name="text" th:value="${s_Details.s_txt}">
                         </div>
                         <ul style="list-style: none">
                             <li th:each="imgxq,imgStat:${imgXq}">
@@ -197,8 +198,8 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-
         </div>
+        </form>
     </div>
     <!-- //container -->
 </div>
@@ -237,12 +238,19 @@
         location.href = "listOrder"
     }
 
+    //发送车票id，保存至redis，便于查询
+    function Send_Classid(data_id,Tools,price,send,end) {
+        $.post("Save_Redis?data_id="+data_id+"&Tools="+Tools+"&price="+price+"&send="+send+"&end="+end,function (ok) {
+            alert("您成功选择此方式"+ok)
+        })
+    }
     //发送ajax查询车票
     function SendData_selectTools() {
         $("#th").siblings().text("")
         var start_city=$(".se_start_city").val();
         var end_city = $(".se_end").val();
         $.post("Select_Bin?start_city="+start_city+"&end_city="+end_city,function (i) {
+            $(".se_id").val(i);
             //先查询汽车，再查询火车，最后查询飞机
             SendData_Car(i);
             SendData_Train(i);
@@ -257,7 +265,7 @@
                 for (var i = 0;i < car.length ;i++){
                     var js = car[i];
                     $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
-                        "<td>"+js.c_type+"</td><td>"+js.cc_id+"</td><td>"+js.cc_send+"</td><td>"+js.cc_end+"</td><td>"+js.cc_price+"</td><td><a href='#'>选择此方式</a></td></tr>")
+                        "<td>"+js.c_type+"</td><td>"+js.cc_id+"</td><td>"+js.cc_send+"</td><td>"+js.cc_end+"</td><td>"+js.cc_price+"</td><td><a href=\"javascript:Send_Classid('"+js.cc_id+"',1,"+js.cc_price+",'"+js.cc_send+"','"+js.cc_end+"')\">选择此方式</a></td></tr>")
                 }
             }
         })
@@ -270,7 +278,7 @@
                 for (var i = 0;i < train.length ;i++){
                     var js = train[i];
                     $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
-                        "<td>"+js.t_type+"</td><td>"+js.tc_id+"</td><td>"+js.tc_send+"</td><td>"+js.tc_end+"</td><td>"+js.tc_price+"</td><td><a href='#'>选择此方式</a></td></tr>")
+                        "<td>"+js.t_type+"</td><td>"+js.tc_id+"</td><td>"+js.tc_send+"</td><td>"+js.tc_end+"</td><td>"+js.tc_price+"</td><td><a href=javascript:Send_Classid('"+js.tc_id+"',2,"+js.tc_price+")>选择此方式</a></td></tr>")
                 }
             }
         })
@@ -283,7 +291,7 @@
                 for (var i = 0;i < plane.length ;i++){
                     var js = plane[i];
                     $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
-                        "<td>"+js.p_type+"</td><td>"+js.pc_id+"</td><td>"+js.pc_send+"</td><td>"+js.pc_end+"</td><td>"+js.pc_price+"</td><td><a href='#'>选择此方式</a></td></tr>")
+                        "<td>"+js.p_type+"</td><td>"+js.pc_id+"</td><td>"+js.pc_send+"</td><td>"+js.pc_end+"</td><td>"+js.pc_price+"</td><td><a href=javascript:Send_Classid('"+js.pc_id+"',3,"+js.pc_price+")>选择此方式</a></td></tr>")
                 }
             }
         })

@@ -35,4 +35,10 @@ WHERE pl.p_typeid = pa.p_typeid
 AND pl.se_id = #{se_id}
 AND pc_send LIKE CONCAT(#{stime},'%')
 	</select>
+	<insert id="SaveOrder" parameterType="">
+		
+	</insert>
+
+
+
 </mapper>

@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -115,12 +118,48 @@ public class SelectController {
         System.out.println("查询飞机票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+pl.size());
         return pl;
     }
+
     /**
-     * 加载订单
+     * 保存车票信息
+     * @return
+     */
+    @PostMapping("Save_Redis")
+    @ResponseBody
+    public String Save_Redis(HttpSession session, Data_Class_INFO dci){
+        //测试放入一个用户
+        session.setAttribute("user_id","11");
+        String u_id = (String)session.getAttribute("user_id");
+        //存班次
+        redisTemplate.opsForValue().set("Data_INFO_"+u_id,dci);
+        return "点击现在支付进行，进行下一步吧~";
+    }
+
+    /**
+     * 加载订单,提交至订单页面
      * @return
      */
     @RequestMapping("listOrder")
-    public String OrderHtml(){
+    public String OrderHtml(HttpSession session,Model mod,Data_Order data_order){
+        System.out.println(data_order.getPerson_num());
+        String u_id = (String)session.getAttribute("user_id");
+        mod.addAttribute("Data_order",data_order);
+        //添加班次id
+        session.setAttribute("Data_INFO",(Data_Class_INFO)redisTemplate.opsForValue().get("Data_INFO_"+u_id));
         return "order/index";
+    }
+
+    /**
+     * 保存订单
+     * @return
+     */
+    @PostMapping("SaveOrder")
+    public String SaveOrder(HttpSession session){
+        //获取车票信息
+        Data_Class_INFO dci=(Data_Class_INFO) session.getAttribute("Data_INFO");
+
+        return "index.html";
+    }
+    public static void main(String[] args) {
+        System.out.println(FileUtil.getOrderIdByUUId());
     }
 }
