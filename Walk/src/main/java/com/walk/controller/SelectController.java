@@ -2,6 +2,7 @@ package com.walk.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import com.walk.pojo.*;
 import com.walk.service.SelectDaoService;
 import com.walk.util.FileUtil;
@@ -153,11 +154,36 @@ public class SelectController {
      * @return
      */
     @PostMapping("SaveOrder")
-    public String SaveOrder(HttpSession session){
+    public String SaveOrder(HttpSession session,Order_info oi){
+        //生成订单号
+        String Order_id = FileUtil.getOrderIdByUUId();
+        //获取用户id
+        String u_id = (String) session.getAttribute("user_id");
         //获取车票信息
         Data_Class_INFO dci=(Data_Class_INFO) session.getAttribute("Data_INFO");
-
-        return "index.html";
+        //新增订单实体类
+        The_order to = new The_order();
+        to.setO_id(Order_id);
+        to.setU_id(Integer.valueOf(u_id));
+        to.setU_phone(oi.getU_phone());
+        to.setM_id(oi.getM_id());
+        to.setS_id(oi.getS_id());
+        to.setO_person(oi.getU_lv_name().size());
+        to.setTools_id(dci.getTools());
+        to.setClass_id(dci.getData_id());
+        to.setO_price(oi.getOrder_price());
+        //保存订单
+        sdaos.SaveOrder(to);
+        //新增旅客实体类
+        for (int i = 0;i < oi.getU_lv_name().size() ; i++) {
+            Person per = new Person();
+            per.setU_id(Integer.valueOf(u_id));
+            per.setPe_name(oi.getU_lv_name().get(i));
+            per.setPe_cardid(oi.getU_lv_cardid().get(i));
+            per.setPe_phone(oi.getU_lv_phone().get(i));
+            sdaos.Saveperson(per);
+        }
+        return "index";
     }
     public static void main(String[] args) {
         System.out.println(FileUtil.getOrderIdByUUId());

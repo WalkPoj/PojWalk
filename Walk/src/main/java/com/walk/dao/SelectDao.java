@@ -26,5 +26,10 @@ public interface SelectDao {
 
     //查飞机
     public List<Planeclass> selectPlane(DataPiao dataPiao);
+
+    //新增订单
+    public int SaveOrder(The_order to);
+    //新增旅客
+    public int Saveperson(Person per);
 }
 

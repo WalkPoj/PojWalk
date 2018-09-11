@@ -12,10 +12,13 @@ import java.util.List;
 @Getter
 @Setter
 public class Order_info {
+    private int s_id;
+    private int m_id;
     private String u_name;
     private String u_phone;
     private String u_email;
     private List<String> u_lv_name;
     private List<String> u_lv_cardid;
     private List<String> u_lv_phone;
+    private double order_price;
 }

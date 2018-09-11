@@ -65,4 +65,14 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     public List<Planeclass> selectPlane(DataPiao dataPiao) {
         return sdao.selectPlane(dataPiao);
     }
+
+    @Override
+    public int SaveOrder(The_order to) {
+        return sdao.SaveOrder(to);
+    }
+
+    @Override
+    public int Saveperson(Person per) {
+        return sdao.Saveperson(per);
+    }
 }

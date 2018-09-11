@@ -60,6 +60,7 @@
                 <div class="col-md-8 single-gd-lt">
                     <div class="single-pg-hdr">
                         <h2 th:text="${s_Details.s_title}">张家界，周末特惠</h2>
+                        <input type="hidden" name="s_id" th:value="${s_Details.s_id}">
                         <p>赶快咨询吧，过时不待呦~ +86 132****9089</p>
                     </div>
                     <div class="flexslider">
@@ -186,6 +187,7 @@
                         <div class="p-table-grad-heading" style="width: 142.9%">
                             <h6>景点特色</h6>
                             <input type="hidden" name="text" th:value="${s_Details.s_txt}">
+                            <input type="hidden" name="m_id" th:value="${s_Details.m_id}">
                         </div>
                         <ul style="list-style: none">
                             <li th:each="imgxq,imgStat:${imgXq}">

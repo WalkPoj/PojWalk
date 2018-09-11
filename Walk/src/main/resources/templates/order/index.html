@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<form action="#">
+<form action="SaveOrder" target="_blank" method="post">
 <div class="border_top_cart">
     <div class="container">
         <div class="checkout-box">
@@ -23,6 +23,8 @@
                 <div class="xm-box">
                     <div class="box-bd">
                         <h2 style="color: #000000" th:text="${Data_order.text}">详情内容</h2>
+                        <input type="hidden" name="m_id" th:value="${Data_order.m_id}">
+                        <input type="hidden" name="s_id" th:value="${Data_order.s_id}">
                     </div>
                 </div>
                 <div class="xm-box">
@@ -152,6 +154,7 @@
                                         </li>
                                     </ul>
                                     <p class="checkout-total">应付总额：<a style="color: red">￥</a><span><strong id="totalPrice">244.00</strong></span>
+                                        <input name="order_price" class="o_price" type="hidden" value="">
                                     </p>
                                 </div>
                                 <!--  -->
@@ -179,6 +182,7 @@
         var cxpj = $(".cxpj").text().split(".");
         var jqpj = $(".jqpj").text().split(".");
         $("#totalPrice").text(parseInt(cxpj[0])+parseInt(jqpj[0])+".00")
+        $(".o_price").val(parseInt(cxpj[0])+parseInt(jqpj[0])+".00")
     });
 </script>
 </body>

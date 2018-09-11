@@ -7,9 +7,11 @@ import lombok.Setter;
 @Getter
 public class The_order {
     //订单id
-    private int o_id;
+    private String o_id;
     //购票用户
     private int u_id;
+    //
+    private String u_phone;
     //商家id
     private int m_id;
     //景区id
