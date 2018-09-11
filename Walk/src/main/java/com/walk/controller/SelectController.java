@@ -2,6 +2,7 @@ package com.walk.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import com.walk.pojo.*;
 import com.walk.service.SelectDaoService;
 import com.walk.util.FileUtil;
@@ -9,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -101,12 +105,87 @@ public class SelectController {
         System.out.println("查询汽车票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+cl.size());
         return cl;
     }
+    @PostMapping("Select_Train")
+    @ResponseBody
+    public List<Trainclass> Select_Train(DataPiao dp){
+        List<Trainclass> tl = sdaos.selectTrain(dp);
+        System.out.println("查询火车票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+tl.size());
+        return tl;
+    }
+    @PostMapping("Select_Plane")
+    @ResponseBody
+    public List<Planeclass> Select_Plane(DataPiao dp){
+        List<Planeclass> pl = sdaos.selectPlane(dp);
+        System.out.println("查询飞机票线路id为"+dp.getSe_id()+"出发时间为"+dp.getStime()+"是否查到"+pl.size());
+        return pl;
+    }
+
     /**
-     * 加载订单
+     * 保存车票信息
+     * @return
+     */
+    @PostMapping("Save_Redis")
+    @ResponseBody
+    public String Save_Redis(HttpSession session, Data_Class_INFO dci){
+        //测试放入一个用户
+        session.setAttribute("user_id","11");
+        String u_id = (String)session.getAttribute("user_id");
+        //存班次
+        redisTemplate.opsForValue().set("Data_INFO_"+u_id,dci);
+        return "点击现在支付进行，进行下一步吧~";
+    }
+
+    /**
+     * 加载订单,提交至订单页面
      * @return
      */
     @RequestMapping("listOrder")
-    public String OrderHtml(){
+    public String OrderHtml(HttpSession session,Model mod,Data_Order data_order){
+        System.out.println(data_order.getPerson_num());
+        String u_id = (String)session.getAttribute("user_id");
+        mod.addAttribute("Data_order",data_order);
+        //添加班次id
+        session.setAttribute("Data_INFO",(Data_Class_INFO)redisTemplate.opsForValue().get("Data_INFO_"+u_id));
         return "order/index";
+    }
+
+    /**
+     * 保存订单
+     * @return
+     */
+    @PostMapping("SaveOrder")
+    public String SaveOrder(HttpSession session,Order_info oi){
+        //生成订单号
+        String Order_id = FileUtil.getOrderIdByUUId();
+        //获取用户id
+        String u_id = (String) session.getAttribute("user_id");
+        //获取车票信息
+        Data_Class_INFO dci=(Data_Class_INFO) session.getAttribute("Data_INFO");
+        //新增订单实体类
+        The_order to = new The_order();
+        to.setO_id(Order_id);
+        to.setU_id(Integer.valueOf(u_id));
+        to.setU_phone(oi.getU_phone());
+        to.setM_id(oi.getM_id());
+        to.setS_id(oi.getS_id());
+        to.setO_person(oi.getU_lv_name().size());
+        to.setTools_id(dci.getTools());
+        to.setClass_id(dci.getData_id());
+        to.setO_price(oi.getOrder_price());
+        //保存订单
+        sdaos.SaveOrder(to);
+        //新增旅客实体类
+        for (int i = 0;i < oi.getU_lv_name().size() ; i++) {
+            Person per = new Person();
+            per.setU_id(Integer.valueOf(u_id));
+            per.setPe_name(oi.getU_lv_name().get(i));
+            per.setPe_cardid(oi.getU_lv_cardid().get(i));
+            per.setPe_phone(oi.getU_lv_phone().get(i));
+            sdaos.Saveperson(per);
+        }
+        return "index";
+    }
+    public static void main(String[] args) {
+        System.out.println(FileUtil.getOrderIdByUUId());
     }
 }

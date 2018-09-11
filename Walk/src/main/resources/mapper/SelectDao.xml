@@ -23,4 +23,25 @@ WHERE cl.c_typeid = ca.c_typeid
 AND cl.se_id = #{se_id}
 AND cc_send like CONCAT(#{stime},'%')
 	</select>
+	<select id="selectTrain" resultType="Trainclass" parameterType="DataPiao">
+SELECT tl.tc_id,tl.se_id,tl.tc_send,tl.tc_end,ta.t_type,tl.tc_price FROM trainclass tl,traintype ta
+WHERE tl.t_typeid = ta.t_typeid
+AND tl.se_id = #{se_id}
+AND tc_send LIKE CONCAT(#{stime},'%')
+	</select>
+	<select id="selectPlane" resultType="Planeclass" parameterType="DataPiao">
+SELECT pl.pc_id,pl.se_id,pl.pc_send,pl.pc_end,pl.p_typeid,pa.p_type,pl.pc_price FROM planeclass pl,planetype pa
+WHERE pl.p_typeid = pa.p_typeid
+AND pl.se_id = #{se_id}
+AND pc_send LIKE CONCAT(#{stime},'%')
+	</select>
+	<insert id="SaveOrder" parameterType="The_order">
+		INSERT INTO the_order VALUES(#{o_id},#{u_id},#{u_phone},#{m_id},#{s_id},#{o_person},#{tools_id},#{class_id},#{o_price})
+	</insert>
+	<insert id="Saveperson" parameterType="Person">
+INSERT INTO person(u_id,pe_name,pe_cardid,pe_phone) VALUES(#{u_id},#{pe_name},#{pe_cardid},#{pe_phone})
+	</insert>
+
+
+
 </mapper>

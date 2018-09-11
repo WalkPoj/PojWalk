@@ -1,10 +1,16 @@
 package com.walk.util;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class FileUtil {
+    public static String getOrderIdByUUId() {
+        Random random = new Random();
+        SimpleDateFormat allTime = new SimpleDateFormat("SSSMMddHHmmYYYY");
+        String subjectno = allTime.format(new Date()) + random.nextInt(10);
+        return subjectno + random.nextInt(10);
+    }
     /**
      * 递归获取某路径下的所有文件，文件夹，并输出
      */

@@ -154,6 +154,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 }
             });
 
+        /*else if (phone.test($(":input[name=name]").val())==false) {
+                bounced('温馨提示：手机号必须为11位！2秒后关闭...');
+                $(":input[name=name]").val("");
+                $(":input[name=name]").focus();
+                con=false;
+            }*/
+
             /*
             备注:bounced('提示的内容')- - - -> 调用弹框的方法
 			       xxx.val('')        - - - -> 清空val值
@@ -163,11 +170,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			$("#DLform").submit(function () {
 				if($(":input[name=name]").val()==""){
                     bounced( '温馨提示：昵称/手机号不能为空！2秒后关闭...');
-                    $(":input[name=name]").focus();
-                    con=false;
-				}else if (phone.test($(":input[name=name]").val())==false) {
-                    bounced('温馨提示：手机号必须为11位！2秒后关闭...');
-                    $(":input[name=name]").val("");
                     $(":input[name=name]").focus();
                     con=false;
 				}else if($(":input[name=u_password]").val()==""){

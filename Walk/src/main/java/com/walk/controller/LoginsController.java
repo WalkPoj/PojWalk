@@ -1,21 +1,28 @@
 package com.walk.controller;
 
 import com.walk.pojo.User;
+import com.walk.service.OrderService;
 import com.walk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LoginsController {
 
     @Autowired
     private UserService uve;
+
+    @Autowired
+    private OrderService ove;
 
     /**
      * 跳转登录页面
@@ -30,7 +37,7 @@ public class LoginsController {
      * 跳转首页
      * @return
      */
-    @RequestMapping("/index.action")
+    @RequestMapping("/index.html")
     public String index(){
         return "index";
     }
@@ -52,10 +59,10 @@ public class LoginsController {
             user.setU_phone(null);
         }
         User users=uve.OrdinaryLogin(user);
-        if(users!=null&&users.getU_root()==0){
+        if(users!=null&&users.getU_root()==1){
             if(name.equals(users.getU_nickname())||name.equals(users.getU_phone())){
                 session.setAttribute("user",users);
-                return "index.html";
+                return "index";
             }else{
                 return "login/index";
             }
@@ -75,5 +82,16 @@ public class LoginsController {
     public boolean PhoneExists(String u_phone, HttpServletResponse response){
         response.setContentType("text/html;charset=GBK");
         return uve.PhoneExists(u_phone);
+    }
+
+    @RequestMapping("/Order.action")
+    public String Order(int u_id,Model mod){
+        //查询个人中心我的订单
+        List<Map<String,Object>> order=ove.selectOrder(u_id);
+        //查询个人中心基本信息
+        User us=ove.selectUserOrder(u_id);
+        mod.addAttribute("order",order);
+        mod.addAttribute("us",us);
+        return "center_index/index";
     }
 }

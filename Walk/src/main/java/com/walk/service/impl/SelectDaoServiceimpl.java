@@ -55,4 +55,24 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     public List<Carclass> selectCar(DataPiao dataPiao) {
         return sdao.selectCar(dataPiao);
     }
+
+    @Override
+    public List<Trainclass> selectTrain(DataPiao dataPiao) {
+        return sdao.selectTrain(dataPiao);
+    }
+
+    @Override
+    public List<Planeclass> selectPlane(DataPiao dataPiao) {
+        return sdao.selectPlane(dataPiao);
+    }
+
+    @Override
+    public int SaveOrder(The_order to) {
+        return sdao.SaveOrder(to);
+    }
+
+    @Override
+    public int Saveperson(Person per) {
+        return sdao.Saveperson(per);
+    }
 }
