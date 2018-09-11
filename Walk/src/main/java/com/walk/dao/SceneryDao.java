@@ -43,4 +43,10 @@ public interface SceneryDao {
      * @return
      */
     public  Scenery selectnoeScenery(@Param("s_id") int s_id);
+
+    /**
+     *修改
+     * @return
+     */
+    public int updateScenery(InsertScenry insertScenry);
 }

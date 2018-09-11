@@ -4,6 +4,7 @@ import com.walk.dao.SceneryDao;
 import com.walk.pojo.InsertScenry;
 import com.walk.pojo.Scenery;
 import com.walk.service.SceneryService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,12 @@ public class SceneryServiceimpl implements SceneryService {
     @Override
     public Scenery selectnoeScenery(int s_id) {
         return sceneryDao.selectnoeScenery(s_id);
+    }
+
+    @Override
+    public boolean updateScenery(InsertScenry insertScenry) {
+        if (this.sceneryDao.updateScenery(insertScenry)>0)
+            return true;
+        return false;
     }
 }

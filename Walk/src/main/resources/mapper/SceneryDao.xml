@@ -36,4 +36,7 @@
     <select id="selectnoeScenery" resultType="Scenery">
         SELECT * FROM `scenery` WHERE `s_id`=#{s_id}
     </select>
+    <update id="updateScenery" parameterType="InsertScenry">
+         UPDATE `scenery` SET `s_title`=#{s_title},`s_price`=#{s_price},`s_price_yuan`=#{s_price_yuan},`s_txt`=#{s_txt},`s_fmImg`=#{s_fmImg} WHERE `s_id`=#{s_id}
+    </update>
 </mapper>

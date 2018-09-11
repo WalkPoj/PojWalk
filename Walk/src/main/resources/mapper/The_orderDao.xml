@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.walk.dao.The_orderDao">
+    <sql id="condition">
+        <where>
+            m_id=#{m_id}
+            <if test="s_id!=null and s_id!=0">
+                and s_id=#{s_id}
+            </if>
+            <if test="s_title!=null and s_title!=''">
+                and s_title like concat('%',#{s_title},'%')
+            </if>
+        </where>
+    </sql>
+    <select id="selectOrder" resultType="The_order">
+        SELECT a.`o_id`,b.`u_name`,c.`m_name`,d.`s_title`,a.`o_person`,a.`tools_id`,a.`class_id`,a.`o_price` FROM `the_order` a,`user` b,`mark` c,`scenery` d WHERE a.`u_id`=b.`u_id` AND a.`m_id`=c.`m_id`AND a.`s_id`=d.`s_id`<include refid="condition"/>
+        order by ${sort} ${order} limit #{page},#{rows}
+    </select>
+</mapper>

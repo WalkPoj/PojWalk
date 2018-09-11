@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class The_order {
+public class
+The_order {
     //订单id
     private int o_id;
     //购票用户
