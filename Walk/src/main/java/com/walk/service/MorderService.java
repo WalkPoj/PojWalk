@@ -1,5 +1,4 @@
-package com.walk.dao;
-
+package com.walk.service;
 
 import com.walk.pojo.Echarts;
 import org.apache.ibatis.annotations.Param;
@@ -7,13 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 订单接口
- */
-public interface The_orderDao {
-
+public interface MorderService {
     /**
-     * 订单查询
+     * 商家查询订单
      * @return
      */
     public List<Map<String,Object>> selectOrder(Map<String,Object> map);
@@ -28,6 +23,5 @@ public interface The_orderDao {
      * 柱状图
      * @return
      */
-    public List<Echarts> selectEcharts(@Param("m_id") int m_id);
-
+    public List<Echarts> selectEcharts(int m_id);
 }

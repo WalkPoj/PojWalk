@@ -1,11 +1,14 @@
 package com.walk.controller;
 
+import com.walk.pojo.Echarts;
 import com.walk.pojo.InsertScenry;
 import com.walk.pojo.Mark;
 import com.walk.pojo.Scenery;
+import com.walk.service.MorderService;
 import com.walk.service.SceneryService;
 import com.walk.service.UserService;
 import com.walk.util.Message;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +32,9 @@ public class GuangController {
 
     @Autowired
     private SceneryService sve;
+
+    @Autowired
+    private MorderService mve;
 
     @RequestMapping("/Guang")
     public String Guang(int uid, int mid, HttpServletRequest request) {
@@ -60,14 +66,38 @@ public class GuangController {
 
     @RequestMapping("/dataGrid")
     @ResponseBody
-    public Map<String, Object> dataGrid2(Scenery scenery, int page, int rows, String order, String sort, HttpSession session) {
+    public Map<String, Object> dataGrid1(Scenery scenery, int page, int rows, String order, String sort, HttpSession session) {
         Mark mark = (Mark) session.getAttribute("mark");
         scenery.setM_id(mark.getM_id());
         System.out.println("id" + mark.getM_id());
-        System.out.println("title" + scenery.getS_title());
+        System.out.println(page+"title" + scenery.getS_title());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("total", this.sve.getSceneryCount(scenery));
         map.put("rows", this.sve.findAllScenery(scenery, page, rows, sort, order));
+        return map;
+    }
+
+    @RequestMapping("/dataGrid2")
+    @ResponseBody
+    public Map<String,Object> dataGrid2(@RequestParam Map<String,Object> maps, HttpSession session){
+        Mark mark = (Mark) session.getAttribute("mark");
+        int m_id = mark.getM_id();
+        System.out.println("商家id"+m_id);
+        maps.put("m_id",m_id);
+        String page = (String) maps.get("page");
+        String rows = (String)maps.get("rows");
+        System.out.println(page+"sck"+rows);
+        int ss = Integer.valueOf(page);
+        int cc = Integer.valueOf(rows);
+        maps.put("pages",ss-1);
+        maps.put("rowss",cc);
+        System.out.println("sort");
+        Map<String, Object> map = new HashMap<String, Object>();
+        System.out.println(" this.mve.findOrderCount(maps)"+ this.mve.findOrderCount(maps));
+        map.put("total",this.mve.findOrderCount(maps));
+        System.out.println("map"+map.get("total"));
+        map.put("rows",this.mve.selectOrder(maps));
+
         return map;
     }
 
@@ -396,6 +426,19 @@ public class GuangController {
             m.setMessage("删除失败！");
         }
         return m;
+    }
+
+    @RequestMapping("/selectEcharts")
+    @ResponseBody
+    public List<Echarts> selectEcharts(HttpServletRequest request){
+        Mark mark = (Mark) request.getSession().getAttribute("mark");
+        int m_id = mark.getM_id();
+        System.out.println("爱好就是长三角"+m_id);
+        List<Echarts> list = this.mve.selectEcharts(m_id);
+        for (Echarts e:list) {
+            System.out.println("把市场部"+e.getS_title());
+        }
+        return  list;
     }
 
 }
