@@ -280,7 +280,7 @@
                 for (var i = 0;i < train.length ;i++){
                     var js = train[i];
                     $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
-                        "<td>"+js.t_type+"</td><td>"+js.tc_id+"</td><td>"+js.tc_send+"</td><td>"+js.tc_end+"</td><td>"+js.tc_price+"</td><td><a href=javascript:Send_Classid('"+js.tc_id+"',2,"+js.tc_price+")>选择此方式</a></td></tr>")
+                        "<td>"+js.t_type+"</td><td>"+js.tc_id+"</td><td>"+js.tc_send+"</td><td>"+js.tc_end+"</td><td>"+js.tc_price+"</td><td><a href=\"javascript:Send_Classid('"+js.tc_id+"',2,"+js.tc_price+",'"+js.tc_send+"','"+js.tc_end+"')\">选择此方式</a></td></tr>")
                 }
             }
         })
@@ -293,7 +293,7 @@
                 for (var i = 0;i < plane.length ;i++){
                     var js = plane[i];
                     $("#tabb").append( "<tr style=\"font-size: 17px;font-weight: 600;\">" +
-                        "<td>"+js.p_type+"</td><td>"+js.pc_id+"</td><td>"+js.pc_send+"</td><td>"+js.pc_end+"</td><td>"+js.pc_price+"</td><td><a href=javascript:Send_Classid('"+js.pc_id+"',3,"+js.pc_price+")>选择此方式</a></td></tr>")
+                        "<td>"+js.p_type+"</td><td>"+js.pc_id+"</td><td>"+js.pc_send+"</td><td>"+js.pc_end+"</td><td>"+js.pc_price+"</td><td><a href=\"javascript:Send_Classid('"+js.pc_id+"',3,"+js.pc_price+",'"+js.pc_send+"','"+js.pc_end+"')\">选择此方式</a></td></tr>")
                 }
             }
         })

@@ -28,18 +28,6 @@ import java.util.Map;
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
-
-//    //默认缓存管理器
-//    @Bean
-//    public CacheManager cacheManager(RedisConnectionFactory factory) {
-//        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(factory);
-//        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-//        RedisCacheConfiguration defaultConfig = RedisCacheConfiguration.defaultCacheConfig();
-//        config.entryTtl(Duration.ofSeconds(10));
-//        RedisCacheManager cacheManager = new RedisCacheManager(redisCacheWriter, config);
-//        return cacheManager;
-//    }
-
     //缓存管理器
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
