@@ -46,4 +46,10 @@ public interface SceneryService {
      * @return
      */
     public  Scenery selectnoeScenery(int s_id);
+
+    /**
+     *修改
+     * @return
+     */
+    public boolean updateScenery(InsertScenry insertScenry);
 }

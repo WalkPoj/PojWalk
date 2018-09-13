@@ -84,14 +84,40 @@ public class LoginsController {
         return uve.PhoneExists(u_phone);
     }
 
+    /**
+     * 个人中心操作
+     * @param xz
+     * @param o_id
+     * @param mod
+     * @param session
+     * @return
+     */
     @RequestMapping("/Order.action")
-    public String Order(int u_id,Model mod){
-        //查询个人中心我的订单
-        List<Map<String,Object>> order=ove.selectOrder(u_id);
+    public String Order(String xz,String o_id,Model mod,HttpSession session){
+        User user=(User)session.getAttribute("user");
+        List<Map<String,Object>> order=null;
+        if(o_id!=null){
+            //查看详情订单
+            order=ove.selectOrder(0,o_id);
+        }else{
+            //我的订单信息
+            order=ove.selectOrder(user.getU_id(),null);
+        }
         //查询个人中心基本信息
-        User us=ove.selectUserOrder(u_id);
+        User us=ove.selectUserOrder(user.getU_id());
+        mod.addAttribute("xz",xz);
         mod.addAttribute("order",order);
         mod.addAttribute("us",us);
         return "center_index/index";
+    }
+
+    @RequestMapping("/updateOrder.action")
+    public String updateOrder(User user,String o_id){
+        if(ove.updateOrder(user)){
+            System.out.println("1"+user.getU_id()+"修改成功");
+        }else{
+            System.out.println("2"+user.getU_id()+"修改失败");
+        }
+        return "redirect:/Order.action?xz=1&u_id="+user.getU_id()+"&o_id="+o_id;
     }
 }

@@ -34,19 +34,19 @@
             </tr>
             <tr>
                 <td>景点价格:</td>
-                <td><input type="text" name="s_price"style="width: 95%;height: 25px" th:value="{scenery.s_price}"/></td><td><span class="price" style="display:block;"/></td>
+                <td><input type="text" name="s_price"style="width: 95%;height: 25px" th:value="${scenery.s_price}"/></td><td><span class="price" style="display:block;"/></td>
             </tr>
             <tr>
                 <td>景点原价:</td>
-                <td><input type="text" name="s_price_yuan"style="width: 95%;height: 25px"th:value="{scenery.s_prices}"/></td><td><span class="prices" style="display:block;"/></td>
+                <td><input type="text" name="s_price_yuan"style="width: 95%;height: 25px"th:value="${scenery.s_price_yuan}"/></td><td><span class="prices" style="display:block;"/></td>
             </tr>
             <tr style="margin-top: 20px">
                 <td>详情：</td>
-                <td><textarea name="s_txt" style="width: 95%; height: 80px;resize:none"th:value="scenery.s_txt" ></textarea></td><td><span class="txt" style="display:block;"/></td>
+                <td><textarea name="s_txt" style="width: 95%; height: 80px;resize:none"th:text="${scenery.s_txt}" ></textarea></td><td><span class="txt" style="display:block;"/></td>
             </tr>
             <tr>
                 <td>景点封面图片：</td>
-                <td class="lb"><input type=file name="filess" id="docc" th:value="${session.s_fmimg}" >
+                <td class="lb"><input type=file name="filess" id="docc" >
                 </td><td><span class="filea" style="display:block;"/></td>
             </tr>
             <tr><td></td><td><p style="border: #0f9ae0 solid 1px"></p></td></tr>

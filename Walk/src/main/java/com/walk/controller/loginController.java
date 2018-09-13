@@ -69,7 +69,7 @@ public class loginController {
         if(us == null){
             return "loginError";
         }
-        if (uve.isRoot(user)!=1){
+        if (uve.isRoot(user)!=2){
             return "NoIsMerchants";
         }
         HttpSession session = request.getSession();
