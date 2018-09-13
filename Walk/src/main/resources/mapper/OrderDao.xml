@@ -4,14 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.walk.dao.OrderDao">
 
-    <!-- 查询个人中心我的订单 -->
-    <select id="selectOrder" resultType="map" parameterType="int">
-          SELECT o.`o_id`,o.`u_id`,m.`m_name`,s.`s_title`,o.`o_person`,o.`tools_id`,o.`class_id`,o.`o_price`
-          FROM `the_order` o,`mark` m,`scenery` s WHERE u_id=#{u_id} AND o.`m_id`=m.`m_id` AND o.`s_id`=s.`s_id`
+    <!-- 根据u_id查询我的订单 -->
+    <select id="selectOrder" resultType="map">
+        SELECT o.`o_id`,o.`u_id`,m.`m_name`,s.`s_title`,o.`o_person`,o.`tools_id`,o.`class_id`,o.`o_price`
+        FROM `the_order` o,`mark` m,`scenery` s WHERE o.`m_id`=m.`m_id` AND o.`s_id`=s.`s_id`
+        <if test="u_id!=null and u_id!=0">
+            AND o.`u_id=#{u_id}
+        </if>
+        <if test="o_id!=null and o_id!=''">
+            AND o.`o_id`=#{o_id}
+        </if>
     </select>
 
     <!-- 查询个人中心基本信息 -->
     <select id="selectUserOrder" resultType="User" parameterType="int">
-          SELECT u.`u_name`,u.`u_nickname`,u.`u_phone`,u.`u_idcard` FROM `user` u WHERE u.`u_id`= #{u_id}
+          SELECT u.`u_id`, u.`u_name`,u.`u_nickname`,u.`u_phone`,u.`u_idcard` FROM `user` u WHERE u.`u_id`= #{u_id}
     </select>
+
+    <!-- 编辑个人中心基本资料 -->
+    <update id="updateOrder" parameterType="User">
+        UPDATE `user` u SET u.`u_nickname`=#{u_nickname},u.`u_phone`=#{u_phone},u.`u_idcard`=#{u_idcard}  WHERE u.`u_id`=#{u_id}
+    </update>
 </mapper>

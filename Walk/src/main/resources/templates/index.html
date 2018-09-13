@@ -43,7 +43,7 @@
                 <li><a href="../center/index.html" target="_blank">个人中心</a></li>-->
                 <li th:if="${session.user} eq null"><a href="indexLogin.action" class="button special">登   录</a></li>
                 <li th:if="${session.user} ne null">
-                    <a th:href="@{Order.action(u_id=${session.user.u_id})}" style="color: #FC6734; font-weight: bold;"  th:text="'欢迎回来:'+${session.user.u_nickname}">登   录</a>
+                    <a th:href="@{Order.action(xz=1,u_id=${session.user.u_id},o_id=null)}" style="color: #FC6734; font-weight: bold;"  th:text="'欢迎回来:'+${session.user.u_nickname}">登   录</a>
                 </li>
                 <li th:if="${session.user} ne null"><a href="#">退   出</a></li>
 
