@@ -2102,7 +2102,7 @@ top:0;
 	margin:2em 0 0 0;
 }
 .p-table-grids {
-    border: solid 1px #E1E7EA;
+
 }
 .p-table:nth-child(2){
 	margin:2em 0;
@@ -2112,7 +2112,7 @@ top:0;
 }
 .p-table-grad-heading h6{
     padding: 1em;
-    font-size: 1em;
+    font-size: 25px;
     font-weight: 600;
     color: #292929;
 }
@@ -2120,7 +2120,7 @@ top:0;
     padding: 1em;
 }
 .p-table-grid-info a img{
-	width:145%;
+	width:100%;
 }
 .room-basic-info {
     padding: 1em 0;
