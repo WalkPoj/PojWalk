@@ -10,6 +10,8 @@ import java.io.Serializable;
 public class Scenery implements Serializable {
     //景区id
     private int s_id;
+    //
+    private int s_city;
     //景区评分
     private double s_num;
     //景区负责商家

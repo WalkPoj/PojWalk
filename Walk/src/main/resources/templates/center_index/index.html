@@ -290,7 +290,7 @@
             $(".bj").css("display","block");
             var item_input = document.getElementsByClassName('item_input');
             for(i = 0; i < item_length; i++){
-                item_value[i] = item_input[i].value;
+                item_value[i] = item_input[i].value();
             }
             for(i = 0; i < item_length; i++){
                 item[i].innerHTML = item_value[i];

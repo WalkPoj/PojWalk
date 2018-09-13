@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <meta name="keywords" content="Govihar Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design">
+    <meta name="keywords">
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
@@ -74,25 +73,13 @@
                                 <!--图片轮播至少两张照片-->
                                 <li th:each="img,imgStat:${imglb}" style="width: 693px; float: left; display: block;"
                                     class="clone">
-                                    <img th:src="'http://localhost:9352/walk_img/'+${Dir}+'/'+'lb/'+${img}" alt="">
+                                    <img th:src="'http://www.yihao86.cn:9352/walk_img/'+${Dir}+'/'+'lb/'+${img}" alt="">
                                 </li>=
 
                             </ul>
                         </div>
                     </div>
-                    <!-- FlexSlider 轮播脚本，勿删 -->
-                    <script defer="" src="js/jquery.flexslider.js"></script>
-                    <script>
-                        // Can also be used with $(document).ready()
-                        $(window).load(function () {
-                            $('.flexslider').flexslider({
-                                animation: "slide",
-                                slideshowSpeed:3000,
-                                prevText: " > ", //String: 上一项的文字
-                                nextText: " > " //String: 下一项的文字
-                            });
-                        });
-                    </script>
+
 
                 </div>
                 <div class="col-md-4 single-gd-rt">
@@ -192,7 +179,7 @@
                         <ul style="list-style: none">
                             <li th:each="imgxq,imgStat:${imgXq}">
                                 <div class="p-table-grid-info">
-                                    <a href="#"><img th:src="'http://localhost:9352/walk_img/'+${Dir}+'/'+'xq/'+${imgxq}" alt=""></a>
+                                    <a href="#"><img th:src="'http://www.yihao86.cn:9352/walk_img/'+${Dir}+'/'+'xq/'+${imgxq}" alt=""></a>
                                 </div>
                             </li>
                         </ul>
@@ -319,6 +306,19 @@
     }
     var myCity = new BMap.LocalCity();
     myCity.get(myFun);
+</script>
+<!-- FlexSlider 轮播脚本，勿删 -->
+<script defer="" src="js/jquery.flexslider.js"></script>
+<script>
+    // Can also be used with $(document).ready()
+    $(window).load(function () {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            slideshowSpeed:3000,
+            prevText: " > ", //String: 上一项的文字
+            nextText: " > " //String: 下一项的文字
+        });
+    });
 </script>
 </body>
 </html>
