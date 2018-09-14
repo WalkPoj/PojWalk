@@ -1,11 +1,14 @@
 package com.walk.controller;
 
+import com.show.api.ShowApiRequest;
 import com.walk.pojo.User;
 import com.walk.service.OrderService;
 import com.walk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class LoginsController {
@@ -23,6 +27,9 @@ public class LoginsController {
 
     @Autowired
     private OrderService ove;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 跳转登录页面
@@ -84,14 +91,61 @@ public class LoginsController {
         return uve.PhoneExists(u_phone);
     }
 
+    /**
+     * 个人中心操作
+     * @param xz
+     * @param o_id
+     * @param mod
+     * @param session
+     * @return
+     */
     @RequestMapping("/Order.action")
-    public String Order(int u_id,Model mod){
-        //查询个人中心我的订单
-        List<Map<String,Object>> order=ove.selectOrder(u_id);
+    public String Order(String xz,String o_id,Model mod,HttpSession session){
+        User user=(User)session.getAttribute("user");
+        List<Map<String,Object>> order=null;
+        if(o_id!=null){
+            //查看详情订单
+            order=ove.selectOrder(0,o_id);
+        }else{
+            //我的订单信息
+            order=ove.selectOrder(user.getU_id(),null);
+        }
         //查询个人中心基本信息
-        User us=ove.selectUserOrder(u_id);
+        User us=ove.selectUserOrder(user.getU_id());
+        mod.addAttribute("xz",xz);
         mod.addAttribute("order",order);
         mod.addAttribute("us",us);
         return "center_index/index";
+    }
+
+    @RequestMapping("/updateOrder.action")
+    public String updateOrder(User user,String o_id){
+        if(ove.updateOrder(user)){
+            System.out.println("1"+user.getU_id()+"修改成功");
+        }else{
+            System.out.println("2"+user.getU_id()+"修改失败");
+        }
+        return "redirect:/Order.action?xz=1&u_id="+user.getU_id()+"&o_id="+o_id;
+    }
+
+    @PostMapping("SaveUser")
+    public String addUser(User u){
+
+
+        return "index";
+    }
+    String appid = "71437";
+    String secret = "a2e0ddb9fc5b4421ba305e9464b12462";
+
+    @PostMapping("SaveNumbertoRides")
+    @ResponseBody
+    public String SaveNumbertoRides(String u_phone){
+        int random = (int)((Math.random()*9+1)*100000);
+        String r = String.valueOf(random);
+        redisTemplate.opsForValue().set("u_phone_"+u_phone,r);
+        redisTemplate.expire("u_phone_"+u_phone,1800,TimeUnit.SECONDS);
+        String res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", ""+u_phone+"").addTextPara("content", "{ code:'"+r+"',minute:'3',name:'"+u_phone+"'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();
+        System.out.println(res);
+        return "ok";
     }
 }

@@ -45,4 +45,11 @@ public interface UserService {
      * @return
      */
     public boolean PhoneExists(String u_phone);
+
+    /**
+     * 注册
+     * @param u
+     * @return
+     */
+    public int addUser(User u);
 }

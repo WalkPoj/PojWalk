@@ -48,4 +48,11 @@ public interface UserDao {
      * @return
      */
     public int PhoneExists(@Param("u_phone") String u_phone);
+
+    /**
+     * 注册
+     * @param u
+     * @return
+     */
+    public int addUser(User u);
 }

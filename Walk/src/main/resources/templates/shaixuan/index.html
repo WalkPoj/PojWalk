@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -57,6 +57,7 @@
     </div>
 </div>
 <script>
+
     $(function(){
         $(".shaixuan-tj span.crumb-select-item").live('hover',function(event){
             if(event.type=='mouseenter'){ 
@@ -69,11 +70,13 @@
             event.preventDefault();
             $(this).remove();
             var TTR = $(this).find("em").text();
+            var bbt = $(this).find("b").text();
             $(".show-con a").each(function(){
                 var TT = $(this).text();
                     THI = $(this);
                     THIPP = $(this).parents("dl");
                 if(TTR==TT){
+                    cacanleData_v(bbt);
                     THI.removeClass("nzw12");
                     THIPP.css("display","block");
                 }
@@ -87,11 +90,11 @@
                 $(this).addClass("nzw12");
                 var zhiclass = $(this).parents("dd").siblings("dt").find("a").text();
                     zhicon = $(this).text();
-                    //获取参数，发送Ajax
-
-                    alert(zhicon);
                     tianjaneir="<span class='crumb-select-item'><a href='/'><b>"+zhiclass+"</b><em>"+zhicon+"</em><i class='icon-remove'></i></a></span>"
                 $(".shaixuan-tj").children().last().after(tianjaneir);
+                //获取参数，发送Ajax
+                var data_v = $(".crumb-select-item").text();
+                sendData_v(zhiclass,zhicon);
                 THIP.css("display","none");
             }
         });
@@ -106,6 +109,24 @@
             alert(arr)
         })
     })
+
+    /**
+     * 发送条件
+     * @param data_v
+     * @param data_c
+     */
+    function sendData_v(data_v,data_c) {
+        location.href = "/MX/Shaixuan?Da="+data_v+"&Dc="+data_c;
+    }
+
+    /**
+     * 取消条件
+     * @param data_v
+     */
+    function cacanleData_v(data_v) {
+        $.post("/MX/Quxiao?Da="+data_v);
+
+    }
 </script>
 </body>
 </html>

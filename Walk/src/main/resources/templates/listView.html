@@ -17,9 +17,7 @@
     <link rel="shortcut icon" href="images/bitbug_favicon.ico" />
     <!--个人中心按钮样式--->
     <link rel="stylesheet" href="assets/css/oneCenter.css">
-    <script src="assets/js/autoiframe.js"></script>
-    <script src="assets/js/jquery-3.1.1.min.js"></script>
-    <script src="assets/js/toTop.js"></script>
+
 
 </head>
 <body class="index">
@@ -30,21 +28,19 @@
         <nav id="nav">
             <ul>
                 <li class="current"><a href="index.html">首页</a></li>
-                <li><a href="listView.html">所有景点</a></li>
-                <li class="submenu">
-                    <a href="#">更多</a>
+                <li><a href="listView.html" style="margin-right: 20px">所有景点</a></li>
+                <li><a th:if="${session.user} eq null" href="indexLogin.action" class="button special">登   录</a></li>
+                <li th:if="${session.user} ne null" class="submenu">
+                    <a th:text="'欢迎回来:'+${session.user.u_nickname}">欢迎回来，</a>
                     <ul>
                         <li class="submenu">
-                            <a href="#">默认</a>
-                            <ul>
-                                <li><a href="#">默认</a></li>
-                            </ul>
+                            <a th:href="@{Order.action(xz=1,u_id=${session.user.u_id},o_id=null)}" th:if="${session.user} ne null" href="#">个人中心</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="#">注销</a>
                         </li>
                     </ul>
                 </li>
-                <!--登录成功之后显示个人中心-->
-                <li><a href="center/index.html" target="_blank" id="center">个人中心</a></li>
-                <!--<li><a href="login/index.html" style="border-radius: 12px;" class="button special">登   录</a></li>-->
             </ul>
         </nav>
     </header>
@@ -74,15 +70,14 @@
 </div>
 <!-- Scripts -->
 <script src="center/js/jquery.min.js"></script>
-<script src="assets/js/jquery.dropotron.min.js"></script>
 <script src="assets/js/jquery.scrolly.min.js"></script>
 <script src="assets/js/jquery.scrollgress.min.js"></script>
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
-
+<script src="assets/js/autoiframe.js"></script>
+<script src="assets/js/toTop.js"></script>
 <!--[if lte IE 8]>
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="assets/js/main.js"></script>
 <script type="text/javascript">
     $(window).load(function(){
         $("#listViewifa").append("<iframe src=\"listView?sPage=1&ePage=11\" name=\"ifd\" onload=\"this.height=2250\" width=\"100%\" scrolling=\"no\" frameborder=\"0\" style=\"margin: 116px 0px -73px -70px;\"></iframe>");

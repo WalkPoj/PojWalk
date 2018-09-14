@@ -14,53 +14,35 @@
     <link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
     <!--logo-->
     <link rel="shortcut icon" href="images/bitbug_favicon.ico" />
-    <script src="assets/js/autoiframe.js"></script>
-
-
 
 </head>
 <body class="index">
 <div id="page-wrapper">
-    <!-- Header -->
     <header id="header" class="alt" style="z-index: 1">
         <h1 id="logo"><a href="index.html"><img src="images/TIM图片20180804120320.png" height="30" width="60"/></a></h1>
         <nav id="nav">
             <ul>
                 <li class="current"><a href="index.html">首页</a></li>
-                <li><a href="listView.html">所有景点</a></li>
-                <!--<li class="submenu">-->
-                    <!--<a href="#">更多</a>-->
-                    <!--<ul>-->
-                        <!--<li class="submenu">-->
-                            <!--<a href="#">默认</a>-->
-                            <!--<ul>-->
-                                <!--<li><a href="#">默认</a></li>-->
-                            <!--</ul>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</li>-->
-                <!--登录成功后显示个人中心
-                <li><a href="../center/index.html" target="_blank">个人中心</a></li>-->
-                <li th:if="${session.user} eq null"><a href="indexLogin.action" class="button special">登   录</a></li>
-                <li th:if="${session.user} ne null">
-                    <a th:href="@{Order.action(u_id=${session.user.u_id})}" style="color: #FC6734; font-weight: bold;"  th:text="'欢迎回来:'+${session.user.u_nickname}">登   录</a>
+                <li><a href="listView.html" style="margin-right: 20px">所有景点</a></li>
+                <li><a th:if="${session.user} eq null" href="indexLogin.action" class="button special">登   录</a></li>
+                <li th:if="${session.user} ne null" class="submenu">
+                    <a th:text="'欢迎回来:'+${session.user.u_nickname}">欢迎回来，</a>
+                    <ul>
+                        <li class="submenu">
+                            <a th:href="@{Order.action(xz=1,u_id=${session.user.u_id},o_id=null)}" th:if="${session.user} ne null" href="#">个人中心</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="#">注销</a>
+                        </li>
+                    </ul>
                 </li>
-                <li th:if="${session.user} ne null"><a href="#">退   出</a></li>
-
             </ul>
         </nav>
     </header>
 
     <!-- Banner -->
     <section id="banner">
-        <!--
-            ".inner" is set up as an inline-block so it automatically expands
-            in both directions to fit whatever's inside it. This means it won't
-            automatically wrap lines, so be sure to use line breaks where
-            appropriate (<br />).
-        -->
         <div class="inner">
-
             <header>
                 <h2>说走就走</h2>
             </header>
@@ -73,19 +55,16 @@
                     </ul>
                 </footer>
         </div>
-
     </section>
 
-    <!-- Main -->
     <article id="main">
-
         <header class="special container">
             <h2><!--[-->为您推荐<!--]--></h2>
         </header>
+        <!--引用首页-->
         <div id="syifa">
 
         </div>
-
         <!-- Three -->
         <section class="wrapper style3 container special">
             <footer class="major">
@@ -94,33 +73,32 @@
                 </ul>
             </footer>
         </section>
-
     </article>
     <!-- Footer -->
     <footer id="footer">
-
         <ul class="copyright">
             <li>漫行 &copy; 2018</li>
             <li>解释权由漫行所有</li>
         </ul>
-
     </footer>
 </div>
 <!-- Scripts -->
-<script src="center/js/jquery.min.js"></script>
-<script src="assets/js/toTop.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/jquery.dropotron.min.js"></script>
 <script src="assets/js/jquery.scrolly.min.js"></script>
 <script src="assets/js/jquery.scrollgress.min.js"></script>
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
-
+<script src="assets/js/autoiframe.js"></script>
+<script src="assets/js/toTop.js"></script>
 <!--[if lte IE 8]>
 <script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="assets/js/main.js"></script>
 <script type="text/javascript">
     $(window).load(function(){
-        $("#syifa").append("<iframe src=\"indexShow\" name=\"ifd\" onload=\"this.height=955\" width=\"100%\" scrolling=\"false\" frameborder=\"0\"></iframe>");
+        $("#syifa").append("<iframe src=\"indexShow\" name=\"ifd\" height=\"400px\" onload=\"this.height=955\" width=\"100%\" scrolling=\"false\" frameborder=\"0\"></iframe>");
     })
 </script>
+
 </body>
 </html>

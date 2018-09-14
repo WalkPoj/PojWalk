@@ -41,23 +41,40 @@ AND pc_send LIKE CONCAT(#{stime},'%')
 	<insert id="Saveperson" parameterType="Person">
 INSERT INTO person(u_id,pe_name,pe_cardid,pe_phone) VALUES(#{u_id},#{pe_name},#{pe_cardid},#{pe_phone})
 	</insert>
-	<!--<select id="selectByMod" parameterType="Scenery">-->
-		<!--SELECT * FROM scenery-->
-		<!--<where>-->
-			<!--<if test="s_city &gt; 0 and s_price &lt;1000 ">-->
-				<!--AND s_price &gt; 1000-->
-				<!--AND s_price &lt; 2500-->
-			<!--</if>-->
-			<!--<if test="s_price &gt; 0 and s_price &lt;1000 ">-->
-				<!--AND s_price &gt; 1000-->
-				<!--AND s_price &lt; 2500-->
-			<!--</if>-->
-		<!--</where>-->
-		<!--WHERE s_city = 5-->
-		<!--AND s_price &gt; 1000-->
-		<!--AND s_price &lt; 2500-->
-		<!--ORDER BY s_num-->
-		<!--DESC-->
-	<!--</select>-->
+	<select id="selectByMod" resultType="Scenery">
+		SELECT * FROM scenery
+		<where>
+			<if test="s_city &gt; 0">
+				s_city = #{s_city}
+			</if>
+			<if test="s_price &gt; 0 and s_price &lt;1000 ">
+				AND s_price &gt; 0
+				AND s_price &lt; 1000
+			</if>
+			<if test="s_price &gt; 1000 and s_price &lt;2500 ">
+				AND s_price &gt; 1000
+				AND s_price &lt; 2500
+			</if>
+			<if test="s_price &gt; 2500 and s_price &lt;3500 ">
+				AND s_price &gt; 2500
+				AND s_price &lt; 3500
+			</if>
+			<if test="s_price &gt; 3500 and s_price &lt;5500 ">
+				AND s_price &gt; 3500
+				AND s_price &lt; 5500
+			</if>
+			<if test="s_price &gt; 5500 and s_price &lt;9500 ">
+				AND s_price &gt; 5500
+				AND s_price &lt; 9500
+			</if>
+			<if test="s_price &gt; 9500">
+				AND s_price &gt; 9500
+			</if>
+		</where>
+		<if test="s_num != 0">
+			ORDER BY s_num
+			DESC
+		</if>
+	</select>
 
 </mapper>

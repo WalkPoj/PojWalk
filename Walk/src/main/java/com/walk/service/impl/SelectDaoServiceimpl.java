@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.walk.dao.SelectDao;
 import com.walk.pojo.*;
 import com.walk.service.SelectDaoService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -74,5 +75,10 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     @Override
     public int Saveperson(Person per) {
         return sdao.Saveperson(per);
+    }
+
+    @Override
+    public List<Scenery> selectByMod(int s_city,int s_price,int s_num) {
+        return sdao.selectByMod(s_city,s_price,s_num);
     }
 }

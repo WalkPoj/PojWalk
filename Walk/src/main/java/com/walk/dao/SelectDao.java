@@ -29,7 +29,14 @@ public interface SelectDao {
 
     //新增订单
     public int SaveOrder(The_order to);
+
     //新增旅客
     public int Saveperson(Person per);
+
+    //筛选
+    public List<Scenery> selectByMod(@Param("s_city")int s_city,@Param("s_price")int s_price,@Param("s_num")int s_num);
+
+
+
 }
 
