@@ -13,6 +13,41 @@
     <link rel="stylesheet" type="text/css" href="css/public.css">
     <script src="js/style.js"></script>
     <script type="text/javascript">
+        function run(){
+            var ph = $(".safinput1").eq(3).val();
+            var btn = $("#sss");
+            var time = 10;//定义时间变量。用于倒计时用
+            var timer = null;//定义一个定时器；
+            var phone=/^1[3|4|5|7|8][0-9]{9}$/;
+            if(ph==""){
+                alert("请输入手机号！");
+                return false;
+            }else if(phone.test(ph)==false){
+                alert("请输入正确的手机号！");
+                $(".safinput1").eq(3).focus();
+            }else {
+                $.ajax({
+                    type: "post",
+                    url:"../SaveNumbertoRides",
+                    data:ph
+                });
+                timer = setInterval(function () {///开启定时器。函数内执行
+                    btn.disabled = true;
+                    btn.innerText = "(" + time + "s)秒后重新发送";    //点击发生后，按钮的文本内容变成之前定义好的时间值。
+                    btn.text(btn.innerText);
+                    //alert( btn.innerText);
+                    time--;//时间值自减
+                    if (time == 0) {     //判断,当时间值小于等于0的时候
+                        btn.innerText = '重新发送验证码'; //其文本内容变成……点击重新发送……
+                        btn.html("<a href='javascript:run()' style='color:#0000FF'>" + btn.innerText + "</a>");
+                        btn.disabled = false;
+                        clearInterval(timer); //清除定时器
+                    }
+                }, 1000)
+            }
+
+
+        }
         <!--密码修改验证-->
         function  sub() {
             var uid = [[${uid}]];
@@ -111,7 +146,7 @@
 
         <dt>
             <strong>手机号码：</strong>
-            <span>保障账户与资金安全，是您在融合天下重要的身份凭证</span>
+            <span>保障账户与资金安全，是您在漫行重要的身份凭证</span>
             <b><span class="glyphicon glyphicon-ok"> </span>已经设置 </b>
             <em>修改</em>
         </dt>
@@ -130,7 +165,7 @@
                     </tr>
                     <tr>
                         <td width="35%" align="right">验证码：</td>
-                        <td><input type="text" class="safinput2" /> <button>点击获取</button></td>
+                        <td><input type="text" class="safinput2" /> <span id="sss"><a href="#" onclick="run()" style="color:#0000FF">点击获取</a></span></td>
                     </tr>
                     <tr>
                         <td width="35%" align="right">身份证号：</td>
@@ -150,7 +185,7 @@
                     </tr>
                     <tr>
                         <td width="35%" align="right">验证码：</td>
-                        <td><input type="text" class="safinput2" /> <button>点击获取</button></td>
+                        <td><input type="text" class="safinput2" /><span onclick="run()" id="scsc">点击获取</span></td>
                     </tr>
                     <tr>
                         <td width="35%" align="right">身份证号：</td>

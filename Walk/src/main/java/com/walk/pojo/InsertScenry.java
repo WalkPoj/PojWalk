@@ -10,6 +10,7 @@ import lombok.Setter;
  */
 public class InsertScenry {
     private  int s_id;
+    private  int s_city;
     private  int m_id;
     private String s_title;
     private String s_txt;

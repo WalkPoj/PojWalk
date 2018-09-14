@@ -6,7 +6,7 @@ body{ font-family:"微软雅黑"; font-size:1.2em; background:#F0EFF4;}
 img,a{border:0; text-decoration:none;}
 ol, ul {list-style: none; }
 .clears{ clear:both;}
-a{color:#333;
+a{color:#0000FF;
 	-webkit-transition: all .3s ease-out;
 	-moz-transition: all .3s ease-out;
 	transition: all .3s ease-out;}

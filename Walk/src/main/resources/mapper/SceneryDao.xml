@@ -25,7 +25,7 @@
         order by ${sort} ${order} limit #{page},#{rows}
     </select>
     <insert id="insertScenry" parameterType="InsertScenry">
-        INSERT INTO `scenery`(`m_id`,`s_title`,`s_txt`,`s_img`,`s_fmImg`,`s_price`,`s_price_yuan`) VALUES(#{m_id},#{s_title},#{s_txt},#{s_img},#{s_fmImg},#{s_price},#{s_price_yuan})
+         INSERT INTO `scenery`(`m_id`,`s_city`,`s_title`,`s_txt`,`s_img`,`s_fmImg`,`s_price`,`s_price_yuan`) VALUES(#{m_id},#{s_city},#{s_title},#{s_txt},#{s_img},#{s_fmImg},#{s_price},#{s_price_yuan})
     </insert>
     <delete id="deleteScenry" parameterType="list">
         DELETE FROM `scenery` WHERE `s_id` IN
@@ -37,6 +37,6 @@
         SELECT * FROM `scenery` WHERE `s_id`=#{s_id}
     </select>
     <update id="updateScenery" parameterType="InsertScenry">
-         UPDATE `scenery` SET `s_title`=#{s_title},`s_price`=#{s_price},`s_price_yuan`=#{s_price_yuan},`s_txt`=#{s_txt},`s_fmImg`=#{s_fmImg} WHERE `s_id`=#{s_id}
+         UPDATE `scenery` SET `s_title`=#{s_title},`s_city`=#{s_city},`s_price`=#{s_price},`s_price_yuan`=#{s_price_yuan},`s_txt`=#{s_txt},`s_fmImg`=#{s_fmImg} WHERE `s_id`=#{s_id}
     </update>
 </mapper>

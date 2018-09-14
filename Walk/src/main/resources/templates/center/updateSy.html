@@ -33,6 +33,15 @@
                 <td><input type="text" name="s_title" style="width: 95%;height: 25px" th:value="${scenery.s_title}"/></td><td><span class="title" style="display:block;" /></td>
             </tr>
             <tr>
+                <td>所属地区:</td>
+                <td>
+                    <SELECT id="qtext" name="s_city">
+                        <OPTION selected value="0">请选择</OPTION>
+                        <OPTION  th:each="n,nsStat:${session.list}" th:value="${n.c_id  }" th:text="${n.c_name }" th:selected="${n.c_id==scenery.s_city}"></OPTION>
+                    </SELECT>
+                </td><td><span class="titlec" style="display:block;" /></td>
+            </tr>
+            <tr>
                 <td>景点价格:</td>
                 <td><input type="text" name="s_price"style="width: 95%;height: 25px" th:value="${scenery.s_price}"/></td><td><span class="price" style="display:block;"/></td>
             </tr>
@@ -81,6 +90,13 @@
                     }
                     break;
                 case 3:
+                    if (input.eq(i).val() == 0) {
+                        $(".titlec").text("请选择地区!").css("color","red");
+                        input.eq(i).focus();
+                        return false;
+                    }
+                    break;
+                case 4:
                     if (input.eq(i).val()!="") {
                         if (!price.test(input.eq(i).val())){
                             input.eq(i).val("");
@@ -89,7 +105,7 @@
                         $(".price").text("")
                     }
                     break;
-                case 4:
+                case 5:
                     if (input.eq(i).val() != "") {
                         if (!price.test(input.eq(i).val())){
                             input.eq(i).val("");
@@ -99,7 +115,7 @@
 
                     }
                     break;
-                case 5:
+                case 6:
                     if (input.eq(i).val() != "") {
                         $(".txt").text("");
 

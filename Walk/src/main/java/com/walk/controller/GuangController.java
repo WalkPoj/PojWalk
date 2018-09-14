@@ -1,14 +1,11 @@
 package com.walk.controller;
 
-import com.walk.pojo.Echarts;
-import com.walk.pojo.InsertScenry;
-import com.walk.pojo.Mark;
-import com.walk.pojo.Scenery;
+import com.walk.pojo.*;
+import com.walk.service.CityService;
 import com.walk.service.MorderService;
 import com.walk.service.SceneryService;
 import com.walk.service.UserService;
 import com.walk.util.Message;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +32,9 @@ public class GuangController {
 
     @Autowired
     private MorderService mve;
+
+    @Autowired
+    private CityService cve;
 
     @RequestMapping("/Guang")
     public String Guang(int uid, int mid, HttpServletRequest request) {
@@ -102,9 +102,12 @@ public class GuangController {
     }
 
     @RequestMapping("/xinzeng")
-    public String xinzeng() {
+    public String xinzeng(HttpSession session) {
         System.out.println("进来玩啊");
-        return "redirect:../scsc.html";
+        //查询地区
+        List<City> list = this.cve.selectCity();
+        session.setAttribute("list",list);
+        return "center/scsc";
     }
 
     @RequestMapping("bianji")
@@ -116,6 +119,8 @@ public class GuangController {
             System.out.println("wj" + name);
         }
         getFile("C:/tomcat_media/webapps/walk_img/beiji_2018090737270",0);
+        List<City> lists = this.cve.selectCity();
+        session.setAttribute("list",lists);
         Scenery scenery = this.sve.selectnoeScenery(s_id);
         request.getSession().setAttribute("s_id",s_id);
         request.getSession().setAttribute("s_fmImg",scenery.getS_fmImg());
@@ -216,8 +221,6 @@ public class GuangController {
                 isf = 2;
                 list = xiugaiFile(request, filess, list, isf, fm);
             }
-            if (files.length < 6 && files.length > 0) {
-                if (myfiles.length > 0) {
                     if (files != null && files[0].getSize() > 0) {
                         isf = 0;
                         for (int i = 0; i < files.length; i++) {
@@ -231,14 +234,7 @@ public class GuangController {
                     for (int i = 0; i < list.size(); i++) {
                         System.out.println("集合里面的数据" + list.get(i));
                     }
-                } else {
-                    return "nomin";
-                }
-            } else {
-                return "nomax";
-            }
-            if (myfiles[0].getSize() > 0) {
-                if (files != null && files[0].getSize() > 0) {
+
                     if (myfiles != null && myfiles.length > 0) {
                         isf = 1;
                         for (int i = 0; i < myfiles.length; i++) {
@@ -246,12 +242,7 @@ public class GuangController {
                             list = xiugaiFile(request, myfile, list, isf, dz);
                         }
                     }
-                } else {
-                    return "nomax";
-                }
-            } else {
-                return "nomin";
-            }
+
         }
         return "somss";
     }
@@ -302,6 +293,7 @@ public class GuangController {
                               InsertScenry insertScenry, HttpServletRequest request) {
         InsertScenry is = insertScenry;
         Mark mark = (Mark) request.getSession().getAttribute("mark");
+        System.out.println("城市"+is.getS_city());
         System.out.println("商家id" + mark.getM_id());
         System.out.println("标题" + insertScenry.getS_title());
         System.out.println("详情" + insertScenry.getS_txt());
@@ -440,5 +432,11 @@ public class GuangController {
         }
         return  list;
     }
+
+//    /**
+//     * 发送手机
+//     */
+//    @RequestMapping("/isPhone")
+//    public void isPhone(String u_phone){}
 
 }
