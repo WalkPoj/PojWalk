@@ -1,4 +1,4 @@
-package com.api.util;
+package com.walk.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,8 +9,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
 
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import com.show.api.Constants;
 import com.show.api.FileItem;
+import com.show.api.util.StringUtils;
 
 /**
  * 系统工具类。

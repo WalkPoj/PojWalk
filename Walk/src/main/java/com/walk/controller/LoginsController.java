@@ -1,5 +1,6 @@
 package com.walk.controller;
 
+import com.show.api.ShowApiRequest;
 import com.walk.pojo.User;
 import com.walk.service.OrderService;
 import com.walk.service.UserService;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class LoginsController {
@@ -131,5 +133,19 @@ public class LoginsController {
 
 
         return "index";
+    }
+    String appid = "71437";
+    String secret = "a2e0ddb9fc5b4421ba305e9464b12462";
+
+    @PostMapping("SaveNumbertoRides")
+    @ResponseBody
+    public String SaveNumbertoRides(String u_phone){
+        int random = (int)((Math.random()*9+1)*100000);
+        String r = String.valueOf(random);
+        redisTemplate.opsForValue().set("u_phone_"+u_phone,r);
+        redisTemplate.expire("u_phone_"+u_phone,1800,TimeUnit.SECONDS);
+        String res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", ""+u_phone+"").addTextPara("content", "{ code:'"+r+"',minute:'3',name:'"+u_phone+"'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();
+        System.out.println(res);
+        return "ok";
     }
 }

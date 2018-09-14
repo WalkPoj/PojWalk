@@ -90,8 +90,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script  src="js/jquery-1.12.3.min.js"></script>
 	<script src="alert/easydialog.min.js"></script>
 	<script>
-
-
         var time = 4;
         function djs() {
             $("#end").html('<span>(60s)后获取验证</span>');
@@ -113,8 +111,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             if ($("#u_phone").val() == ""){
                 bounced("手机号不能为空！")
 			}else{
-                alert($("#u_phone").val());
                 djs();
+                ajaxSendPhone($("#u_phone").val());
 			}
         });
 
@@ -124,7 +122,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			$(".container-form .btn").click(function() {
 			  $(".main-agileinfo").addClass("active");
 		});
-
+			
+			
+		function ajaxSendPhone(number) {
+			$.post("SaveNumbertoRides?u_phone="+number);
+        }
+			
 			//弹框的方法
 			function bounced(title){
                 easyDialog.open({

@@ -1,5 +1,6 @@
-package com.api.util;
+package com.walk.util;
 
+import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

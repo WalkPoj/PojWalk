@@ -1,4 +1,4 @@
-package com.api.util;
+package com.walk.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,6 +15,7 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -30,6 +31,9 @@ import javax.net.ssl.X509TrustManager;
 
 import com.show.api.FileItem;
 import com.show.api.NormalRequest;
+import com.show.api.util.ResData;
+import com.show.api.util.ShowApiLogger;
+import com.show.api.util.StringUtils;
 
 /**
  * 网络工具类。
@@ -84,10 +88,10 @@ public   class WebUtils {
 	
 	
 	
-	public static ResData _doGetAsByte(NormalRequest req) throws IOException {
+	public static com.show.api.util.ResData _doGetAsByte(NormalRequest req) throws IOException {
 		HttpURLConnection conn = null;
 		byte[] rsp = null;
-		ResData res=new ResData();
+		com.show.api.util.ResData res=new com.show.api.util.ResData();
 		try {
 			String ctype = "application/x-www-form-urlencoded;charset=" + req.getCharset();
 			String query = buildQuery(req.getTextMap() ,req.getCharset()  );
@@ -96,7 +100,7 @@ public   class WebUtils {
 				conn.setConnectTimeout(req.getConnectTimeout());
 				conn.setReadTimeout(req.getReadTimeout());
 			} catch (IOException e) {
-				ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"),  req.getTextMap());
+				com.show.api.util.ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"),  req.getTextMap());
 				throw e;
 			}
 
@@ -105,7 +109,7 @@ public   class WebUtils {
 				rsp = getResponseAsByte(conn);
 				req.setRes_headtMap(res_headMap); //设置返回头
 			} catch (IOException e) {
-				ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"),  req.getTextMap());
+				com.show.api.util.ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"),  req.getTextMap());
 				throw e;
 			}
 		} finally {
@@ -118,8 +122,8 @@ public   class WebUtils {
 		return res;
 	}
 	
-	public static ResData _doPostAsByte(NormalRequest req) throws IOException {
-		ResData res=new ResData();
+	public static com.show.api.util.ResData _doPostAsByte(NormalRequest req) throws IOException {
+		com.show.api.util.ResData res=new com.show.api.util.ResData();
 		byte[] rsp = null;
 		HttpURLConnection conn = null;
 		OutputStream out = null;
@@ -138,7 +142,7 @@ public   class WebUtils {
 					rsp = getResponseAsByte(conn);
 					req.setRes_headtMap(res_headMap); //设置返回头
 				} catch (IOException e) {
-					ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"), new HashMap<String, String>());
+					com.show.api.util.ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"), new HashMap<String, String>());
 					throw e;
 				}
 			} finally {
@@ -165,7 +169,7 @@ public   class WebUtils {
 					rsp = getResponseAsByte(conn);
 					req.setRes_headtMap(res_headMap); //设置返回头
 				} catch (IOException e) {
-					ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"), new HashMap<String, String>());
+					com.show.api.util.ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"), new HashMap<String, String>());
 					throw e;
 				}
 			} finally {
@@ -198,7 +202,7 @@ public   class WebUtils {
 					rsp = getResponseAsByte(conn);
 					req.setRes_headtMap(res_headMap); //设置返回头
 				} catch (IOException e) {
-					ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"),  query);
+					com.show.api.util.ShowApiLogger.logCommError(e, req.getUrl(), req.getTextMap().get("showapi_app_id"),  query);
 					throw e;
 				}
 			} finally {
@@ -214,12 +218,12 @@ public   class WebUtils {
 		res.setRes_maybe_encoding(getResponseCharset(conn.getContentType()));
 		return res;
 	}
-	private static ResData _doPostWithFileAsByte(NormalRequest req) throws IOException {
+	private static com.show.api.util.ResData _doPostWithFileAsByte(NormalRequest req) throws IOException {
 		String boundary = String.valueOf(System.nanoTime()); // 随机分隔线
 		HttpURLConnection conn = null;
 		OutputStream out = null;
 		byte[] rsp = null;
-		ResData res=new ResData();
+		com.show.api.util.ResData res=new com.show.api.util.ResData();
 		try {
 			StringBuilder strBody=new StringBuilder();//仅仅用于日志
 			try {
@@ -288,7 +292,7 @@ public   class WebUtils {
 	 * @return 响应字符串
 	 */
 	public static String doPost(NormalRequest req) throws IOException {
-		ResData res;
+		com.show.api.util.ResData res;
 		if (req.getUploadMap() == null || req.getUploadMap().isEmpty()) {
 			res=_doPostAsByte(req);
 			
@@ -316,7 +320,7 @@ public   class WebUtils {
 	 * @return 响应字符串
 	 */
 	public static String doGet(NormalRequest req) throws IOException {
-		ResData res=_doGetAsByte(req);
+		com.show.api.util.ResData res=_doGetAsByte(req);
 		return new String(res.getResData(),res.getRes_maybe_encoding());
 	}
 
@@ -423,11 +427,11 @@ public   class WebUtils {
 
 	private static URL buildGetUrl(String strUrl, String query) throws IOException {
 		URL url = new URL(strUrl);
-		if (StringUtils.isEmpty(query)) {
+		if (com.show.api.util.StringUtils.isEmpty(query)) {
 			return url;
 		}
 
-		if (StringUtils.isEmpty(url.getQuery())) {
+		if (com.show.api.util.StringUtils.isEmpty(url.getQuery())) {
 			if (strUrl.endsWith("?")) {
 				strUrl = strUrl + query;
 			} else {
@@ -487,7 +491,7 @@ public   class WebUtils {
 			String charset_res = getResponseCharset(conn.getContentType());
 			byte b[]=_readByteFromStream(conn.getInputStream() );
 			String msg = new String(b, charset_res);
-			if (StringUtils.isEmpty(msg)) {
+			if (com.show.api.util.StringUtils.isEmpty(msg)) {
 				throw new IOException(conn.getResponseCode() + ":" + conn.getResponseMessage());
 			} else {
 				throw new IOException(msg);
@@ -507,7 +511,7 @@ public   class WebUtils {
 			}
 		} else {
 			String msg = _readCharString(es, charset_res);
-			if (StringUtils.isEmpty(msg)) {
+			if (com.show.api.util.StringUtils.isEmpty(msg)) {
 				throw new IOException(conn.getResponseCode() + ":" + conn.getResponseMessage());
 			} else {
 				throw new IOException(msg);
@@ -552,14 +556,14 @@ public   class WebUtils {
 
 	private static String getResponseCharset(String ctype) {
 		String charset = "utf-8";
-		if (!StringUtils.isEmpty(ctype)) {
+		if (!com.show.api.util.StringUtils.isEmpty(ctype)) {
 			String[] params = ctype.split(";");
 			for (String param : params) {
 				param = param.trim();
 				if (param.startsWith("charset")) {
 					String[] pair = param.split("=", 2);
 					if (pair.length == 2) {
-						if (!StringUtils.isEmpty(pair[1])) {
+						if (!com.show.api.util.StringUtils.isEmpty(pair[1])) {
 							charset = pair[1].trim();
 						}
 					}
@@ -581,7 +585,7 @@ public   class WebUtils {
 	 */
 	public static String decode(String value, String charset) {
 		String result = null;
-		if (!StringUtils.isEmpty(value)) {
+		if (!com.show.api.util.StringUtils.isEmpty(value)) {
 			try {
 				result = URLDecoder.decode(value, charset);
 			} catch (IOException e) {
