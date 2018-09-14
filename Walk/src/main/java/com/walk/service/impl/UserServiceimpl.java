@@ -60,4 +60,15 @@ public class UserServiceimpl implements UserService {
             return true;
         return false;
     }
+
+    /**
+     * 注册
+     *
+     * @param u
+     * @return
+     */
+    @Override
+    public int addUser(User u) {
+        return udao.addUser(u);
+    }
 }

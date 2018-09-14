@@ -4,8 +4,10 @@ import com.walk.pojo.User;
 import com.walk.service.OrderService;
 import com.walk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +25,9 @@ public class LoginsController {
 
     @Autowired
     private OrderService ove;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 跳转登录页面
@@ -119,5 +124,12 @@ public class LoginsController {
             System.out.println("2"+user.getU_id()+"修改失败");
         }
         return "redirect:/Order.action?xz=1&u_id="+user.getU_id()+"&o_id="+o_id;
+    }
+
+    @PostMapping("SaveUser")
+    public String addUser(User u){
+
+
+        return "index";
     }
 }

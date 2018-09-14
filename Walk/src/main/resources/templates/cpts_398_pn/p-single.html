@@ -172,10 +172,18 @@
 <script src="js/jquery-ui.js"></script>
 <!-- js -->
 <script src="js/jquery.min.js"></script>
+<script th:inline="javascript">
+    if ([[${class_num}]] == 'aaa'){
+
+    }else{
+        alert([[${class_num}]])
+    }
+</script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MZUo2VfmSZDwgV0dNNhprapCEYugzwze"></script>
 <script src="js/menu_jquery.js"></script>
 <script src="js/kuCity.js"></script>
 <script type="text/javascript">
+
     //出发日期，默认明天
     var data = new Date();
     $(function () {
@@ -200,15 +208,16 @@
             $("#Sqmin").slideToggle(500);
         })
     })
-    //提交订单
-    function Order_Data() {
-        location.href = "listOrder"
-    }
 
     //发送车票id，保存至redis，便于查询
     function Send_Classid(data_id,Tools,price,send,end) {
         $.post("Save_Redis?data_id="+data_id+"&Tools="+Tools+"&price="+price+"&send="+send+"&end="+end,function (ok) {
-            alert("您成功选择此方式"+ok)
+            if(ok == '0'){
+                alert("请先登录！");
+                parent.location.href = "indexLogin.action";
+            }else{
+                alert("您成功选择此方式，"+ok)
+            }
         })
     }
     //发送ajax查询车票

@@ -154,6 +154,7 @@ public class SelectController {
        mod.addAttribute("imgXq",imgXq);
        mod.addAttribute("s_Details",sce);
        mod.addAttribute("Dir",dir[4]);
+       mod.addAttribute("class_num","aaa");
        return "cpts_398_pn/p-single";
     }
 
@@ -197,12 +198,14 @@ public class SelectController {
     @PostMapping("Save_Redis")
     @ResponseBody
     public String Save_Redis(HttpSession session, Data_Class_INFO dci){
-        //测试放入一个用户
-        session.setAttribute("user_id","11");
-        String u_id = (String)session.getAttribute("user_id");
-        //存班次
-        redisTemplate.opsForValue().set("Data_INFO_"+u_id,dci);
-        return "点击现在支付进行，进行下一步吧~";
+        User u =(User)session.getAttribute("user");
+        if (u != null){
+            //存班次
+            redisTemplate.opsForValue().set("Data_INFO_"+u.getU_id(),dci);
+        }else{
+            return "0";
+        }
+        return "现在去支付吧~";
     }
 
     /**
@@ -211,13 +214,22 @@ public class SelectController {
      */
     @RequestMapping("listOrder")
     public String OrderHtml(HttpSession session,Model mod,Data_Order data_order){
-        String u_id = (String)session.getAttribute("user_id");
-        System.out.println(data_order.getPerson_num());
+        User u = (User)session.getAttribute("user");
+        if (u != null){
+            Data_Class_INFO dci = (Data_Class_INFO)redisTemplate.opsForValue().get("Data_INFO_"+u.getU_id());
+            if (dci == null){
+                System.out.println("请选择班次号");
+                mod.addAttribute("class_num","请选择班次号");
+                return "cpts_398_pn/p-single";
+            }else{
+                mod.addAttribute("Data_order",data_order);
+                //添加班次id
+                session.setAttribute("Data_INFO",(Data_Class_INFO)redisTemplate.opsForValue().get("Data_INFO_"+u.getU_id()));
+                return "order/index";
+            }
+        }
+        return "forward:indexLogin.action";
 
-        mod.addAttribute("Data_order",data_order);
-        //添加班次id
-        session.setAttribute("Data_INFO",(Data_Class_INFO)redisTemplate.opsForValue().get("Data_INFO_"+u_id));
-        return "order/index";
     }
 
     /**
