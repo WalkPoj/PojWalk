@@ -1,12 +1,11 @@
 package com.walk.controller;
 
+import com.show.api.ShowApiRequest;
 import com.walk.pojo.*;
-import com.walk.service.CityService;
-import com.walk.service.MorderService;
-import com.walk.service.SceneryService;
-import com.walk.service.UserService;
+import com.walk.service.*;
 import com.walk.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("center")
@@ -34,7 +34,13 @@ public class GuangController {
     private MorderService mve;
 
     @Autowired
+    private MarkService msve;
+
+    @Autowired
     private CityService cve;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @RequestMapping("/Guang")
     public String Guang(int uid, int mid, HttpServletRequest request) {
@@ -433,10 +439,93 @@ public class GuangController {
         return  list;
     }
 
-//    /**
-//     * 发送手机
-//     */
-//    @RequestMapping("/isPhone")
-//    public void isPhone(String u_phone){}
 
+    String appid = "71437";
+    String secret = "a2e0ddb9fc5b4421ba305e9464b12462";
+
+    /**
+     * 修改手机号，验证用户输入的手机号是否是商家绑定的手机号
+     * 是的话发送验证码
+     * @param u_phone
+     * @param session
+     * @return
+     */
+    @RequestMapping("isPhone")
+    @ResponseBody
+    public String isPhone(String u_phone,HttpSession session){
+        System.out.println("暗黑城撒谎餐");
+        Mark mark = (Mark) session.getAttribute("mark");
+        int m_id = mark.getM_id();
+        String dataph = msve.selectPhone(m_id);
+        if (u_phone != dataph){
+            return "no";
+        }else {
+            fuanx(u_phone);//发送验证码
+            return "ok";
+        }
+    }
+
+    /**
+     * 短信发送
+     * @param u_phone
+     */
+    public void fuanx(String u_phone){
+        int random = (int) ((Math.random() * 9 + 1) * 100000);
+        String r = String.valueOf(random);
+        redisTemplate.opsForValue().set("u_phone_" + u_phone, r);
+        redisTemplate.expire("u_phone_" + u_phone, 180, TimeUnit.SECONDS);
+        String res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", "" + u_phone + "").addTextPara("content", "{ code:'" + r + "',minute:'3',name:'" + u_phone + "'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();
+        System.out.println(res);
+    }
+    /**
+     * 验证用户输入的验证码，身份证，是否正确
+     */
+    @RequestMapping("/isCode")
+    @ResponseBody
+    public String  isCode(String u_phone,String code,String idcard,HttpSession session){
+        Mark mark = (Mark) session.getAttribute("mark");
+        int m_id = mark.getM_id();
+        String idcards = this.msve.selectIdcard(m_id);
+        if (idcard!=idcards){
+            return "noidcode";
+        }
+        String rcode =(String) redisTemplate.opsForValue().get("u_phone_"+u_phone);
+        System.out.println(rcode);
+        if(code!=rcode)
+            return "no";
+        return "ok";
+    }
+
+    @RequestMapping("isNewPhone")
+    @ResponseBody
+    public String isNewPhone(String u_phone,HttpSession session){
+        Mark mark = (Mark) session.getAttribute("mark");
+        int m_id = mark.getM_id();
+        String dataph = msve.selectPhone(m_id);
+        if (u_phone==dataph){
+            return "no";
+        }else{
+            fuanx(u_phone);
+            return "ok";
+        }
+    }
+
+    @RequestMapping("isCodes")
+    @ResponseBody
+    public String isCodes(String u_phone,String code,HttpSession session){
+        Mark mark = (Mark) session.getAttribute("mark");
+        int m_id = mark.getM_id();
+        String rcode =(String) redisTemplate.opsForValue().get("u_phone_"+u_phone);
+        System.out.println(rcode);
+        if(code!=rcode){
+            return "no";
+        }else{
+         int orw = this.msve.updatePhone(u_phone,m_id);
+         if (orw>0){
+             return "isno";
+         }else{
+             return "ok";
+         }
+        }
+    }
 }

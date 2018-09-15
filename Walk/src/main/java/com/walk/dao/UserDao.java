@@ -55,4 +55,11 @@ public interface UserDao {
      * @return
      */
     public int addUser(User u);
+
+    /**
+     * 修改身份证
+     * @param u_id
+     * @return
+     */
+    public int updateIdcard(String u_idcard,int u_id);
 }

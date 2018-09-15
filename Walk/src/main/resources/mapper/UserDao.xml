@@ -26,4 +26,7 @@
     <insert id="addUser" parameterType="User">
         INSERT INTO USER(u_name,u_nickname,u_phone) VALUES(#{u_name},#{u_nickname},#{u_phone})
     </insert>
+    <update id="updateIdcard">
+        UPDATE `user` SET`u_idcard`=#{u_idcard} WHERE `u_id`=#{u_id}
+    </update>
 </mapper>

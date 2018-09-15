@@ -6,4 +6,13 @@
     <select id="selectMark" resultType="Mark">
          SELECT * FROM `mark` WHERE `m_uid` =#{u_id}
 	</select>
+    <select id="selectPhone" resultType="String">
+        select `m_phone` from `mark` where `m_id`=#{m_id}
+    </select>
+    <select id="selectIdcard" resultType="String">
+        SELECT b.`u_idcard` FROM `mark` a LEFT JOIN `user` b ON a.`m_uid` = b.`u_id` WHERE a.`m_id`=#{m_id}
+    </select>
+    <update id="updatePhone" >
+        UPDATE `mark` SET `m_phone`=#{m_phone} WHERE `m_id`=#{m_id}
+    </update>
 </mapper>
