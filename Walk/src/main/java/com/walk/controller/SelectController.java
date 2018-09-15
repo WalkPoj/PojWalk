@@ -229,7 +229,6 @@ public class SelectController {
             }
         }
         return "forward:indexLogin.action";
-
     }
 
     /**
@@ -242,13 +241,13 @@ public class SelectController {
         //生成订单号
         String Order_id = FileUtil.getOrderIdByUUId();
         //获取用户id
-        String u_id = (String) session.getAttribute("user_id");
+        User u = (User) session.getAttribute("user");
         //获取车票信息
         Data_Class_INFO dci=(Data_Class_INFO) session.getAttribute("Data_INFO");
         //新增订单实体类
         The_order to = new The_order();
         to.setO_id(Order_id);
-        to.setU_id(Integer.valueOf(u_id));
+        to.setU_id(u.getU_id());
         to.setU_phone(oi.getU_phone());
         to.setM_id(oi.getM_id());
         to.setS_id(oi.getS_id());
@@ -256,12 +255,13 @@ public class SelectController {
         to.setTools_id(dci.getTools());
         to.setClass_id(dci.getData_id());
         to.setO_price(oi.getOrder_price());
+        to.setO_create(new Date());
         //保存订单
         sdaos.SaveOrder(to);
         //新增旅客实体类
         for (int i = 0;i < oi.getU_lv_name().size() ; i++) {
             Person per = new Person();
-            per.setU_id(Integer.valueOf(u_id));
+            per.setU_id(u.getU_id());
             per.setPe_name(oi.getU_lv_name().get(i));
             per.setPe_cardid(oi.getU_lv_cardid().get(i));
             per.setPe_phone(oi.getU_lv_phone().get(i));

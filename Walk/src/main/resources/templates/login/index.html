@@ -55,6 +55,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<img src="images/海边.jpg">
 								</div>
 								<form id="DLform" action="login.action" method="post">
+									<span th:text="${msg}"></span>
 									<input type="text" name="name" placeholder="昵称/手机号"/>
 									<input type="Password" name="u_password" placeholder="密码" />
 									<input type="submit" class="btn" value="登  录">
@@ -64,8 +65,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 					<div class="form-item sign-up"><!-- sign-up form-->
 						<div class="w3table w3-agileits">
-							<div class="w3table-cell">   
-								<form id="ZCform" action="#" method="post">
+							<div class="w3table-cell">
+								<form id="ZCform" action="SaveUser" method="post">
 									<p>注意！在注册之后，系统将自动分配您初始密码！请在注册后48小时内修改密码！</p>
 									<input type="text" name="u_name" placeholder="您的真实姓名" />
 									<input type="text" id="u_phone" name="u_phone" placeholder="手机号" />
@@ -122,10 +123,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			$(".container-form .btn").click(function() {
 			  $(".main-agileinfo").addClass("active");
 		});
-			
-			
+
 		function ajaxSendPhone(number) {
-			$.post("SaveNumbertoRides?u_phone="+number);
+			$.post("SaveNumbertoRides?u_phone="+number+"&row=0",function (ok) {
+				bounced(ok)
+            });
         }
 			
 			//弹框的方法
@@ -151,6 +153,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     $.post("PhoneExists?u_phone="+u_phone,function (json) {
                         if(json){
                             bounced("温馨提示：该手机号已被注册！2秒后关闭...");
+                            $("#u_phone").val("");
+                            $("#u_phone").focus();
                         }else if(phone.test(u_phone)==false){
                             bounced("温馨提示：手机号不合法！2秒后关闭...");
                         }else{
@@ -167,11 +171,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     con=false;
 				}else if($(":input[name=u_password]").val()==""){
                     bounced('温馨提示：密码不能为空！2秒后关闭...');
-                    $(":input[name=u_password]").focus();
-                    con=false;
-				}else if(password.test($(":input[name=u_password]").val())==false){
-                    bounced('温馨提示：密码至少字母，数字，且不少于8位！2秒后关闭...');
-                    $(":input[name=u_password]").val("");
                     $(":input[name=u_password]").focus();
                     con=false;
 				}else{

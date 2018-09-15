@@ -33,7 +33,7 @@ public interface UserDao {
      * @param u_id
      * @return
      */
-    public  int updatepsw(String u_password,int u_id);
+    public int updatepsw(@Param("u_password") String u_password,@Param("u_id") int u_id);
 
     /**
      * 前台普通用户登录
