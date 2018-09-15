@@ -22,4 +22,6 @@ public class User {
     private String u_idcard;
     //标识用户认证
     private int cert;
+    //
+    private String validation;
 }

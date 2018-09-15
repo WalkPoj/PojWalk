@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -127,25 +128,47 @@ public class LoginsController {
         }
         return "redirect:/Order.action?xz=1&u_id="+user.getU_id()+"&o_id="+o_id;
     }
-
     @PostMapping("SaveUser")
-    public String addUser(User u){
-
-
-        return "index";
+    public String addUser(User u,Model mod){
+        System.out.println("开始验证并注册");
+        String vali = (String)redisTemplate.opsForValue().get("u_phone_"+u.getU_phone());
+        u.setU_nickname("walk_"+u.getU_phone());
+        u.setU_password((String)redisTemplate.opsForValue().get("u_pwd_"+u.getU_phone()));
+        if (u.getValidation().equals(vali)){
+            int i = uve.addUser(u);
+            mod.addAttribute("msg","注册成功");
+            return "login/index";
+        }else {
+            mod.addAttribute("msg","验证码错误");
+            return "login/index";
+        }
     }
     String appid = "71437";
     String secret = "a2e0ddb9fc5b4421ba305e9464b12462";
-
     @PostMapping("SaveNumbertoRides")
     @ResponseBody
-    public String SaveNumbertoRides(String u_phone){
+    public String SaveNumbertoRides(String u_phone,int row){
         int random = (int)((Math.random()*9+1)*100000);
         String r = String.valueOf(random);
+        String u_pwd = "walk"+r;
         redisTemplate.opsForValue().set("u_phone_"+u_phone,r);
-        redisTemplate.expire("u_phone_"+u_phone,1800,TimeUnit.SECONDS);
-        String res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", ""+u_phone+"").addTextPara("content", "{ code:'"+r+"',minute:'3',name:'"+u_phone+"'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();
+        redisTemplate.opsForValue().set("u_pwd_"+u_phone,u_pwd);
+        redisTemplate.expire("u_phone_"+u_phone,180,TimeUnit.SECONDS);
+        String res = "";
+        if (row == 0){
+            res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", ""+u_phone+"").addTextPara("content", "{ code:'"+r+"',minute:'3',name:'您的手机号："+u_phone+",您的密码为："+u_pwd+"，请在48小时修改密码！'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();
+        }else{
+            res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", ""+u_phone+"").addTextPara("content", "{ code:'"+r+"',minute:'3',name:'您正在修改密码'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();
+        }
         System.out.println(res);
-        return "ok";
+        return r;
     }
+    @PostMapping("ModifyPwd")
+    @ResponseBody
+    public boolean ModifyPwd(String pwd,HttpSession session){
+        User u = (User)session.getAttribute("user");
+        boolean res = uve.updatepsw(pwd,u.getU_id());
+        return res;
+    }
+
 }

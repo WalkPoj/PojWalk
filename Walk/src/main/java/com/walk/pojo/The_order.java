@@ -1,7 +1,10 @@
 package com.walk.pojo;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Setter
 @Getter
@@ -25,4 +28,6 @@ The_order {
     private String class_id;
     //费用，合计
     private double o_price;
+    //
+    private Date o_create;
 }

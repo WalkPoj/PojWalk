@@ -16,13 +16,13 @@
     <link rel="stylesheet" type="text/css" href="http://localhost:8080/MX/center_index/slick/slick-theme.css"/>
     <link rel="stylesheet" href="http://localhost:8080/MX/center_index/css/tooplate-style.css">
 
-    <script>document.documentElement.className = "js";
-    var supportsCssVars = function () {
-        var e, t = document.createElement("style");
-        return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e
-    };
-    supportsCssVars() || alert("Please view this in a modern browser such as latest version of Chrome or Microsoft Edge.");
-    </script>
+    <!--<script>document.documentElement.className = "js";-->
+    <!--var supportsCssVars = function () {-->
+        <!--var e, t = document.createElement("style");-->
+        <!--return t.innerHTML = "root: { &#45;&#45;tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(&#45;&#45;tmp-var)")), t.parentNode.removeChild(t), e-->
+    <!--};-->
+    <!--supportsCssVars() || alert("Please view this in a modern browser such as latest version of Chrome or Microsoft Edge.");-->
+    <!--</script>-->
 
     <style type="text/css">
         /*label{
@@ -98,7 +98,7 @@
                                                         <tr>
                                                             <td class="xg">手机号：</td>
                                                             <td>
-                                                                <span class="xgy" th:text="${us.u_phone}">13827382349</span>
+                                                                <span id="uphones" class="xgy" th:text="${us.u_phone}">13827382349</span>
                                                                 <input class="xgs" style="display: none;" type="text" name="u_phone" th:value="${us.u_phone}" placeholder="请输入手机号"/>
                                                             </td>
                                                         </tr>
@@ -113,6 +113,7 @@
                                                         <tfoot>
                                                         <tr>
                                                             <td colspan="2" style="text-align: center;" >
+                                                                <a href="#" class="xgpwd" onclick="changePwd()">编辑资料</a>
                                                                 <a href="#" class="bj" onclick="test()">编辑资料</a>
                                                                 <input type="submit" class="btn btn-secondary bc" style="display: none;margin-left: 132px; " value="保存"/>
                                                             </td>
@@ -337,7 +338,7 @@
     </div> <!-- .tm-main-content -->
 </div>
 <!-- load JS -->
-<script src="http://localhost:8080/MX/center_index/js/jquery-3.2.1.slim.min.js"></script>         <!-- https://jquery.com/ -->
+<script src="http://localhost:8080/MX/center_index/js/jquery-3.1.1.min.js"></script>         <!-- https://jquery.com/ -->
 <script>
     function test() {
         $(".xgs").css("display","block");
@@ -345,46 +346,37 @@
         $(".bc").css("display","block");
         $(".bj").css("display","none");
     }
-
-    /* var statu = 0;
-     var edit = document.getElementById('edit');
-     var item = document.getElementsByClassName('xgs');
-
-     function test(){
-         var item_length = item.length;
-         var item_value = new Array(item_length);
-
-         for(i = 0; i <item_length; i++){
-             item_value[i] = item[i].innerHTML;
-         }
-
-         if(statu == 0){
-             edit.innerHTML= '保存';
-             $(".bc").css("display","block");
-             $(".bj").css("display","none");
-             for(i = 0; i < item_length; i++){
-                 item[i].innerHTML = '<input type="text" class="item_input" value="'+item_value[i]+'">';
-             }
-             statu = 1;
-         }else{
-             edit.innerHTML= '编辑资料';
-             $(".bc").css("display","none");
-             $(".bj").css("display","block");
-             var item_input = document.getElementsByClassName('item_input');
-             for(i = 0; i < item_length; i++){
-                 item_value[i] = item_input[i].value;
-             }
-             for(i = 0; i < item_length; i++){
-                 item[i].innerHTML = item_value[i];
-             }
-             statu = 0
-         }
-         return false;
-     }*/
 </script>
-<script src="http://localhost:8080/MX/center_index/slick/slick.min.js"></script>       <!-- http://kenwheeler.github.io/slick/ -->
+<script src="http://localhost:8080/MX/center_index/slick/slick.js"></script>       <!-- http://kenwheeler.github.io/slick/ -->
 <script src="http://localhost:8080/MX/center_index/js/anime.min.js"></script>                     <!-- http://animejs.com/ -->
 <script src="http://localhost:8080/MX/center_index/js/main.js"></script>
+<script type="text/javascript">
+    function changePwd() {
+        var number = $("#uphones").text();
+        alert(number);
+        $.ajax({
+            url: "SaveNumbertoRides",
+            async: true,//这一步是非常重要的，作用是设置为同步执行
+            type: "POST",
+            data: { "u_phone": number,"row":1},
+            dataType: "json",
+            success: function (data) {
+                var vaa = prompt("请输入验证码");
+                var va = data;
+                if (va == vaa){
+                    var new_pwd = prompt("请输入新的密码")
+                    $.post("ModifyPwd?pwd="+new_pwd,function (res) {
+                        if (res == true){
+                            alert("修改成功，请妥善保管")
+                        }
+                    })
+                }else{
+                    alert("验证码错误")
+                }
+            }
+        });
+    }
+</script>
 <script>
     function setupFooter() {
         var pageHeight = $('.tm-site-header-container').height() + $('footer').height() + 100;
