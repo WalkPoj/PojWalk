@@ -14,7 +14,7 @@ The_order {
     private String o_id;
     //购票用户
     private int u_id;
-    //
+    //联系电话
     private String u_phone;
     //商家id
     private int m_id;
@@ -28,6 +28,6 @@ The_order {
     private String class_id;
     //费用，合计
     private double o_price;
-    //
+    //下单时间
     private Date o_create;
 }

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -58,7 +60,7 @@ public class LoginsController {
      * @return
      */
     @RequestMapping("/login.action")
-    public String OrdinaryLogin(User user, @RequestParam("name") String name, HttpSession session){
+    public String OrdinaryLogin(User user,@RequestParam("name") String name, HttpSession session){
         if (name.length()==11){
             user.setU_nickname(name);
             user.setU_phone(name);
@@ -93,41 +95,75 @@ public class LoginsController {
     }
 
     /**
-     * 个人中心操作
-     * @param xz
-     * @param o_id
-     * @param mod
+     * 跳转个人中心
+     * @return
+     */
+    @RequestMapping("/Order.html")
+    public String Order(){
+        return "center_index/indexs";
+    }
+
+    /**
+     * 查询个人中心基本信息
+     * @return
+     */
+    @RequestMapping("/Users")
+    @ResponseBody
+    public User user(HttpSession session){
+        User users=ove.selectUserOrder(session);
+        return users;
+    }
+
+    /**
+     * 编辑个人中心基本资料
+     * @param user
      * @param session
      * @return
      */
-    @RequestMapping("/Order.action")
-    public String Order(String xz,String o_id,Model mod,HttpSession session){
-        User user=(User)session.getAttribute("user");
-        List<Map<String,Object>> order=null;
-        if(o_id!=null){
-            //查看详情订单
-            order=ove.selectOrder(0,o_id);
-        }else{
-            //我的订单信息
-            order=ove.selectOrder(user.getU_id(),null);
-        }
-        //查询个人中心基本信息
-        User us=ove.selectUserOrder(user.getU_id());
-        mod.addAttribute("xz",xz);
-        mod.addAttribute("order",order);
-        mod.addAttribute("us",us);
-        return "center_index/index";
+    @RequestMapping("/updateUsers")
+    @ResponseBody
+    public User update(User user,HttpSession session){
+        System.out.println(user.getU_nickname());
+        if(ove.updateOrder(user,session)>0)
+            return user;
+        return null;
     }
 
-    @RequestMapping("/updateOrder.action")
-    public String updateOrder(User user,String o_id){
-        if(ove.updateOrder(user)){
-            System.out.println("1"+user.getU_id()+"修改成功");
+    /**
+     * 查询我的订单
+     * @param o_id
+     * @param session
+     * @return
+     */
+    @RequestMapping("/findByTheorder")
+    @ResponseBody
+    public List<Map<String,Object>>  findByTheorder(String o_id,HttpSession session){
+        List<Map<String,Object>> list=new ArrayList<>();
+        if(o_id==null){
+            System.out.println("查询用户所有订单:");
+            System.out.println(o_id);
+            list=ove.selectOrder(o_id,session);
+            for (Map<String, Object> stringObjectMap : list) {
+                System.out.println(stringObjectMap.get("o_id"));
+            }
+            System.out.println(list.size());
         }else{
-            System.out.println("2"+user.getU_id()+"修改失败");
+            System.out.println("查询一个订单的详情:");
+            list=ove.selectOrder(o_id,session);
+            for (Map<String, Object> stringObjectMap : list) {
+                System.out.println("1:"+stringObjectMap.get("o_id"));
+            }
+            System.out.println("2:"+list.size());
         }
-        return "redirect:/Order.action?xz=1&u_id="+user.getU_id()+"&o_id="+o_id;
+        return list;
     }
+
+    /**
+     * 注册
+     * @param u
+     * @param mod
+     * @return
+     */
     @PostMapping("SaveUser")
     public String addUser(User u,Model mod){
         System.out.println("开始验证并注册");
@@ -143,6 +179,10 @@ public class LoginsController {
             return "login/index";
         }
     }
+
+    /**
+     * 发送验证
+     */
     String appid = "71437";
     String secret = "a2e0ddb9fc5b4421ba305e9464b12462";
     @PostMapping("SaveNumbertoRides")
@@ -163,6 +203,13 @@ public class LoginsController {
         System.out.println(res);
         return r;
     }
+
+    /**
+     * 修改密码
+     * @param pwd
+     * @param session
+     * @return
+     */
     @PostMapping("ModifyPwd")
     @ResponseBody
     public boolean ModifyPwd(String pwd,HttpSession session){

@@ -7,206 +7,206 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>登录-漫行</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Sliding Ui Forms template Responsive, Login form web template,Flat Pricing w3tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- Custom Theme files -->
-<link href="http://localhost:8080/MX/login/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<!-- //Custom Theme files -->
+	<title>登录-漫行</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Sliding Ui Forms template Responsive, Login form web template,Flat Pricing w3tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- Custom Theme files -->
+	<link href="http://localhost:8080/MX/login/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- //Custom Theme files -->
 	<!--logo-->
 	<link rel="shortcut icon" href="images/bitbug_favicon.ico" />
 	<!-- 弹框css样式 -->
-<link href="http://localhost:8080/MX/login/alert/easydialog.css" rel="stylesheet" type="text/css"/>
-<!-- //web font -->
+	<link href="http://localhost:8080/MX/login/alert/easydialog.css" rel="stylesheet" type="text/css"/>
+	<!-- //web font -->
 </head>
 <body background="images/湖边.jpg">
-	<!-- main -->
-	<div class="main agileits-w3layouts">
-		<h1>登录漫行</h1>
-		<div class="main-agileinfo">
-			<div class="wthree-box"></div>
-			<div class="agileui-forms">
-				<div class="container-info">
-					<div class="info-w3lsitem">
-						<div class="w3table">
-							<div class="w3table-cell">
-								<p> 已有账号 </p>
-								<div class="btn"> 登录 </div>
-							</div>
-						</div>
-					</div>
-					<div class="info-w3lsitem">
-						<div class="w3table">
-							<div class="w3table-cell">
-								<p> 还没账号？</p>
-								<div class="btn">注册</div>
-							</div>
-						</div>
-					</div>
-					<div class="clear"> </div>
-				</div> 
-				<div class="container-form">
-					<div class="form-item log-in"><!-- login form-->
-						<div class="w3table agileinfo"> 
-							<div class="w3table-cell"> 
-								<div class="w3table-topimg">
-									<img src="images/海边.jpg">
-								</div>
-								<form id="DLform" action="login.action" method="post">
-									<span th:text="${msg}"></span>
-									<input type="text" name="name" placeholder="昵称/手机号"/>
-									<input type="Password" name="u_password" placeholder="密码" />
-									<input type="submit" class="btn" value="登  录">
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="form-item sign-up"><!-- sign-up form-->
-						<div class="w3table w3-agileits">
-							<div class="w3table-cell">
-								<form id="ZCform" action="SaveUser" method="post">
-									<p>注意！在注册之后，系统将自动分配您初始密码！请在注册后48小时内修改密码！</p>
-									<input type="text" name="u_name" placeholder="您的真实姓名" />
-									<input type="text" id="u_phone" name="u_phone" placeholder="手机号" />
-									<input type="text" id="validation" name="validation" placeholder="验证码" />
-									<div id="end"><a href="#" id="vCont">获取短信验证码</a></div>
-									<input type="submit" class="btn" value="注  册">
-								</form>
-							</div>
+<!-- main -->
+<div class="main agileits-w3layouts">
+	<h1>登录漫行</h1>
+	<div class="main-agileinfo">
+		<div class="wthree-box"></div>
+		<div class="agileui-forms">
+			<div class="container-info">
+				<div class="info-w3lsitem">
+					<div class="w3table">
+						<div class="w3table-cell">
+							<p> 已有账号 </p>
+							<div class="btn"> 登录 </div>
 						</div>
 					</div>
 				</div>
-			</div> 
+				<div class="info-w3lsitem">
+					<div class="w3table">
+						<div class="w3table-cell">
+							<p> 还没账号？</p>
+							<div class="btn">注册</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"> </div>
+			</div>
+			<div class="container-form">
+				<div class="form-item log-in"><!-- login form-->
+					<div class="w3table agileinfo">
+						<div class="w3table-cell">
+							<div class="w3table-topimg">
+								<img src="images/海边.jpg">
+							</div>
+							<form id="DLform" action="login.action" method="post">
+								<span th:text="${msg}"></span>
+								<input type="text" name="name" placeholder="昵称/手机号"/>
+								<input type="Password" name="u_password" placeholder="密码" />
+								<input type="submit" class="btn" value="登  录">
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="form-item sign-up"><!-- sign-up form-->
+					<div class="w3table w3-agileits">
+						<div class="w3table-cell">
+							<form id="ZCform" action="SaveUser" method="post">
+								<p>注意！在注册之后，系统将自动分配您初始密码！请在注册后48小时内修改密码！</p>
+								<input type="text" name="u_name" placeholder="您的真实姓名" />
+								<input type="text" id="u_phone" name="u_phone" placeholder="手机号" />
+								<input type="text" id="validation" name="validation" placeholder="验证码" />
+								<div id="end"><a href="#" id="vCont">获取短信验证码</a></div>
+								<input type="submit" class="btn" value="注  册">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>   
-	<!-- //main -->
-	<!-- copyright -->
-	<div class="copyw3-agile">
-		<p> 漫行 © 2018 | 解释权由漫行所有</p>
 	</div>
-	<!-- //copyright -->
-	<!-- js -->  
-	<script  src="js/jquery-1.12.3.min.js"></script>
-	<script src="alert/easydialog.min.js"></script>
-	<script>
-        var time = 4;
-        function djs() {
-            $("#end").html('<span>(60s)后获取验证</span>');
-            time--;
-            if(time == 0){
-                time =4;
-            }else{
-                setTimeout(function () {
-                    djs();
-                    if (time == 4){
-                        $("#end").html('<a href="#" id="vCont">获取短信验证码</a>');
-                    }else{
-                        $("#end").html("<span>"+"("+time+"s)后获取验证"+"</span>");
-                    }
-                },1000);
-            }
-        }
-        $("#end").click(function () {
-            if ($("#u_phone").val() == ""){
-                bounced("手机号不能为空！")
-			}else{
+</div>
+<!-- //main -->
+<!-- copyright -->
+<div class="copyw3-agile">
+	<p> 漫行 © 2018 | 解释权由漫行所有</p>
+</div>
+<!-- //copyright -->
+<!-- js -->
+<script  src="js/jquery-1.12.3.min.js"></script>
+<script src="alert/easydialog.min.js"></script>
+<script>
+    var time = 4;
+    function djs() {
+        $("#end").html('<span>(60s)后获取验证</span>');
+        time--;
+        if(time == 0){
+            time =4;
+        }else{
+            setTimeout(function () {
                 djs();
-                ajaxSendPhone($("#u_phone").val());
-			}
+                if (time == 4){
+                    $("#end").html('<a href="#" id="vCont">获取短信验证码</a>');
+                }else{
+                    $("#end").html("<span>"+"("+time+"s)后获取验证"+"</span>");
+                }
+            },1000);
+        }
+    }
+    $("#end").click(function () {
+        if ($("#u_phone").val() == ""){
+            bounced("手机号不能为空！")
+        }else{
+            djs();
+            ajaxSendPhone($("#u_phone").val());
+        }
+    });
+
+    $(".info-w3lsitem .btn").click(function() {
+        $(".main-agileinfo").toggleClass("log-in");
+    });
+    $(".container-form .btn").click(function() {
+        $(".main-agileinfo").addClass("active");
+    });
+
+    function ajaxSendPhone(number) {
+        $.post("SaveNumbertoRides?u_phone="+number+"&row=0",function (ok) {
+            bounced(ok)
+        });
+    }
+
+    //弹框的方法
+    function bounced(title){
+        easyDialog.open({
+            container : {
+                content : title
+            },
+            autoClose : 2000
+        });
+    }
+
+    $(function () {
+        var con = true;
+        //正则表达式(手机号,密码,验证码)
+        var phone=/^1[3|4|5|7|8][0-9]{9}$/;
+        var password=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+        var validation=/^\d{6}$/;
+
+        $(":input[name=u_phone]").blur(function () {
+            var u_phone=$(this).val();
+            if(u_phone.trim().length>0&&u_phone!=""){
+                $.post("PhoneExists?u_phone="+u_phone,function (json) {
+                    if(json){
+                        bounced("温馨提示：该手机号已被注册！2秒后关闭...");
+                        $("#u_phone").val("");
+                        $("#u_phone").focus();
+                    }else if(phone.test(u_phone)==false){
+                        bounced("温馨提示：手机号不合法！2秒后关闭...");
+                    }else{
+                        return true;
+                    }
+                },'json');
+            }
+        });
+        //登录提交验证
+        $("#DLform").submit(function () {
+            if($(":input[name=name]").val()==""){
+                bounced( '温馨提示：昵称/手机号不能为空！2秒后关闭...');
+                $(":input[name=name]").focus();
+                con=false;
+            }else if($(":input[name=u_password]").val()==""){
+                bounced('温馨提示：密码不能为空！2秒后关闭...');
+                $(":input[name=u_password]").focus();
+                con=false;
+            }else{
+                bounced("登录成功！2秒后跳转首页...")
+                con=true;
+            }
+            return con;
         });
 
-		$(".info-w3lsitem .btn").click(function() {
-			  $(".main-agileinfo").toggleClass("log-in");
-			});
-			$(".container-form .btn").click(function() {
-			  $(".main-agileinfo").addClass("active");
-		});
-
-		function ajaxSendPhone(number) {
-			$.post("SaveNumbertoRides?u_phone="+number+"&row=0",function (ok) {
-				bounced(ok)
-            });
-        }
-			
-			//弹框的方法
-			function bounced(title){
-                easyDialog.open({
-                    container : {
-                        content : title
-                    },
-                    autoClose : 2000
-                });
-			}
-
-		$(function () {
-            var con = true;
-            //正则表达式(手机号,密码,验证码)
-            var phone=/^1[3|4|5|7|8][0-9]{9}$/;
-            var password=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
-            var validation=/^\d{6}$/;
-
-            $(":input[name=u_phone]").blur(function () {
-                var u_phone=$(this).val();
-                if(u_phone.trim().length>0&&u_phone!=""){
-                    $.post("PhoneExists?u_phone="+u_phone,function (json) {
-                        if(json){
-                            bounced("温馨提示：该手机号已被注册！2秒后关闭...");
-                            $("#u_phone").val("");
-                            $("#u_phone").focus();
-                        }else if(phone.test(u_phone)==false){
-                            bounced("温馨提示：手机号不合法！2秒后关闭...");
-                        }else{
-                            return true;
-                        }
-                    },'json');
-                }
-            });
-            //登录提交验证
-			$("#DLform").submit(function () {
-				if($(":input[name=name]").val()==""){
-                    bounced( '温馨提示：昵称/手机号不能为空！2秒后关闭...');
-                    $(":input[name=name]").focus();
-                    con=false;
-				}else if($(":input[name=u_password]").val()==""){
-                    bounced('温馨提示：密码不能为空！2秒后关闭...');
-                    $(":input[name=u_password]").focus();
-                    con=false;
-				}else{
-				    bounced("登录成功！2秒后跳转首页...")
-                    con=true;
-				}
-				return con;
-            });
-
-			//注册提交验证
-			$("#ZCform").submit(function () {
-				if($(":input[name=u_name]").val()==""){
-				    bounced("温馨提示：真实姓名不能为空！2秒后关闭...");
-                    $(":input[name=u_name]").focus();
-                    con=false;
-				}else if ($(":input[name=u_phone]").val()==""){
-				    bounced("温馨提示：手机号不能为空！2秒后关闭...");
-                    $(":input[name=u_phone]").focus();
-                    con=false;
-				}else if($(":input[name=validation]").val()==""){
-				    bounced("温馨提示：验证码不能为空！2秒后关闭...");
-				    $(":input[name=validation]").focus();
-				    con=false;
-				}else if(validation.test($(":input[name=validation]").val())==false){
-				    bounced("温馨提示：服务密码为6位！2秒后关闭...");
-				    $(":input[name=validation]").val("");
-                    $(":input[name=validation]").focus();
-                    con=false;
-				}else{
-				    bounced("注册成功！2秒后跳转首页...");
-				    con=true;
-				}
-				return con;
-            });
-        })
-	</script>
-	<!-- //js --> 
+        //注册提交验证
+        $("#ZCform").submit(function () {
+            if($(":input[name=u_name]").val()==""){
+                bounced("温馨提示：真实姓名不能为空！2秒后关闭...");
+                $(":input[name=u_name]").focus();
+                con=false;
+            }else if ($(":input[name=u_phone]").val()==""){
+                bounced("温馨提示：手机号不能为空！2秒后关闭...");
+                $(":input[name=u_phone]").focus();
+                con=false;
+            }else if($(":input[name=validation]").val()==""){
+                bounced("温馨提示：验证码不能为空！2秒后关闭...");
+                $(":input[name=validation]").focus();
+                con=false;
+            }else if(validation.test($(":input[name=validation]").val())==false){
+                bounced("温馨提示：服务密码为6位！2秒后关闭...");
+                $(":input[name=validation]").val("");
+                $(":input[name=validation]").focus();
+                con=false;
+            }else{
+                bounced("注册成功！2秒后跳转首页...");
+                con=true;
+            }
+            return con;
+        });
+    })
+</script>
+<!-- //js -->
 </body>
 </html>
