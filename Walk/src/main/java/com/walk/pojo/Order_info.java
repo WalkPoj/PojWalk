@@ -21,4 +21,5 @@ public class Order_info {
     private List<String> u_lv_cardid;
     private List<String> u_lv_phone;
     private double order_price;
+    private String param;
 }

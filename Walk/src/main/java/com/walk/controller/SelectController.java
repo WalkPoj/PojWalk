@@ -236,7 +236,8 @@ public class SelectController {
      * @return
      */
     @PostMapping("SaveOrder")
-    public String SaveOrder(HttpSession session,Order_info oi){
+    public String SaveOrder(HttpSession session){
+        Order_info oi = (Order_info)session.getAttribute("Order_info");
         System.out.println(oi.getS_id());
         //生成订单号
         String Order_id = FileUtil.getOrderIdByUUId();
