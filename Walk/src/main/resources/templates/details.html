@@ -88,10 +88,10 @@
 							<a th:text="'欢迎回来:'+${session.user.u_nickname}">欢迎回来，</a>
 							<ul>
 								<li class="submenu">
-									<a th:href="@{Order.action(xz=1,u_id=${session.user.u_id},o_id=null)}" th:if="${session.user} ne null" href="#">个人中心</a>
+									<a href="Order.html">个人中心</a>
 								</li>
 								<li class="submenu">
-									<a href="#">注销</a>
+									<a href="Out">注销</a>
 								</li>
 							</ul>
 						</li>

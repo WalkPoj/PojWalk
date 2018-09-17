@@ -81,4 +81,9 @@ public class SelectDaoServiceimpl implements SelectDaoService {
     public List<Scenery> selectByMod(int s_city,int s_price,int s_num) {
         return sdao.selectByMod(s_city,s_price,s_num);
     }
+
+    @Override
+    public String selectCname(int c_id) {
+        return sdao.selectCname(c_id);
+    }
 }

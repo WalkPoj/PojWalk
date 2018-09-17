@@ -61,7 +61,6 @@
                         <img src="img/underline.png" class="img-fluid mb-4">
                         <p>您可以在此查看订单，也可修改您的基本信息</p>
                         <p>秋天到了，注意保暖呦</p>
-                        <p><a style="color: white;" th:href="@{index.html}">返回首页</a></p>
                     </div>
                 </div>
 
@@ -78,49 +77,49 @@
                                     </div>
                                     <div class="product__description">
 
-                                        <div class="row mb-3">
-                                            <div class="col-12">
-                                                <h2 class="tm-page-title" id="xx">个人信息</h2>
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    <h2 class="tm-page-title" id="xx">个人信息</h2>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" id="zz">
-                                                <table class="table">
-                                                    <tbody id="abc">
-                                                    <tr>
-                                                        <td class="xg">昵称：</td>
-                                                        <td>
-                                                            <span class="xgy"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="xg">手机号：</td>
-                                                        <td>
-                                                            <span id="uphones" class="xgy"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="xg">身份证号：</td>
-                                                        <td>
-                                                            <span class="xgy"></span>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <td colspan="2" style="text-align: center;">
-                                                            <a href="#">修改密码</a>
-                                                            <a href="#">编辑资料</a>
-                                                        </td>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" id="zz">
+                                                    <table class="table">
+                                                        <tbody id="abc">
+                                                        <tr>
+                                                            <td class="xg">昵称：</td>
+                                                            <td>
+                                                                <span class="xgy"></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="xg">手机号：</td>
+                                                            <td>
+                                                                <span class="xgy"></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="xg">身份证号：</td>
+                                                            <td>
+                                                                <span class="xgy"></span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <td colspan="2" style="text-align: center;">
+                                                                <a href="#">修改密码</a>
+                                                                <a href="#">编辑资料</a>
+                                                            </td>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                    <p>注意，修改手机号或身份证都需要验证，请确保是本人操作</p>
+                                                    <img src="img/welcome-2.jpg" class="img-fluid">
+                                                </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <p>注意，修改手机号或身份证都需要验证，请确保是本人操作</p>
-                                                <img src="img/welcome-2.jpg" class="img-fluid">
-                                            </div>
-                                        </div>
 
                                     </div>
                                 </div>
@@ -293,6 +292,7 @@
             infos();
             Orders();
         });
+
     });
 
     /**
@@ -329,9 +329,38 @@
      * 点击修改密码
      */
     function changePwd() {
+        SendVapwd();
         password();
     }
-
+    var va = 0;
+    function SendVapwd() {
+        var number = $("#uphones").text();
+        alert(number);
+        $.ajax({
+            url: "SaveNumbertoRides",
+            async: true,//这一步是非常重要的，作用是设置为同步执行
+            type: "POST",
+            data: { "u_phone": number,"row":1},
+            dataType: "json",
+            success: function (data) {
+                va = data;
+            }
+        });
+    }
+    function SavePwd() {
+        var inputVal = $("#val").val();
+        var new_pwd = $("#new_pwd").val();
+        if (va != inputVal){
+            $("#val").next().text("验证码错误")
+        }else{
+            $.post("ModifyPwd?pwd="+new_pwd,function (res) {
+                if (res == true){
+                    alert("密码修改成功，请妥善保管");
+                    infos();
+                }
+            })
+        }
+    }
     /**
      * 点击保存
      */
@@ -425,7 +454,7 @@
             if (list.length > 0) {
                 for (var i = 0; i < list.length; i++) {
                     var js = list[i];
-                    Order(o_id,js.m_name,js.s_title,js.o_person,js.tools_id,js.class_id,js.o_price,js.o_create);
+                   Order(o_id,js.m_name,js.s_title,js.o_person,js.tools_id,js.class_id,js.o_price,js.o_create);
                 }
             }
         });
@@ -523,14 +552,14 @@
             "                                                        <tr >\n" +
             "                                                            <td class=\"xg\">验证码：</td>\n" +
             "                                                            <td>\n" +
-            "                                                                <input  class=\"xgs\"  type=\"text\" name=\"yzm\" placeholder=\"请输入验证码\"/>\n" +
+            "                                                                <input id=\"val\"  class=\"xgs\"  type=\"text\" name=\"yzm\" placeholder=\"请输入验证码\"/>\n" +
             "                                                        <span>1121</span>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        <tr>\n" +
             "                                                            <td class=\"xg\">新密码：</td>\n" +
             "                                                            <td>\n" +
-            "                                                                <input class=\"xgs\" type=\"text\" name=\"u_phone\" placeholder=\"请输入新密码\"/>\n" +
+            "                                                                <input id=\"new_pwd\" class=\"xgs\" type=\"text\" name=\"u_phone\" placeholder=\"请输入新密码\"/>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        </tbody>\n" +
@@ -538,7 +567,7 @@
             "                                                        <tr>\n" +
             "                                                            <td colspan=\"2\" style=\"text-align: center;\" >\n" +
             "                                                                <a href='#' onclick=\"infos()\">返回</a>" +
-            "                                                                <a href='#' onclick=\"#\">保存</a>" +
+            "                                                                <a href='#' onclick=\"SavePwd()\">保存</a>" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        </tfoot>\n" +

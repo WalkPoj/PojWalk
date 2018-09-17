@@ -220,4 +220,11 @@ public class LoginsController {
         return res;
     }
 
+    @RequestMapping("Out")
+    public String out(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:index.html";
+
+    }
+
 }

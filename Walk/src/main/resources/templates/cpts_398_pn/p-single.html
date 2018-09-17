@@ -13,7 +13,7 @@
         window.scrollTo(0, 1);
     } </script>
     <!-- //Custom Theme files -->
-    <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="http://127.0.0.1:8080/MX/cpts_398_pn/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
     <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen">
     <link type="text/css" rel="stylesheet" href="css/JFFormStyle-1.css">
@@ -128,7 +128,7 @@
                                             padding: 10px 0px 10px 11px;
                                         }
 
-                                        .room-basic-info table tr td input{
+                                        .room-basic-info table tr td input {
                                             text-align: center;
                                         }
                                     </style>
@@ -137,16 +137,19 @@
                                             <tr style="color: black;font-weight: 600;font-size: 20px;">
                                                 <td>出发位置：</td>
                                                 <td>
-                                                    <input type="text" class="se_start_city form-control" name="se_strat" placeholder="请选择城市"/>
+                                                    <input type="text" class="se_start_city form-control"
+                                                           name="se_strat" placeholder="请选择城市"/>
                                                 </td>
                                                 <td>--></td>
                                                 <td>目的地：</td>
                                                 <td>
-                                                    <input type="text" class="form-control" placeholder="景区位置" value="张家界" class="se_end" name="se_end"/>
+                                                    <input type="text" class="se_end form-control" placeholder="景区位置"
+                                                           th:value="${c_name}" name="se_end"/>
                                                 </td>
                                                 <td>出发时间：</td>
                                                 <td>
-                                                    <input type="date" class="form-control" id="time" value="" style="line-height: 20px;">
+                                                    <input type="date" class="form-control" id="time" value=""
+                                                           style="line-height: 20px;">
                                                 </td>
                                                 <td>人数：</td>
                                                 <td>
@@ -154,34 +157,21 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <!-- <input type="hidden" class="se_id" name="se_id" value="">
-                                                  <div class="form-group">
-                                                      &lt;!&ndash;<label class="col-lg-2 control-label">出发位置：</label>&ndash;&gt;
-                                                      <div class="col-lg-2">
-                                                          出发位置：<input type="text" class="se_start_city form-control" name="se_strat" placeholder="请选择城市"/>
-                                                      </div>
-                                                  </div>-->
-                                        <!-- 出发位置：<input type="text" value="" placeholder="请选择城市" class="se_start_city" name="se_strat"/>
-                                         &ndash;&gt;<input type="text" placeholder="景区位置" value="张家界" class="se_end" name="se_end"/><br/><br/><br/>
-                                         出发时间：<input type="date" id="time" value="" style="line-height: 20px;">&nbsp;
-                                         人数：<input name="person_num" value="2">-->
-
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-3 p-table-grid" style="width: 100%">
                                 <div class="p-table-grad-heading">
                                     <h6>出行方式</h6>
                                 </div>
                                 <div class="p-table-grid-info">
                                     <style type="text/css">
-                                        .bt{
+                                        .bt {
                                             text-align: center;
                                         }
                                     </style>
                                     <div class="room-basic-info">
-                                        <table  class="table table-hover">
+                                        <table class="table table-hover">
                                             <thead>
                                             <tr>
                                                 <th class="bt">漫行推荐</th>
@@ -193,28 +183,9 @@
                                             </tr>
                                             </thead>
                                             <tbody id="tabb" style="text-align: center;">
-                                            <tr>
-                                                <td>第1行第1列</td>
-                                                <td>第1行第2列</td>
-                                                <td>第1行第3列</td>
-                                                <td>第1行第4列</td>
-                                                <td>第1行第5列</td>
-                                                <td>第1行第6列</td>
-                                            </tr>
+
                                             </tbody>
                                         </table>
-
-                                        <!--<table id="tabb" bgcolor="#F4F7F9" style="text-align: center">-->
-                                        <!--<tr id="th"-->
-                                        <!--style="background-color: #F4F7F9;color: black;font-weight: 600;font-size: 20px;">-->
-                                        <!--<td>漫行推荐</td>-->
-                                        <!--<td>班次号</td>-->
-                                        <!--<td>出发时间</td>-->
-                                        <!--<td>预计到达</td>-->
-                                        <!--<td>票价</td>-->
-                                        <!--<td>操作</td>-->
-                                        <!--</tr>-->
-                                        <!--</table>-->
                                     </div>
                                 </div>
                             </div>
@@ -238,8 +209,7 @@
                                                        alt="">
                                               </a>-->
                                             <a href="#">
-                                                <img th:src="'http://www.yihao86.cn:9352/walk_img/'+${Dir}+'/'+'xq/'+${imgxq}"
-                                                     alt="">
+                                                <img th:src="'http://www.yihao86.cn:9352/walk_img/'+${Dir}+'/'+'xq/'+${imgxq}" alt="">
                                             </a>
                                         </div>
                                     </li>
@@ -321,7 +291,7 @@
                 var html = "";
                 for (var i = 0; i < car.length; i++) {
                     var js = car[i];
-                    $("#tabb").append("<tr style=\"background-color:#F4F7F9; font-size: 17px;font-weight: 600;\">" +
+                    $("#tabb").append("<tr>" +
                         "<td>" + js.c_type + "</td><td>" + js.cc_id + "</td><td>" + js.cc_send + "</td><td>" + js.cc_end + "</td><td>" + js.cc_price + "</td><td><a href=\"javascript:Send_Classid('" + js.cc_id + "',1," + js.cc_price + ",'" + js.cc_send + "','" + js.cc_end + "')\">选择此方式</a></td></tr>")
                 }
             }
@@ -335,7 +305,7 @@
                 var html = "";
                 for (var i = 0; i < train.length; i++) {
                     var js = train[i];
-                    $("#tabb").append("<tr style=\"font-size: 17px;font-weight: 600;\">" +
+                    $("#tabb").append("<tr>" +
                         "<td>" + js.t_type + "</td><td>" + js.tc_id + "</td><td>" + js.tc_send + "</td><td>" + js.tc_end + "</td><td>" + js.tc_price + "</td><td><a href=\"javascript:Send_Classid('" + js.tc_id + "',2," + js.tc_price + ",'" + js.tc_send + "','" + js.tc_end + "')\">选择此方式</a></td></tr>")
                 }
             }
@@ -349,7 +319,7 @@
                 var html = "";
                 for (var i = 0; i < plane.length; i++) {
                     var js = plane[i];
-                    $("#tabb").append("<tr style=\"font-size: 17px;font-weight: 600;\">" +
+                    $("#tabb").append("<tr>" +
                         "<td>" + js.p_type + "</td><td>" + js.pc_id + "</td><td>" + js.pc_send + "</td><td>" + js.pc_end + "</td><td>" + js.pc_price + "</td><td><a href=\"javascript:Send_Classid('" + js.pc_id + "',3," + js.pc_price + ",'" + js.pc_send + "','" + js.pc_end + "')\">选择此方式</a></td></tr>")
                 }
             }
@@ -357,7 +327,7 @@
     }
 
     $(".se_start_city").blur(function () {
-        $("#th").siblings().text("")
+        $("#tabb").html("");
         SendData_selectTools();
     });
 
@@ -393,6 +363,6 @@
         nextText: " > " //String: 下一项的文字
     });
 </script>
-<script src="../bootstrap.min.js"></script>
+<script src="http://127.0.0.1:8080/MX/order/js/bootstrap.min.js"></script>
 </body>
 </html>

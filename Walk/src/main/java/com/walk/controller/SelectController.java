@@ -31,6 +31,13 @@ public class SelectController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    private int rowA = 0;
+
+    private Map<String,Integer> bing = new HashMap<>();
+    private int s_city = 0;
+    private int s_price = 0 ;
+    private int s_num = 0;
+
     /**
      * 查询首页推荐
      * @param mod
@@ -56,26 +63,32 @@ public class SelectController {
      * @return
      */
     @RequestMapping("listView")
-    public String ListView(Model mod,int sPage,int ePage){
-        PageInfo<Scenery> pageInfo = sdaos.listView(mod,sPage,ePage);
-        //总页数
-        mod.addAttribute("pageNum",pageInfo.getPages());
-        //当前页数
-        mod.addAttribute("pageNext",pageInfo.getPageNum());
-        //单页数据
-        mod.addAttribute("sList",pageInfo.getList());
-        System.out.println("第"+sPage+"页数据将在60后被销毁"+redisTemplate.expire("lvScenery::data_page_"+sPage,60,TimeUnit.SECONDS));
+    public String ListView(Model mod,int sPage,int ePage,HttpSession session){
+        if (rowA == 0){
+            PageInfo<Scenery> pageInfo = sdaos.listView(mod,sPage,ePage);
+            //总页数
+            mod.addAttribute("pageNum",pageInfo.getPages());
+            //当前页数
+            mod.addAttribute("pageNext",pageInfo.getPageNum());
+            //单页数据
+            mod.addAttribute("sList",pageInfo.getList());
+            System.out.println("第"+sPage+"页数据将在60后被销毁"+redisTemplate.expire("lvScenery::data_page_"+sPage,60,TimeUnit.SECONDS));
+        }else{
+            PageInfo<Scenery> pageInfo = new PageInfo<>((List)session.getAttribute("EndSee"));
+            //总页数
+            mod.addAttribute("pageNum",pageInfo.getPages());
+            //当前页数
+            mod.addAttribute("pageNext",pageInfo.getPageNum());
+            //单页数据
+            mod.addAttribute("sList",pageInfo.getList());
+
+        }
         return "cpts_398_pn/products";
+
     }
-    private Map<String,Integer> bing = new HashMap<>();
-    private int s_city = 0;
-    private int s_price = 0 ;
-    private int s_num = 0;
-    private List<Scenery> Shai = new ArrayList<>();
 
-
-    @PostMapping("Shaixuan")
-    public String Shaixuan(String Da, String Dc){
+    @RequestMapping("Shaixuan")
+    public String Shaixuan(String Da, String Dc,HttpSession session){
         bing.put("评分",0);
         bing.put("地区",0);
         bing.put("价格区间",0);
@@ -117,8 +130,9 @@ public class SelectController {
             }
             bing.put(name[0],s_price);
         }
-        Shai = sdaos.selectByMod(bing.get("地区"),bing.get("价格区间"),bing.get("评分"));
-        return "";
+        session.setAttribute("EndSee",sdaos.selectByMod(bing.get("地区"),bing.get("价格区间"),bing.get("评分")));
+        rowA = 1;
+        return "forward:listView?sPage=1&ePage=11";
     }
 
     /**
@@ -127,13 +141,14 @@ public class SelectController {
      */
     @PostMapping("Quxiao")
     @ResponseBody
-    public List<Scenery> cacanleData(String Da) {
+    public String cacanleData(String Da) {
         String[] name = Da.split(":");
         bing.put(name[0],0);
         System.out.println(bing.size());
-        Shai = sdaos.selectByMod(bing.get("地区"),bing.get("价格区间"),bing.get("评分"));
-        return Shai;
+        //Shai = sdaos.selectByMod(bing.get("地区"),bing.get("价格区间"),bing.get("评分"));
+        return "";
     }
+
     /**
      * 加载详情页面
      * @return
@@ -146,6 +161,7 @@ public class SelectController {
     @RequestMapping("listDetails")
     public String listDetails(int s_id,Model mod){
        Scenery sce =  sdaos.selectDeal(s_id);
+
        String imgPath = sce.getS_img();
        List imglb = FileUtil.getFiles(imgPath+"/lb");
        List imgXq = FileUtil.getFiles(imgPath+"/xq");
@@ -154,6 +170,7 @@ public class SelectController {
        mod.addAttribute("imgXq",imgXq);
        mod.addAttribute("s_Details",sce);
        mod.addAttribute("Dir",dir[4]);
+       mod.addAttribute("c_name",sdaos.selectCname(sce.getS_city()));
        mod.addAttribute("class_num","aaa");
        return "cpts_398_pn/p-single";
     }
@@ -235,16 +252,18 @@ public class SelectController {
      * 保存订单
      * @return
      */
-    @PostMapping("SaveOrder")
-    public String SaveOrder(HttpSession session){
-        Order_info oi = (Order_info)session.getAttribute("Order_info");
-        System.out.println(oi.getS_id());
+    @RequestMapping("SaveOrder")
+    public String SaveOrder(int uid,HttpSession session){
+        //获取订单
+        Order_info oi =(Order_info)redisTemplate.opsForValue().get("pay_oi_"+uid);
+        //获取车票信息
+        Data_Class_INFO dci =(Data_Class_INFO)redisTemplate.opsForValue().get("pay_dci_"+uid);
+        //获取用户id
+        User u = (User)redisTemplate.opsForValue().get("pay_user_"+uid);
+        session.setAttribute("user",u);
         //生成订单号
         String Order_id = FileUtil.getOrderIdByUUId();
-        //获取用户id
-        User u = (User) session.getAttribute("user");
-        //获取车票信息
-        Data_Class_INFO dci=(Data_Class_INFO) session.getAttribute("Data_INFO");
+        System.out.println(u.getU_id());
         //新增订单实体类
         The_order to = new The_order();
         to.setO_id(Order_id);
@@ -268,7 +287,7 @@ public class SelectController {
             per.setPe_phone(oi.getU_lv_phone().get(i));
             sdaos.Saveperson(per);
         }
-        return "index";
+        return "redirect:index.html";
     }
 
 }
