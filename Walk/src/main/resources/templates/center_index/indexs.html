@@ -95,7 +95,7 @@
                                                         <tr>
                                                             <td class="xg">手机号：</td>
                                                             <td>
-                                                                <span id="uphones" class="xgy"></span>
+                                                                <span class="xgy"></span>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -292,6 +292,7 @@
             infos();
             Orders();
         });
+
     });
 
     /**
@@ -328,9 +329,38 @@
      * 点击修改密码
      */
     function changePwd() {
+        SendVapwd();
         password();
     }
-
+    var va = 0;
+    function SendVapwd() {
+        var number = $("#uphones").text();
+        alert(number);
+        $.ajax({
+            url: "SaveNumbertoRides",
+            async: true,//这一步是非常重要的，作用是设置为同步执行
+            type: "POST",
+            data: { "u_phone": number,"row":1},
+            dataType: "json",
+            success: function (data) {
+                va = data;
+            }
+        });
+    }
+    function SavePwd() {
+        var inputVal = $("#val").val();
+        var new_pwd = $("#new_pwd").val();
+        if (va != inputVal){
+            $("#val").next().text("验证码错误")
+        }else{
+            $.post("ModifyPwd?pwd="+new_pwd,function (res) {
+                if (res == true){
+                    alert("密码修改成功，请妥善保管");
+                    infos();
+                }
+            })
+        }
+    }
     /**
      * 点击保存
      */
@@ -522,14 +552,14 @@
             "                                                        <tr >\n" +
             "                                                            <td class=\"xg\">验证码：</td>\n" +
             "                                                            <td>\n" +
-            "                                                                <input  class=\"xgs\"  type=\"text\" name=\"yzm\" placeholder=\"请输入验证码\"/>\n" +
+            "                                                                <input id=\"val\"  class=\"xgs\"  type=\"text\" name=\"yzm\" placeholder=\"请输入验证码\"/>\n" +
             "                                                        <span>1121</span>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        <tr>\n" +
             "                                                            <td class=\"xg\">新密码：</td>\n" +
             "                                                            <td>\n" +
-            "                                                                <input class=\"xgs\" type=\"text\" name=\"u_phone\" placeholder=\"请输入新密码\"/>\n" +
+            "                                                                <input id=\"new_pwd\" class=\"xgs\" type=\"text\" name=\"u_phone\" placeholder=\"请输入新密码\"/>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        </tbody>\n" +
@@ -537,7 +567,7 @@
             "                                                        <tr>\n" +
             "                                                            <td colspan=\"2\" style=\"text-align: center;\" >\n" +
             "                                                                <a href='#' onclick=\"infos()\">返回</a>" +
-            "                                                                <a href='#' onclick=\"#\">保存</a>" +
+            "                                                                <a href='#' onclick=\"SavePwd()\">保存</a>" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        </tfoot>\n" +

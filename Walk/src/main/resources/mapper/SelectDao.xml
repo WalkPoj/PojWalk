@@ -76,5 +76,8 @@ INSERT INTO person(u_id,pe_name,pe_cardid,pe_phone) VALUES(#{u_id},#{pe_name},#{
 			DESC
 		</if>
 	</select>
+	<select id="selectCname" parameterType="int" resultType="String">
+		SELECT c_name FROM city WHERE c_id = #{c_id}
+	</select>
 
 </mapper>
