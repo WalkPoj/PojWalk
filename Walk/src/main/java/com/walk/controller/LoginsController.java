@@ -145,7 +145,20 @@ public class LoginsController {
             list=ove.selectOrder(o_id,session);
             for (Map<String, Object> stringObjectMap : list) {
                 System.out.println(stringObjectMap.get("o_id"));
+                String date=new SimpleDateFormat("yyyy-MM-dd").format(stringObjectMap.get("o_create"));
+                stringObjectMap.put("o_create",date);
+               /*
+                map.put("date",date);
+                map.put("o_id",stringObjectMap.get("o_id"));
+                map.put("m_name",stringObjectMap.get("m_name"));
+                map.put("s_title",stringObjectMap.get("s_title"));
+                map.put("o_person",stringObjectMap.get("o_person"));
+                map.put("tools_id",stringObjectMap.get("tools_id"));
+                map.put("class_id",stringObjectMap.get("class_id"));
+                map.put("o_price",stringObjectMap.get("o_price"));
+                map.put("o_create",stringObjectMap.get("o_create"));*/
             }
+          /*  list.add(map);*/
             System.out.println(list.size());
         }else{
             System.out.println("查询一个订单的详情:");
