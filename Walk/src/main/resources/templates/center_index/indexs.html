@@ -61,6 +61,7 @@
                         <img src="img/underline.png" class="img-fluid mb-4">
                         <p>您可以在此查看订单，也可修改您的基本信息</p>
                         <p>秋天到了，注意保暖呦</p>
+                        <p><a href="index.html" style="color: #FFFFFF;">返回首页</a></p>
                     </div>
                 </div>
 
@@ -288,11 +289,13 @@
 <!-- https://jquery.com/ -->
 <script th:inline="javascript">
     $(function () {
+        /**
+         * 点击每个功能块显示不同信息
+         */
         $(".tm-main-content").click(function () {
             infos();
             Orders();
         });
-
     });
 
     /**
@@ -305,6 +308,21 @@
             },
             autoClose : 1000
         });
+    }
+
+    /**
+     * 编辑资料昵称失去焦点判断昵称是否存在
+     */
+    function Losefocus() {
+        var u_uickname=$(".details__description #zz :input[name=u_nickname]").val();
+        if(u_uickname.trim().length>0&&u_uickname!=""){
+            $.post("UserExist?u_uickname=" + u_uickname, function (us) {
+                if (us) {
+                    bounced("温馨提示：用户名已存在！2秒后关闭...");
+                    $(".details__description #zz :input[name=u_nickname]").val().focus();
+                }
+            });
+        }
     }
 
     /**
@@ -512,7 +530,7 @@
             "                                                        <tr >\n" +
             "                                                            <td class=\"xg\">昵称：</td>\n" +
             "                                                            <td>\n" +
-            "                                                                <input  class=\"xgs\"  type=\"text\" name=\"u_nickname\" value=\"" + u_nickname + "\" placeholder=\"请输入昵称\"/>\n" +
+            "                                                                <input  class=\"xgs\" onblur=\"Losefocus()\"  type=\"text\" name=\"u_nickname\" value=\"" + u_nickname + "\" placeholder=\"请输入昵称\"/>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        <tr>\n" +

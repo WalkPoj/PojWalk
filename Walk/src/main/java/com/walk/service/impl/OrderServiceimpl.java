@@ -51,4 +51,16 @@ public class OrderServiceimpl  implements OrderService {
         return orderDao.selectUserOrder(u.getU_id());
     }
 
+    /**
+     * 判断编辑资料的昵称是否存在
+     * @param u_uickname
+     * @return
+     */
+    @Override
+    public boolean selectUserExist(String u_uickname){
+        if(orderDao.selectUserExist(u_uickname)>0)
+            return true;
+        return false;
+    }
+
 }

@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -115,6 +114,19 @@ public class LoginsController {
     }
 
     /**
+     * 判断编辑资料的昵称是否存在
+     * @param u_uickname
+     * @param response
+     * @return
+     */
+    @RequestMapping("UserExist")
+    @ResponseBody
+    public boolean selectUserExist(String u_uickname, HttpServletResponse response){
+        response.setContentType("text/html;charset=GBK");
+        return ove.selectUserExist(u_uickname);
+    }
+
+    /**
      * 编辑个人中心基本资料
      * @param user
      * @param session
@@ -124,8 +136,10 @@ public class LoginsController {
     @ResponseBody
     public User update(User user,HttpSession session){
         System.out.println(user.getU_nickname());
-        if(ove.updateOrder(user,session)>0)
+        if(ove.updateOrder(user,session)>0){
+            session.setAttribute("user",user);
             return user;
+        }
         return null;
     }
 
@@ -220,6 +234,11 @@ public class LoginsController {
         return res;
     }
 
+    /**
+     * 注销
+     * @param session
+     * @return
+     */
     @RequestMapping("Out")
     public String out(HttpSession session){
         session.removeAttribute("user");

@@ -28,4 +28,11 @@ public interface OrderDao {
      * @return
      */
     public User selectUserOrder(@Param("u_id") int u_id);
+
+    /**
+     * 判断编辑资料的昵称是否存在
+     * @param u_uickname
+     * @return
+     */
+    public int selectUserExist(@Param("u_uickname") String u_uickname);
 }

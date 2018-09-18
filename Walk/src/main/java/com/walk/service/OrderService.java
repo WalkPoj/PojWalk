@@ -28,4 +28,11 @@ public interface OrderService {
      */
     public User selectUserOrder(HttpSession session);
 
+    /**
+     * 判断编辑资料的昵称是否存在
+     * @param u_uickname
+     * @return
+     */
+    public boolean selectUserExist(String u_uickname);
+
 }

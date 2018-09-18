@@ -25,4 +25,9 @@
         UPDATE `user` u SET u.`u_nickname`=#{u_nickname},u.`u_phone`=#{u_phone},u.`u_idcard`=#{u_idcard}  WHERE u.`u_id`=#{u_id}
     </update>
 
+    <!-- 判断编辑资料的昵称是否存在 -->
+    <select id="selectUserExist" resultType="int" parameterType="String">
+        SELECT COUNT(u.`u_nickname`) FROM `user` u WHERE u.`u_nickname`=#{u_uickname}
+    </select>
+
 </mapper>
