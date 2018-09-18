@@ -308,6 +308,7 @@
             $.post("UserExist?u_uickname=" + u_uickname, function (us) {
                 if (us) {
                     bounced("温馨提示：用户名已存在！2秒后关闭...");
+                    $(".details__description #zz :input[name=u_nickname]").val("");
                     $(".details__description #zz :input[name=u_nickname]").val().focus();
                 }
             });
@@ -336,8 +337,12 @@
      * 点击修改密码
      */
     function changePwd() {
-        SendVapwd();
-        password();
+        var res = confirm("您确定需要修改密码？")
+        if (res == true){
+            SendVapwd();
+            password();
+        }
+
     }
     var va = 0;
     function SendVapwd() {
@@ -358,7 +363,8 @@
         var inputVal = $("#val").val();
         var new_pwd = $("#new_pwd").val();
         if (va != inputVal){
-            $("#val").next().text("验证码错误")
+            $("#val").next().css("color","red");
+            $("#val").next().text("错误")
         }else{
             $.post("ModifyPwd?pwd="+new_pwd,function (res) {
                 if (res == true){
@@ -560,7 +566,7 @@
             "                                                            <td class=\"xg\">验证码：</td>\n" +
             "                                                            <td>\n" +
             "                                                                <input id=\"val\"  class=\"xgs\"  type=\"text\" name=\"yzm\" placeholder=\"请输入验证码\"/>\n" +
-            "                                                        <span>1121</span>\n" +
+            "                                                        <span></span>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        <tr>\n" +

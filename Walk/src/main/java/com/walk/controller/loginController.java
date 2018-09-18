@@ -33,7 +33,6 @@ public class loginController {
 
     @RequestMapping("/indexss")
     public ModelAndView login(ModelAndView mav){
-        System.out.println("进入");
         mav.setViewName("redirect:center/login.html");
        return mav;
     }
