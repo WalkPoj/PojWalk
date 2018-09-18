@@ -1,6 +1,7 @@
 package com.walk.controller;
 
 import com.show.api.ShowApiRequest;
+import com.walk.pojo.Mark;
 import com.walk.pojo.User;
 import com.walk.service.OrderService;
 import com.walk.service.UserService;
@@ -68,7 +69,7 @@ public class LoginsController {
             user.setU_phone(null);
         }
         User users=uve.OrdinaryLogin(user);
-        if(users!=null&&users.getU_root()==1){
+        if(users!=null&&users.getU_root()==1||users.getU_root()==2){
             if(name.equals(users.getU_nickname())||name.equals(users.getU_phone())){
                 session.setAttribute("user",users);
                 return "index";
@@ -91,6 +92,34 @@ public class LoginsController {
     public boolean PhoneExists(String u_phone, HttpServletResponse response){
         response.setContentType("text/html;charset=GBK");
         return uve.PhoneExists(u_phone);
+    }
+
+    /**
+     * 商家入驻
+     * @param mark
+     * @param session
+     * @return
+     */
+    @RequestMapping("/MarkAdmission.html")
+    public String MarkAdmission(Mark mark,HttpSession session){
+         if (ove.insertMark(mark,session)){
+             session.removeAttribute("user");
+             return "index";
+         }else{
+             return "Mark";
+         }
+    }
+
+    @RequestMapping("/Mark.action")
+    public String Mark(HttpSession session){
+
+        User user=(User)session.getAttribute("user");
+        System.out.println(user.getU_cert());
+        if(user.getU_cert()==1){
+            return "Mark";
+        }else{
+            return "redirect:/indexss";
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.walk.service;
 
+import com.walk.pojo.Mark;
 import com.walk.pojo.User;
 
 import javax.servlet.http.HttpSession;
@@ -35,4 +36,10 @@ public interface OrderService {
      */
     public boolean selectUserExist(String u_uickname);
 
+    /**
+     * 新增商家入驻
+     * @param mark
+     * @return
+     */
+    public boolean insertMark(Mark mark,HttpSession session);
 }

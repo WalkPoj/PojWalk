@@ -30,4 +30,9 @@
         SELECT COUNT(u.`u_nickname`) FROM `user` u WHERE u.`u_nickname`=#{u_uickname}
     </select>
 
+    <!-- 新增商家入驻 -->
+    <insert id="insertMark" parameterType="Mark">
+        INSERT INTO `mark` VALUES (NULL,#{m_name},#{m_address},#{m_phone},#{u_id},#{m_state},NULL)
+    </insert>
+
 </mapper>

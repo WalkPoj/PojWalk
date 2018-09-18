@@ -1,5 +1,6 @@
 package com.walk.dao;
 
+import com.walk.pojo.Mark;
 import com.walk.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,4 +36,11 @@ public interface OrderDao {
      * @return
      */
     public int selectUserExist(@Param("u_uickname") String u_uickname);
+
+    /**
+     * 新增商家入驻
+     * @param mark
+     * @return
+     */
+    public int insertMark(Mark mark);
 }
