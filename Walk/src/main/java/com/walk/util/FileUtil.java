@@ -7,7 +7,7 @@ import java.util.*;
 public class FileUtil {
     public static String getOrderIdByUUId() {
         Random random = new Random();
-        SimpleDateFormat allTime = new SimpleDateFormat("MMddHHSSSmmYYYY");
+        SimpleDateFormat allTime = new SimpleDateFormat("YYYYMMddHHSSSmm");
         String subjectno = allTime.format(new Date()) + random.nextInt(10);
         return subjectno + random.nextInt(10);
     }

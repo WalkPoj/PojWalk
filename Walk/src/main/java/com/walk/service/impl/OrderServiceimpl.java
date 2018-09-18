@@ -6,6 +6,7 @@ import com.walk.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +18,13 @@ public class OrderServiceimpl  implements OrderService {
 
     /**
      * 根据u_id查询我的订单
-     * @param u_id
      * @param o_id
      * @return
      */
     @Override
-    public  List<Map<String,Object>> selectOrder(int u_id,String o_id) {
-        return orderDao.selectOrder(u_id,o_id);
+    public  List<Map<String,Object>> selectOrder(String o_id,HttpSession session) {
+        User u=(User) session.getAttribute("user");
+        return orderDao.selectOrder(u.getU_id(),o_id);
     }
 
     /**
@@ -32,19 +33,22 @@ public class OrderServiceimpl  implements OrderService {
      * @return
      */
     @Override
-    public boolean updateOrder(User user) {
+    public int updateOrder(User user,HttpSession session) {
+        User u=(User)session.getAttribute("user");
+        user.setU_id(u.getU_id());
         if(orderDao.updateOrder(user)>0)
-            return true;
-        return false;
+            return 1;
+        return 0;
     }
 
     /**
      * 查询个人中心基本信息
-     * @param u_id
      * @return
      */
     @Override
-    public User selectUserOrder(int u_id) {
-        return orderDao.selectUserOrder(u_id);
+    public User selectUserOrder(HttpSession session) {
+        User u=(User)session.getAttribute("user");
+        return orderDao.selectUserOrder(u.getU_id());
     }
+
 }

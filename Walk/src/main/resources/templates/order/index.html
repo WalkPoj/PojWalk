@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<form id="defaultForm" action="SaveOrder" method="post" target="_parent" class="form-horizontal">
+<form id="defaultForm" action="Pay" method="post" target="_parent" class="form-horizontal">
     <div class="border_top_cart">
         <div class="container">
             <div class="checkout-box">
@@ -187,6 +187,7 @@
                                         </ul>
                                         <p class="checkout-total">应付总额：<a style="color: red">￥</a><span><strong id="totalPrice">244.00</strong></span>
                                         </p>
+                                        <input name="order_price" type="hidden" id="o_price" value="">
                                     </div>
                                     <!--  -->
                                 </div>
@@ -206,7 +207,6 @@
 <script type="text/javascript" src="js/address_all.js"></script>
 <script type="text/javascript" src="js/checkout.min.js"></script>
 <!--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
-
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootstrapValidator.js"></script>
@@ -243,6 +243,7 @@
                             message:'手机号不能为空'
                         },
                         stringLength:{
+                            min:11,
                             max:11,
                             message:'手机号不能超过11位'
                         },
@@ -321,6 +322,7 @@
         var cxpj = $(".cxpj").text().split(".");
         var jqpj = $(".jqpj").text().split(".");
         $("#totalPrice").text(parseInt(cxpj[0])+parseInt(jqpj[0])+".00")
+        $("#o_price").val(parseInt(cxpj[0])+parseInt(jqpj[0]));
     });
 </script>
 </body>
