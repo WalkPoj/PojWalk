@@ -4,12 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.walk.dao.The_orderDao">
     <select id="findOrderCount" resultType="long" parameterType="map" >
-        SELECT COUNT(a.`o_id`) FROM `the_order` a,`user` b,`mark` c,`scenery` d WHERE a.`u_id`=b.`u_id` AND a.`m_id`=c.`m_id`AND a.`s_id`=d.`s_id` AND a.`m_id`=#{m_id} <include refid="condition"/>
+        SELECT COUNT(a.`o_id`) FROM `the_order` a,`user` b,`mark` c,`scenery` d <include refid="condition"/>
     </select>
     <sql id="condition">
         <where>
+            a.`u_id`=b.`u_id` AND a.`m_id`=c.`m_id`AND a.`s_id`=d.`s_id` AND a.`m_id`=#{m_id}
             <if test="o_id!=null and o_id!=0">
-                AND a.`o_id` LIKE CONCAT('%',#{o_id},'%')
+                and a.`o_id` LIKE CONCAT('%',#{o_id},'%')
             </if>
             <if test="u_name!=null and u_name!=''">
                 and b.`u_name` like concat('%',#{u_name},'%')
@@ -17,10 +18,13 @@
         </where>
     </sql>
     <select id="selectOrder" resultType="map" parameterType="map">
-        SELECT a.`o_id`,b.`u_name`,b.`u_phone`,c.`m_name`,d.`s_title`,a.`o_person`,a.`tools_id`,a.`class_id`,a.`o_price` FROM `the_order` a,`user` b,`mark` c,`scenery` d WHERE a.`u_id`=b.`u_id` AND a.`m_id`=c.`m_id`AND a.`s_id`=d.`s_id` AND a.`m_id`=#{m_id} <include refid="condition"/>
+        SELECT a.`o_id`,b.`u_name`,b.`u_phone`,c.`m_name`,d.`s_title`,a.`o_person`,a.`tools_id`,a.`class_id`,a.`o_price` FROM `the_order` a,`user` b,`mark` c,`scenery` d <include refid="condition"/>
         order by ${sort} ${order} limit #{pages},#{rowss}
     </select>
     <select id="selectEcharts" resultType="Echarts">
          SELECT COUNT(a.`o_id`) AS o_id,d.`s_title`FROM `the_order` a,`scenery` d WHERE a.`s_id`=d.`s_id` AND a.`m_id`=#{m_id} GROUP BY d.`s_title`
+    </select>
+    <select id="selectMonth" resultType="Echarts">
+        SELECT COUNT(a.`o_id`) AS o_id,d.`s_title`FROM `the_order` a,`scenery` d WHERE a.`s_id`=d.`s_id` AND a.`m_id`=#{m_id} AND DATE_FORMAT(`o_create`,'%Y-%m')=CONCAT(YEAR(CURDATE()),#{month}) GROUP BY d.`s_title`
     </select>
 </mapper>

@@ -15,17 +15,16 @@
     <script type="text/javascript">
         var isx=0;//1请输入手机号，2请输入正确的手机号，3成功
         var phone=/^1[3|4|5|7|8][0-9]{9}$/;
+        var idcodes =/^[1-9]\d{5}(18|19|2([0-9]))\d{2}(0[0-9]|10|11|12)([0-2][1-9]|30|31)\d{3}[0-9Xx]$/;
         function run(){
             var u_phone = $(".safinput1").eq(3).val();
             var btns = $("#sss");
             if(u_phone==""){
                 alert("请输入手机号！");
-                isx = 1;
                 $(".safinput1").eq(3).focus();
                 return false;
             }else if(phone.test(u_phone)==false){
                 alert("请输入正确的手机号！");
-                isx = 2;
                 $(".safinput1").eq(3).focus();
                 return false;
             }else {
@@ -33,18 +32,16 @@
                     type: "post",
                     url:"isPhone?u_phone="+u_phone,
                     success:function (msg) {
-                        if ("on"==msg){
-                            alert("您输入的手机号错误！");
-                            isx = 3;
+                        if ("no"==msg){
+                            alert("请输入输入您绑定的手机号！");
                             $(".safinput1").eq(3).focus();
                             return false;
                         }else{
-                            isx = 0;
+                            isx = 4;
                             fusc(btns);
                         }
                     }
                 });
-
             }
         }
         var isnph=0;
@@ -54,25 +51,22 @@
             if (nPhone=="") {
                 alert("请输入手机号！");
                 $(".safinput1").eq(5).focus();
-                isnph =1;
                 return false;
             }else if(phone.test(nPhone)==false){
                 alert("请输入正确的手机号！");
                 $(".safinput1").eq(5).focus();
-                isnph = 2;
                 return false;
             }else{
                 $.ajax({
                     type: "post",
-                    url:"isNewPhone?u_phone="+u_phone,
+                    url:"isNewPhone?u_phone="+nPhone,
                     success:function (msg) {
-                        if ("on"==msg){
+                        if ("no"==msg){
                             alert("不能修改为原号码！");
-                            isnph = 3;
                             $(".safinput1").eq(5).focus();
                             return false;
                         }else{
-                            isnph = 0;
+                            isnph = 4;
                             fusc(btnsc);
                         }
                     }
@@ -101,67 +95,73 @@
             }, 1000)
         }
         //安全设置 手机号码下一步
-        $(".sjyz-one-next").click(function(){
+       function fsssd(){
+            alert("scsc");
             var u_phone = $(".safinput1").eq(3).val();
             var code = $(".safinput2").eq(0).val();
-            var idcode =  $(".safinput1").eq(3).val();
-            if(isx==1){
+            var idcode =  $(".safinput1").eq(4).val();
+            if(u_phone==""){
                 alert("请输入手机号！")
                 return false;
-            }else if(isx==2){
+            }else if(phone.test(u_phone)==false){
                 alert("请输入正确的手机号！");
-                return false;
-            }else if(isx==3){
-                alert("您输入的手机号错误！");
+                $(".safinput1").eq(3).focus();
                 return false;
             }else{
                 if (code!="") {
-                    $.ajax({
-                        type: "post",
-                        url:"center/isCode?u_phone="+u_phone+"&code="+code+"&idcard"+idcode,
-                        success: function (msg) {
-                            if ("no"==msg){
-                                alert("验证码错误！")
-                                return false;
-                            }else if("noidcode"==msg){
-                                alert("请输入正确的身份证！");
-                                return false;
-                            }else{
-                                $(this).parents("form").next(".sjyz-two").show();
-                                $(this).parents(".sjyz-one").hide();
-                                $(this).parents("dd").find(".Step li:eq(1)").addClass("stepCur");
-                            }
+                    if (idcode!="") {
+                        if (idcodes.test(idcode)==false){
+                            alert("请输入合法的身份证号！");
+                            return false;
+                        }else {
+                            $.ajax({
+                                type: "post",
+                                url:"isCode?u_phone="+u_phone+"&code="+code+"&idcard="+idcode,
+                                success: function (msg) {
+                                    if ("no"==msg){
+                                        alert("验证码错误！")
+                                        return false;
+                                    }else if("noidcode"==msg){
+                                        alert("请输入您绑定的身份证号！");
+                                        return false;
+                                    }else{
+                                        $(".sjyz-one-next").parents("form").next(".sjyz-two").show();
+                                        $(".sjyz-one-next").parents(".sjyz-one").hide();
+                                        $(".sjyz-one-next").parents("dd").find(".Step li:eq(1)").addClass("stepCur");
+                                    }
+                                }
+                            });
                         }
-                    });
+                    }else{
+                        alert("请输入身份证！");
+                        return false;
+                    }
+
                 }else{
                     alert("请输入验证码！");
                     return false;
                 }
             }
-        })
-        $(".sjyz-two-next").click(function(){
+        }
+        function twoy(){
             var nPhone = $(".safinput1").eq(5).val();
             var code = $(".safinput2").eq(1).val();
-            if (isnph==1) {
+            if (nPhone=="") {
                 alert("请输入手机号！");
                 $(".safinput1").eq(5).focus();
                 return false;
-            }else if(isnph==2){
+            }else if(phone.test(nPhone)==false){
                 alert("请输入正确的手机号！");
                 $(".safinput1").eq(5).focus();
                 return false;
-            }else if(isnph==3){
-                alert("不能修改为原号码！");
-                $(".safinput1").eq(5).focus();
-                return false;
-            }else{
+            }else if(isnph==4){
                 if(code==""){
                     alert("请输入验证码！");
                     return false;
                 }else {
                     $.ajax({
                         type: "post",
-                        url:"center/isCodes?u_phone="+nPhone+"&code="+code,
+                        url:"isCodes?u_phone="+nPhone+"&code="+code,
                         success: function (msg) {
                             if ("no"==msg){
                                 alert("验证码错误！")
@@ -170,19 +170,16 @@
                                 alert("系统正忙，请稍后再试！");
                                 window.location.reload();
                             }else{
-                                $(this).parents(".sjyz-two").hide();
-                                $(this).parents("form").prev(".sjyz-one").hide();
-                                $(this).parents("dd").find(".sjyz-ok").show();
-                                $(this).parents("dd").find(".Step li:eq(2)").addClass("stepCur");
+                                $(".sjyz-two-next").parents(".sjyz-two").hide();
+                                $(".sjyz-two-next").parents("form").prev(".sjyz-one").hide();
+                                $(".sjyz-two-next").parents("dd").find(".sjyz-ok").show();
+                                $(".sjyz-two-next").parents("dd").find(".Step li:eq(2)").addClass("stepCur");
                             }
                         }
                     });
                 }
             }
-
-
-
-        });
+        };
         <!--密码修改验证-->
         function  sub() {
             var uid = [[${uid}]];
@@ -308,7 +305,7 @@
                     </tr>
                     <tr>
                         <td width="35%" align="right">&nbsp;</td>
-                        <td><a class="safSub sjyz-one-next" href="javascript:;">下一步</a></td>
+                        <td><a class="safSub sjyz-one-next" onclick="fsssd()" href="#">下一步</a></td>
                     </tr>
                 </table>
             </form>
@@ -324,7 +321,7 @@
                     </tr>
                     <tr>
                         <td width="35%" align="right">&nbsp;</td>
-                        <td><a class="safSub sjyz-two-next" href="javascript:;">下一步</a></td>
+                        <td><a class="safSub sjyz-two-next" onclick="twoy()" href="javascript:;">下一步</a></td>
                     </tr>
                 </table>
             </form>

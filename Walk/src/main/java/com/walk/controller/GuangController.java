@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -439,6 +440,29 @@ public class GuangController {
         return  list;
     }
 
+    /**
+     * 查询某个月的销量
+     * @param month
+     * @param session
+     * @return
+     */
+    @RequestMapping("/selectMonth")
+    @ResponseBody
+    public List<Echarts> selectMonth(String month,HttpSession session){
+        Mark mark = (Mark) session.getAttribute("mark");
+        int m_id = mark.getM_id();
+        List<Echarts> list;
+        if (Integer.valueOf(month)==0){
+            list = this.mve.selectEcharts(m_id);
+        }else {
+            list = this.mve.selectMonth(m_id, month);
+            for (Echarts e : list) {
+                System.out.println(month + "月份的" + e.getS_title() + "销量：" + e.getO_id());
+            }
+        }
+        return list;
+    }
+
 
     String appid = "71437";
     String secret = "a2e0ddb9fc5b4421ba305e9464b12462";
@@ -457,9 +481,13 @@ public class GuangController {
         Mark mark = (Mark) session.getAttribute("mark");
         int m_id = mark.getM_id();
         String dataph = msve.selectPhone(m_id);
-        if (u_phone != dataph){
+        System.out.println("dataph"+dataph);
+        System.out.println("传来的手机号"+u_phone+""+!u_phone.equals(dataph));
+        if (!u_phone.equals(dataph)){
+            System.out.println("不是商家的手机号");
             return "no";
         }else {
+            System.out.println("发送短信");
             fuanx(u_phone);//发送验证码
             return "ok";
         }
@@ -480,18 +508,19 @@ public class GuangController {
     /**
      * 验证用户输入的验证码，身份证，是否正确
      */
-    @RequestMapping("/isCode")
+    @RequestMapping("isCode")
     @ResponseBody
     public String  isCode(String u_phone,String code,String idcard,HttpSession session){
         Mark mark = (Mark) session.getAttribute("mark");
         int m_id = mark.getM_id();
         String idcards = this.msve.selectIdcard(m_id);
-        if (idcard!=idcards){
+        System.out.println("idcards"+idcards);
+        if (!idcard.equals(idcards)){
             return "noidcode";
         }
         String rcode =(String) redisTemplate.opsForValue().get("u_phone_"+u_phone);
-        System.out.println(rcode);
-        if(code!=rcode)
+        System.out.println("rcode"+rcode);
+        if(!code.equals(rcode))
             return "no";
         return "ok";
     }
@@ -502,7 +531,7 @@ public class GuangController {
         Mark mark = (Mark) session.getAttribute("mark");
         int m_id = mark.getM_id();
         String dataph = msve.selectPhone(m_id);
-        if (u_phone==dataph){
+        if (u_phone.equals(dataph)){
             return "no";
         }else{
             fuanx(u_phone);
@@ -517,14 +546,15 @@ public class GuangController {
         int m_id = mark.getM_id();
         String rcode =(String) redisTemplate.opsForValue().get("u_phone_"+u_phone);
         System.out.println(rcode);
-        if(code!=rcode){
+        System.out.println(code+"=="+rcode);
+        if(!code.equals(rcode)){
             return "no";
         }else{
          int orw = this.msve.updatePhone(u_phone,m_id);
          if (orw>0){
-             return "isno";
-         }else{
              return "ok";
+         }else{
+             return "isno";
          }
         }
     }

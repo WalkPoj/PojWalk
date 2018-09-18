@@ -30,4 +30,12 @@ public interface The_orderDao {
      */
     public List<Echarts> selectEcharts(@Param("m_id") int m_id);
 
+    /**
+     * 查询某个月份的销量
+     * @param m_id
+     * @param month
+     * @return
+     */
+    public List<Echarts> selectMonth(@Param("m_id") int m_id,@Param("month")String month);
+
 }

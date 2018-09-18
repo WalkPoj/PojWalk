@@ -9,6 +9,6 @@ import lombok.Setter;
  * Echarts柱状图
  */
 public class Echarts {
-    private Integer o_id;
-    private String s_title;
+    private Integer o_id;//销量
+    private String s_title;//景点
 }

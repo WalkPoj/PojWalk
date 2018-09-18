@@ -24,4 +24,13 @@ public interface MorderService {
      * @return
      */
     public List<Echarts> selectEcharts(int m_id);
+
+    /**
+     * ‘查询某个月的销量
+     * @param m_id
+     * @param month
+     * @return
+     */
+    public List<Echarts> selectMonth(int m_id,String month);
+
 }

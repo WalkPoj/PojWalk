@@ -1,11 +1,40 @@
-<!DOCTYPE html>
+
 <head>
     <meta charset="utf-8">
     <title>ECharts</title>
 </head>
 <body>
-<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="height:400px"></div>
+<style type="text/css">
+</style>
+<div id="max">
+    <table>
+        <tr>
+            <td><input type="button" class="a" onclick="show()" value="所有销量"></td>
+            <td>销量：<select class="month">
+                   <option value="0">请选择</option>
+                   <option value="0">所有销量</option>
+                   <option value="-01">一月份销量</option>
+                   <option value="-02">二月份销量</option>
+                   <option value="-03">三月份销量</option>
+                   <option value="-04">四月份销量</option>
+                   <option value="-05">五月份销量</option>
+                   <option value="-06">六月份销量</option>
+                   <option value="-07">七月份销量</option>
+                   <option value="-08">八月份销量</option>
+                   <option value="-09">久月份销量</option>
+                   <option value="-10">十月份销量</option>
+                   <option value="-11">十一月份销量</option>
+                   <option value="-12">十二月份销量</option>
+               </select>
+            </td>
+        </tr>
+    </table>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <div id="maia" style="height:400px"></div>
+    <div id="maib" style="height:400px"></div>
+    <div id="maic" style="height:400px"></div>
+</div>
 <!-- ECharts单文件引入 -->
 <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 <script type="text/javascript" src="js/easyui/themes/jquery-1.8.3.min.js"></script>
@@ -37,25 +66,23 @@
                     {
                         type : 'category',
                         data : (function () {
-                                    var arr=[];
-                                    $.ajax({
-                                        type : "post",
-                                        async : false, //同步执行
-                                        url : "center/selectEcharts",
-                                        data : {},
-                                        dataType : "json", //返回数据形式为
-                                        success : function(result) {
-                                            alert(result)
-                                            alert(result.s_title)
-                                            if (result) {
-                                                for(var i=0;i<result.length;i++){
-                                                    console.log(result[i].s_title);
-                                                    arr.push(result[i].s_title);
-                                                    alert(result[i].s_title)
-                                                }
-                                            }
-
+                            var arr=[];
+                            $.ajax({
+                                type : "post",
+                                async : false, //同步执行
+                                url : "center/selectEcharts",
+                                data : {},
+                                dataType : "json", //返回数据形式为
+                                success : function(result) {
+                                    if (result) {
+                                        for(var i=0;i<result.length;i++){
+                                            console.log(result[i].s_title);
+                                            arr.push(result[i].s_title);
+                                            alert(result[i].s_title)
                                         }
+                                    }
+
+                                }
                             })
                             return arr;
                         })()
@@ -79,8 +106,6 @@
                                 data : {},
                                 dataType : "json", //返回数据形式为
                                 success : function(result) {
-                                    alert(result)
-                                    alert(result.o_id)
                                     if (result) {
                                         for(var i=0;i<result.length;i++){
                                             console.log(result[i].o_id);
@@ -101,5 +126,107 @@
             myChart.setOption(option);
         }
     );
+    $(".month").change(function () {
+        $(function () {
+            $("#main").css("display","none");
+            $("#maia").css("display","block");
+        });
+        alert($(".month").val());
+        var month = $(".month").val();
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('maia'));
+
+                var option = {
+                    tooltip: {
+                        show: true
+                    },
+                    legend: {
+                        data:['销量']
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : (function () {
+                                var arr=[];
+                                $.ajax({
+                                    type : "post",
+                                    async : false, //同步执行
+                                    url : "center/selectMonth?month="+month,
+                                    data : {},
+                                    dataType : "json", //返回数据形式为
+                                    success : function(result) {
+                                        if (result) {
+                                            for(var i=0;i<result.length;i++){
+                                                console.log(result[i].s_title);
+                                                arr.push(result[i].s_title);
+                                                alert(result[i].s_title)
+                                            }
+                                        }
+
+                                    }
+                                })
+                                return arr;
+                            })()
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            "name":"销量",
+                            "type":"bar",
+                            "data":(function () {
+                                var arr=[];
+                                $.ajax({
+                                    type : "post",
+                                    async : false, //同步执行
+                                    url : "center/selectMonth?month="+month,
+                                    data : {},
+                                    dataType : "json", //返回数据形式为
+                                    success : function(result) {
+                                        if (result) {
+                                            for(var i=0;i<result.length;i++){
+                                                console.log(result[i].o_id);
+                                                arr.push(result[i].o_id);
+                                                alert(result[i].o_id)
+                                            }
+                                        }
+
+                                    }
+                                })
+                                return arr;
+                            })()
+                        }
+                    ]
+                };
+
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+                // $(function () {
+                //     $("#maia").css("display","none");
+                // });
+            }
+        );
+
+    });
+</script>
+<script type="text/javascript">
+    function show(){
+        $(function () {
+            $("#maia").css("display","none");
+        });
+        $("#main").toggle();
+        $(".month option:first").prop("selected", 'selected');
+    };
 </script>
 </body>
