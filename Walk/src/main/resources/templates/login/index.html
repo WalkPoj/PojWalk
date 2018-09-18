@@ -91,16 +91,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script  src="js/jquery-1.12.3.min.js"></script>
 <script src="alert/easydialog.min.js"></script>
 <script>
-    var time = 4;
+    var time = 60;
     function djs() {
         $("#end").html('<span>(60s)后获取验证</span>');
         time--;
         if(time == 0){
-            time =4;
+            time = 60;
         }else{
             setTimeout(function () {
                 djs();
-                if (time == 4){
+                if (time == 60){
                     $("#end").html('<a href="#" id="vCont">获取短信验证码</a>');
                 }else{
                     $("#end").html("<span>"+"("+time+"s)后获取验证"+"</span>");

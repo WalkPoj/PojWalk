@@ -210,6 +210,7 @@ public class LoginsController {
         redisTemplate.opsForValue().set("u_phone_"+u_phone,r);
         redisTemplate.opsForValue().set("u_pwd_"+u_phone,u_pwd);
         redisTemplate.expire("u_phone_"+u_phone,180,TimeUnit.SECONDS);
+        redisTemplate.expire("u_pwd_"+u_phone,180,TimeUnit.SECONDS);
         String res = "";
         if (row == 0){
             res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", ""+u_phone+"").addTextPara("content", "{ code:'"+r+"',minute:'3',name:'您的手机号："+u_phone+",您的密码为："+u_pwd+"，请在48小时修改密码！'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();

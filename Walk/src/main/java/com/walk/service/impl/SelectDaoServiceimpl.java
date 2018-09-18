@@ -40,7 +40,7 @@ public class SelectDaoServiceimpl implements SelectDaoService {
         PageHelper.startPage(sPage,ePage);
         List<Scenery> sceneryList=sdao.listView();
         PageInfo<Scenery> pageInfo = new PageInfo<>(sceneryList);
-        mod.addAttribute("scenery",sceneryList);
+        //mod.addAttribute("scenery",sceneryList);
         return pageInfo;
     }
     @Override
