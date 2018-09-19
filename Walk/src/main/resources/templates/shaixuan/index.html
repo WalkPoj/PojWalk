@@ -118,7 +118,7 @@
     function sendData_v(data_v,data_c) {
         $.post("/MX/Shaixuan?Da="+data_v+"&Dc="+data_c,function (ok) {
             if (ok == "success"){
-                parent.location.href = "/MX/shaixuan.html?sPage=1&ePage=11"
+                parent.location.href = "/MX/shaixuan.html"
             }
         });
     }

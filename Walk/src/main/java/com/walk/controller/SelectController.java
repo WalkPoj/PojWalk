@@ -59,7 +59,7 @@ public class SelectController {
 
     @RequestMapping("shaixuan.html")
     public String shaixuan(int sPage,int ePage){
-        return "listView?sPage="+sPage+"&ePage="+ePage;
+        return "listView";
     }
     /**
      * 查看更多
@@ -89,6 +89,7 @@ public class SelectController {
             mod.addAttribute("pageNext",pageInfo.getPageNum());
             //单页数据
             mod.addAttribute("sList",pageInfo.getList());
+            rowA = 0;
         }
         return "cpts_398_pn/products";
 
