@@ -61,6 +61,7 @@
                         <img src="img/underline.png" class="img-fluid mb-4">
                         <p>您可以在此查看订单，也可修改您的基本信息</p>
                         <p>秋天到了，注意保暖呦</p>
+                        <p><a href="index.html" style="color: #FFFFFF;">返回首页</a></p>
                     </div>
                 </div>
 
@@ -89,19 +90,19 @@
                                                         <tr>
                                                             <td class="xg">昵称：</td>
                                                             <td>
-                                                                <span class="xgy"></span>
+                                                                 <span class="xgy">暂无</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="xg">手机号：</td>
                                                             <td>
-                                                                <span class="xgy"></span>
+                                                                <span class="xgy">暂无</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="xg">身份证号：</td>
                                                             <td>
-                                                                <span class="xgy"></span>
+                                                                <span class="xgy">暂无</span>
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -181,18 +182,7 @@
                                                 <div class="col-12" id="dd">
                                                     <table class="table">
                                                         <tr>
-                                                            <td>订单号:<span>1</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>旅游景点:<span>2</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>订票时间:<span>3</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <a href="#">查看详情订单</a>
-                                                            </td>
+                                                            <td><h4>您还没有订票！快去订票吧</h4></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -288,11 +278,13 @@
 <!-- https://jquery.com/ -->
 <script th:inline="javascript">
     $(function () {
+        /**
+         * 点击每个功能块显示不同信息
+         */
         $(".tm-main-content").click(function () {
             infos();
             Orders();
         });
-
     });
 
     /**
@@ -305,6 +297,22 @@
             },
             autoClose : 1000
         });
+    }
+
+    /**
+     * 编辑资料昵称失去焦点判断昵称是否存在
+     */
+    function Losefocus() {
+        var u_uickname=$(".details__description #zz :input[name=u_nickname]").val();
+        if(u_uickname.trim().length>0&&u_uickname!=""){
+            $.post("UserExist?u_uickname=" + u_uickname, function (us) {
+                if (us) {
+                    bounced("温馨提示：用户名已存在！2秒后关闭...");
+                    $(".details__description #zz :input[name=u_nickname]").val("");
+                    $(".details__description #zz :input[name=u_nickname]").val().focus();
+                }
+            });
+        }
     }
 
     /**
@@ -329,8 +337,12 @@
      * 点击修改密码
      */
     function changePwd() {
-        SendVapwd();
-        password();
+        var res = confirm("您确定需要修改密码？")
+        if (res == true){
+            SendVapwd();
+            password();
+        }
+
     }
     var va = 0;
     function SendVapwd() {
@@ -351,7 +363,8 @@
         var inputVal = $("#val").val();
         var new_pwd = $("#new_pwd").val();
         if (va != inputVal){
-            $("#val").next().text("验证码错误")
+            $("#val").next().css("color","red");
+            $("#val").next().text("错误")
         }else{
             $.post("ModifyPwd?pwd="+new_pwd,function (res) {
                 if (res == true){
@@ -512,7 +525,7 @@
             "                                                        <tr >\n" +
             "                                                            <td class=\"xg\">昵称：</td>\n" +
             "                                                            <td>\n" +
-            "                                                                <input  class=\"xgs\"  type=\"text\" name=\"u_nickname\" value=\"" + u_nickname + "\" placeholder=\"请输入昵称\"/>\n" +
+            "                                                                <input  class=\"xgs\" onblur=\"Losefocus()\"  type=\"text\" name=\"u_nickname\" value=\"" + u_nickname + "\" placeholder=\"请输入昵称\"/>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        <tr>\n" +
@@ -553,7 +566,7 @@
             "                                                            <td class=\"xg\">验证码：</td>\n" +
             "                                                            <td>\n" +
             "                                                                <input id=\"val\"  class=\"xgs\"  type=\"text\" name=\"yzm\" placeholder=\"请输入验证码\"/>\n" +
-            "                                                        <span>1121</span>\n" +
+            "                                                        <span></span>\n" +
             "                                                            </td>\n" +
             "                                                        </tr>\n" +
             "                                                        <tr>\n" +
@@ -578,11 +591,11 @@
     function Order(o_id,m_name,s_title,o_person,tools_id,class_id,o_price,o_create) {
         var tools_name;
         var prices=Math.round(o_price);
-        if(tools_id==0){
+        if(tools_id==1){
             tools_name="汽车";
-        }else if(tools_id==1){
-            tools_name= "火车";
         }else if(tools_id==2){
+            tools_name= "火车";
+        }else if(tools_id==3){
             tools_name= "飞机";
         }
 

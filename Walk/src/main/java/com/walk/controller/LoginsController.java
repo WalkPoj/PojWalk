@@ -1,6 +1,7 @@
 package com.walk.controller;
 
 import com.show.api.ShowApiRequest;
+import com.walk.pojo.Mark;
 import com.walk.pojo.User;
 import com.walk.service.OrderService;
 import com.walk.service.UserService;
@@ -17,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -69,7 +69,7 @@ public class LoginsController {
             user.setU_phone(null);
         }
         User users=uve.OrdinaryLogin(user);
-        if(users!=null&&users.getU_root()==1){
+        if(users!=null&&users.getU_root()==1||users.getU_root()==2){
             if(name.equals(users.getU_nickname())||name.equals(users.getU_phone())){
                 session.setAttribute("user",users);
                 return "index";
@@ -95,6 +95,34 @@ public class LoginsController {
     }
 
     /**
+     * 商家入驻
+     * @param mark
+     * @param session
+     * @return
+     */
+    @RequestMapping("/MarkAdmission.html")
+    public String MarkAdmission(Mark mark,HttpSession session){
+         if (ove.insertMark(mark,session)){
+             session.removeAttribute("user");
+             return "index";
+         }else{
+             return "Mark";
+         }
+    }
+
+    @RequestMapping("/Mark.action")
+    public String Mark(HttpSession session){
+
+        User user=(User)session.getAttribute("user");
+        System.out.println(user.getU_cert());
+        if(user.getU_cert()==1){
+            return "Mark";
+        }else{
+            return "redirect:/indexss";
+        }
+    }
+
+    /**
      * 跳转个人中心
      * @return
      */
@@ -115,6 +143,19 @@ public class LoginsController {
     }
 
     /**
+     * 判断编辑资料的昵称是否存在
+     * @param u_uickname
+     * @param response
+     * @return
+     */
+    @RequestMapping("UserExist")
+    @ResponseBody
+    public boolean selectUserExist(String u_uickname, HttpServletResponse response){
+        response.setContentType("text/html;charset=GBK");
+        return ove.selectUserExist(u_uickname);
+    }
+
+    /**
      * 编辑个人中心基本资料
      * @param user
      * @param session
@@ -124,8 +165,10 @@ public class LoginsController {
     @ResponseBody
     public User update(User user,HttpSession session){
         System.out.println(user.getU_nickname());
-        if(ove.updateOrder(user,session)>0)
+        if(ove.updateOrder(user,session)>0){
+            session.setAttribute("user",user);
             return user;
+        }
         return null;
     }
 
@@ -147,18 +190,7 @@ public class LoginsController {
                 System.out.println(stringObjectMap.get("o_id"));
                 String date=new SimpleDateFormat("yyyy-MM-dd").format(stringObjectMap.get("o_create"));
                 stringObjectMap.put("o_create",date);
-               /*
-                map.put("date",date);
-                map.put("o_id",stringObjectMap.get("o_id"));
-                map.put("m_name",stringObjectMap.get("m_name"));
-                map.put("s_title",stringObjectMap.get("s_title"));
-                map.put("o_person",stringObjectMap.get("o_person"));
-                map.put("tools_id",stringObjectMap.get("tools_id"));
-                map.put("class_id",stringObjectMap.get("class_id"));
-                map.put("o_price",stringObjectMap.get("o_price"));
-                map.put("o_create",stringObjectMap.get("o_create"));*/
             }
-          /*  list.add(map);*/
             System.out.println(list.size());
         }else{
             System.out.println("查询一个订单的详情:");
@@ -207,6 +239,7 @@ public class LoginsController {
         redisTemplate.opsForValue().set("u_phone_"+u_phone,r);
         redisTemplate.opsForValue().set("u_pwd_"+u_phone,u_pwd);
         redisTemplate.expire("u_phone_"+u_phone,180,TimeUnit.SECONDS);
+        redisTemplate.expire("u_pwd_"+u_phone,180,TimeUnit.SECONDS);
         String res = "";
         if (row == 0){
             res = (new ShowApiRequest("http://route.showapi.com/28-1", this.appid, this.secret)).addTextPara("mobile", ""+u_phone+"").addTextPara("content", "{ code:'"+r+"',minute:'3',name:'您的手机号："+u_phone+",您的密码为："+u_pwd+"，请在48小时修改密码！'}").addTextPara("tNum", "T170317002979").addTextPara("big_msg", "1").post();
@@ -231,6 +264,11 @@ public class LoginsController {
         return res;
     }
 
+    /**
+     * 注销
+     * @param session
+     * @return
+     */
     @RequestMapping("Out")
     public String out(HttpSession session){
         session.removeAttribute("user");

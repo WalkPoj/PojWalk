@@ -23,6 +23,9 @@ spring:
     url: jdbc:mysql://111.230.232.46:3306/walk?useSSL=false
     username: root
     password: z@2418
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
 # Redis数据库
   redis:
     database: 0

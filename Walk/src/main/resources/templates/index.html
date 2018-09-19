@@ -32,6 +32,9 @@
                             <a href="Order.html">个人中心</a>
                         </li>
                         <li class="submenu">
+                            <a  th:text="${session.user.u_cert} eq 1 ? '商家入驻':'商家平台'" th:href="@{Mark.action}">商家入驻</a>
+                        </li>
+                        <li class="submenu">
                             <a href="Out">注销</a>
                         </li>
                     </ul>

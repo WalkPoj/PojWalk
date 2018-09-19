@@ -1,6 +1,7 @@
 package com.walk.service.impl;
 
 import com.walk.dao.OrderDao;
+import com.walk.pojo.Mark;
 import com.walk.pojo.User;
 import com.walk.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,33 @@ public class OrderServiceimpl  implements OrderService {
     public User selectUserOrder(HttpSession session) {
         User u=(User)session.getAttribute("user");
         return orderDao.selectUserOrder(u.getU_id());
+    }
+
+    /**
+     * 判断编辑资料的昵称是否存在
+     * @param u_uickname
+     * @return
+     */
+    @Override
+    public boolean selectUserExist(String u_uickname){
+        if(orderDao.selectUserExist(u_uickname)>0)
+            return true;
+        return false;
+    }
+
+    /**
+     * 新增商家入驻
+     * @param mark
+     * @return
+     */
+    @Override
+    public boolean insertMark(Mark mark,HttpSession session){
+        User u=(User)session.getAttribute("user");
+        mark.setU_id(u.getU_id());
+        mark.setM_state(0);
+        if(orderDao.insertMark(mark)>0)
+            return true;
+        return false;
     }
 
 }

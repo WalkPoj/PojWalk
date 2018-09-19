@@ -47,8 +47,7 @@ public class PayController {
         String param=oi.getParam(); //自定义一些参数 支付后返回
 
         String notify_url="http://walk.nieanshow.cn";//通知地址
-        String return_url="http://127.0.0.1:8080/-MX/SaveOrder?uid="+u.getU_id();//支付后同步跳转地址
-
+        String return_url="http://localhost:8080/MX/SaveOrder?uid="+u.getU_id();//支付后同步跳转地址
         if(price==null){
             price="1";
         }

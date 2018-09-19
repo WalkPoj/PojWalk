@@ -1,5 +1,6 @@
 package com.walk.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.sun.org.apache.xpath.internal.operations.Or;
@@ -55,6 +56,11 @@ public class SelectController {
     public String lvhtml(){
         return "listView";
     }
+
+    @RequestMapping("shaixuan.html")
+    public String shaixuan(int sPage,int ePage){
+        return "listView";
+    }
     /**
      * 查看更多
      * @param mod
@@ -74,20 +80,23 @@ public class SelectController {
             mod.addAttribute("sList",pageInfo.getList());
             System.out.println("第"+sPage+"页数据将在60后被销毁"+redisTemplate.expire("lvScenery::data_page_"+sPage,60,TimeUnit.SECONDS));
         }else{
-            PageInfo<Scenery> pageInfo = new PageInfo<>((List)session.getAttribute("EndSee"));
+            PageHelper.startPage(sPage,ePage);
+            List<Scenery> ll = (List)session.getAttribute("EndSee");
+            PageInfo<Scenery> pageInfo = new PageInfo<>(ll);
             //总页数
             mod.addAttribute("pageNum",pageInfo.getPages());
             //当前页数
             mod.addAttribute("pageNext",pageInfo.getPageNum());
             //单页数据
             mod.addAttribute("sList",pageInfo.getList());
-
+            rowA = 0;
         }
         return "cpts_398_pn/products";
 
     }
 
-    @RequestMapping("Shaixuan")
+    @PostMapping("Shaixuan")
+    @ResponseBody
     public String Shaixuan(String Da, String Dc,HttpSession session){
         bing.put("评分",0);
         bing.put("地区",0);
@@ -132,7 +141,7 @@ public class SelectController {
         }
         session.setAttribute("EndSee",sdaos.selectByMod(bing.get("地区"),bing.get("价格区间"),bing.get("评分")));
         rowA = 1;
-        return "forward:listView?sPage=1&ePage=11";
+        return "success";
     }
 
     /**
@@ -222,7 +231,7 @@ public class SelectController {
         }else{
             return "0";
         }
-        return "现在去支付吧~";
+        return "现在去支付吗？";
     }
 
     /**

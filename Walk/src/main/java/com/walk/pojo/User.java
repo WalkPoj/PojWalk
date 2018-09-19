@@ -21,7 +21,7 @@ public class User {
     //身份证号
     private String u_idcard;
     //标识用户认证
-    private int cert;
+    private int u_cert;
     //
     private String validation;
 }
