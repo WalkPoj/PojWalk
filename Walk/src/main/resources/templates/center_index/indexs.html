@@ -591,11 +591,11 @@
     function Order(o_id,m_name,s_title,o_person,tools_id,class_id,o_price,o_create) {
         var tools_name;
         var prices=Math.round(o_price);
-        if(tools_id==0){
+        if(tools_id==1){
             tools_name="汽车";
-        }else if(tools_id==1){
-            tools_name= "火车";
         }else if(tools_id==2){
+            tools_name= "火车";
+        }else if(tools_id==3){
             tools_name= "飞机";
         }
 
