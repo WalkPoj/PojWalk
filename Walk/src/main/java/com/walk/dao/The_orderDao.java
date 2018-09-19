@@ -38,4 +38,10 @@ public interface The_orderDao {
      */
     public List<Echarts> selectMonth(@Param("m_id") int m_id,@Param("month")String month);
 
+    /**
+     * 销售额
+     * @param m_id
+     * @return
+     */
+    public List<Echarts> selectprice(@Param("m_id") int m_id);
 }

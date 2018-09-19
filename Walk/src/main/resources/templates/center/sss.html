@@ -38,8 +38,8 @@
                 if(rowIndex){
                     //直接双击或右击
                     editRow=rowIndex;
-                    $dgg.datagrid('beginEdit',rowIndex);
-                    $dgg.datagrid('unselectAll');
+                   // $dgg.datagrid('beginEdit',rowIndex);
+                    //$dgg.datagrid('unselectAll');
                 }else{
                     var rows = $dgg.datagrid('getSelections');
                     //只能选择一行编辑
@@ -47,8 +47,6 @@
                         if(editRow==null){
                             var s_id =rows[0].s_id;
                             var s_fmimg =rows[0].s_fmImg;
-                            alert(s_fmimg);
-                            alert(s_id)
                             $("#hh").dialog(
                                 {title:'修改商品',
                                     width:600,

@@ -1,5 +1,6 @@
 
 <html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -24,17 +25,26 @@
 <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
 
 <script type="text/javascript">
+      window.onload=function () {
+           var ss =1;
+           var repeat = [[${repeat}]];
+           if (repeat=="ok") {
+           }else if(ss==repeat){
+               alert("账号已在其他设备登录!");
+           }
+
+      }
 	$(function(){
 		//点击图片切换验证码
 		$("#vcodeImg").click(function(){
-			this.src="../CpachaServlet?method=GetVCode&t="+new Date().getTime();
+			this.src="/MX/CpachaServlet?method=GetVCode&t="+new Date().getTime();
 		});
 		//登录
 		$("#submitBtn").click(function(){
 			var data = $("#form").serialize();
 			$.ajax({
 				type: "post",
-				url: "../LoginServlet?method=Login",
+				url: "/MX/LoginServlet?method=Login",
 				data: data, 
 				dataType: "text", //返回数据类型
 				success: function(msg){
@@ -47,9 +57,11 @@
 						$("#vcodeImg").click();//切换验证码
 						$("input[name='vcode']").val("");//清空验证码输入框
 					} else if("loginSuccess" == msg){
-						window.location.href = "../SystemServlet";
+						window.location.href = "/MX/SystemServlet";
 					}else if("NoIsMerchants"==msg){
                         $.messager.alert("消息提醒", "该账户没有权限!", "warning");
+                    }else if ("repeat"==msg) {
+                        $.messager.alert("消息提醒", "该账户以在其他地方登录!", "warning");
                     }
 				}
 				
@@ -83,7 +95,7 @@
       <div class="row cl">
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" name="vcode" type="text" placeholder="请输入验证码" style="width: 200px;">
-          <img title="点击图片切换验证码" id="vcodeImg" src="../CpachaServlet?method=GetVCode"></div>
+          <img title="点击图片切换验证码" id="vcodeImg" src="/MX/CpachaServlet?method=GetVCode"></div>
       </div>
 
       <div class="row">

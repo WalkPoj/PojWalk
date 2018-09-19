@@ -56,8 +56,26 @@
             var myChart = ec.init(document.getElementById('main'));
 
             var option = {
+                toolbox: {
+                    feature: {
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                title : {
+                    text: '所有销量柱形图',
+                    subtext: '纯属虚构'
+                },
                 tooltip: {
-                    show: true
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    }
                 },
                 legend: {
                     data:['销量']
@@ -78,7 +96,6 @@
                                         for(var i=0;i<result.length;i++){
                                             console.log(result[i].s_title);
                                             arr.push(result[i].s_title);
-                                            alert(result[i].s_title)
                                         }
                                     }
 
@@ -90,7 +107,11 @@
                 ],
                 yAxis : [
                     {
-                        type : 'value'
+                        type : 'value',
+                        min: 0,
+                        max: 100,
+                        interval: 10,
+
                     }
                 ],
                 series : [
@@ -110,7 +131,6 @@
                                         for(var i=0;i<result.length;i++){
                                             console.log(result[i].o_id);
                                             arr.push(result[i].o_id);
-                                            alert(result[i].o_id)
                                         }
                                     }
 

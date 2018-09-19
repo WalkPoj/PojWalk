@@ -6,14 +6,16 @@ import com.walk.service.*;
 import com.walk.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +45,13 @@ public class GuangController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    /**
+     * 跳管理页面
+     * @param uid
+     * @param mid
+     * @param request
+     * @return
+     */
     @RequestMapping("/Guang")
     public String Guang(int uid, int mid, HttpServletRequest request) {
         request.setAttribute("uid", uid);
@@ -108,9 +117,11 @@ public class GuangController {
         return map;
     }
 
+    /**
+     * 跳新增页面
+     */
     @RequestMapping("/xinzeng")
     public String xinzeng(HttpSession session) {
-        System.out.println("进来玩啊");
         //查询地区
         List<City> list = this.cve.selectCity();
         session.setAttribute("list",list);
@@ -120,12 +131,12 @@ public class GuangController {
     @RequestMapping("bianji")
     public String bianji(int s_id, HttpSession session, HttpServletRequest request) {
         System.out.println("编辑id" + s_id);
-        List<String> list = new ArrayList<>();
-        list = getAllFile("C:/tomcat_media/webapps/walk_img/beiji_2018090737270", true);
-        for (String name : list) {
-            System.out.println("wj" + name);
-        }
-        getFile("C:/tomcat_media/webapps/walk_img/beiji_2018090737270",0);
+//        List<String> list = new ArrayList<>();
+//        list = getAllFile("C:/tomcat_media/webapps/walk_img/beiji_2018090737270", true);
+//        for (String name : list) {
+//            System.out.println("wj" + name);
+//        }
+//        getFile("C:/tomcat_media/webapps/walk_img/beiji_2018090737270",0);
         List<City> lists = this.cve.selectCity();
         session.setAttribute("list",lists);
         Scenery scenery = this.sve.selectnoeScenery(s_id);
@@ -137,63 +148,63 @@ public class GuangController {
     }
 
 
-    /*
-     * 函数名：getFile
-     * 作用：使用递归，输出指定文件夹内的所有文件
-     * 参数：path：文件夹路径   deep：表示文件的层次深度，控制前置空格的个数
-     * 前置空格缩进，显示文件层次结构
-     */
-    private static void getFile(String path,int deep){
-        // 获得指定文件对象
-        File file = new File(path);
-        // 获得该文件夹内的所有文件
-        File[] array = file.listFiles();
-
-        for(int i=0;i<array.length;i++)
-        {
-            if(array[i].isFile())//如果是文件
-            {
-                for (int j = 0; j < deep; j++)//输出前置空格
-                    System.out.print(" ");
-                // 只输出文件名字
-                System.out.println( array[i].getName());
-                // 输出当前文件的完整路径
-                // System.out.println("#####" + array[i]);
-                // 同样输出当前文件的完整路径   大家可以去掉注释 测试一下
-                // System.out.println(array[i].getPath());
-            }
-            else if(array[i].isDirectory())//如果是文件夹
-            {
-                for (int j = 0; j < deep; j++)//输出前置空格
-                    System.out.print(" ");
-
-                System.out.println( array[i].getName());
-                //System.out.println(array[i].getPath());
-                //文件夹需要调用递归 ，深度+1
-                getFile(array[i].getPath(),deep+1);
-            }
-        }
-    }
-
-    public static List<String> getAllFile(String directoryPath, boolean isAddDirectory) {
-        List<String> list = new ArrayList<String>();
-        File baseFile = new File(directoryPath);
-        if (baseFile.isFile() || !baseFile.exists()) {
-            return list;
-        }
-        File[] files = baseFile.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                if (isAddDirectory) {
-                    list.add(file.getAbsolutePath());
-                }
-                list.addAll(getAllFile(file.getAbsolutePath(), isAddDirectory));
-            } else {
-                list.add(file.getAbsolutePath());
-            }
-        }
-        return list;
-    }
+//    /*
+//     * 函数名：getFile
+//     * 作用：使用递归，输出指定文件夹内的所有文件
+//     * 参数：path：文件夹路径   deep：表示文件的层次深度，控制前置空格的个数
+//     * 前置空格缩进，显示文件层次结构
+//     */
+//    private static void getFile(String path,int deep){
+//        // 获得指定文件对象
+//        File file = new File(path);
+//        // 获得该文件夹内的所有文件
+//        File[] array = file.listFiles();
+//
+//        for(int i=0;i<array.length;i++)
+//        {
+//            if(array[i].isFile())//如果是文件
+//            {
+//                for (int j = 0; j < deep; j++)//输出前置空格
+//                    System.out.print(" ");
+//                // 只输出文件名字
+//                System.out.println( array[i].getName());
+//                // 输出当前文件的完整路径
+//                // System.out.println("#####" + array[i]);
+//                // 同样输出当前文件的完整路径   大家可以去掉注释 测试一下
+//                // System.out.println(array[i].getPath());
+//            }
+//            else if(array[i].isDirectory())//如果是文件夹
+//            {
+//                for (int j = 0; j < deep; j++)//输出前置空格
+//                    System.out.print(" ");
+//
+//                System.out.println( array[i].getName());
+//                //System.out.println(array[i].getPath());
+//                //文件夹需要调用递归 ，深度+1
+//                getFile(array[i].getPath(),deep+1);
+//            }
+//        }
+//    }
+//
+//    public static List<String> getAllFile(String directoryPath, boolean isAddDirectory) {
+//        List<String> list = new ArrayList<String>();
+//        File baseFile = new File(directoryPath);
+//        if (baseFile.isFile() || !baseFile.exists()) {
+//            return list;
+//        }
+//        File[] files = baseFile.listFiles();
+//        for (File file : files) {
+//            if (file.isDirectory()) {
+//                if (isAddDirectory) {
+//                    list.add(file.getAbsolutePath());
+//                }
+//                list.addAll(getAllFile(file.getAbsolutePath(), isAddDirectory));
+//            } else {
+//                list.add(file.getAbsolutePath());
+//            }
+//        }
+//        return list;
+//    }
 
     @RequestMapping("/syupdele")
     @ResponseBody
@@ -258,13 +269,6 @@ public class GuangController {
                                     MultipartFile file, List<String> list, int isf, String path) {
         if (!file.isEmpty()) {//判断文件是否为空
             try {
-                // 保存的文件路径(如果用的是Tomcat服务器，文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中
-                // )
-//                String filePaths = request.getSession().getServletContext()
-//                        .getRealPath("/")
-//                        + "upload/" + file.getOriginalFilename();
-//                System.out.println("获取本地地址"+filePaths);
-
 
                 String min = file.getOriginalFilename();
                 String filePath = "";
@@ -371,13 +375,6 @@ public class GuangController {
         // 判断文件是否为空
         if (!file.isEmpty()) {
             try {
-                // 保存的文件路径(如果用的是Tomcat服务器，文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中
-                // )
-//                String filePaths = request.getSession().getServletContext()
-//                        .getRealPath("/")
-//                        + "upload/" + file.getOriginalFilename();
-//                System.out.println("获取本地地址"+filePaths);
-
 
                 String min = file.getOriginalFilename();
                 String filePath = "";
@@ -404,6 +401,12 @@ public class GuangController {
         return list;
     }
 
+    /**
+     * 删除景点
+     * @param id
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/dataDel.action")
     @ResponseBody
     public Message dataDelUser(String id) throws IOException {
@@ -432,11 +435,7 @@ public class GuangController {
     public List<Echarts> selectEcharts(HttpServletRequest request){
         Mark mark = (Mark) request.getSession().getAttribute("mark");
         int m_id = mark.getM_id();
-        System.out.println("爱好就是长三角"+m_id);
         List<Echarts> list = this.mve.selectEcharts(m_id);
-        for (Echarts e:list) {
-            System.out.println("把市场部"+e.getS_title());
-        }
         return  list;
     }
 
@@ -557,5 +556,52 @@ public class GuangController {
              return "isno";
          }
         }
+    }
+
+    /**
+     * 退出
+     * @return
+     */
+    @RequestMapping("/exit")
+    public String exit(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+        List<String> list =(List<String>)session.getServletContext().getAttribute("list");
+        User us =(User)session.getAttribute("user");
+        System.out.println(list.size()+"scsc"+us.getU_nickname());
+        for (int i = 0; i <list.size() ; i++) {
+            System.out.println(""+list.get(i));
+            if (us.getU_nickname().equals(list.get(i))){
+                list.remove(list.get(i));
+            }
+        }
+        Cookie cookies[] = request.getCookies();
+        if (cookies != null)
+        {
+            for (int i = 0; i < cookies.length; i++)
+            {
+                if (cookies[i].getName().equals("loginname"))
+                {
+                    Cookie cookie = new Cookie(cookies[i].getName(),"");//这边得用"",不能用null
+                    cookie.setMaxAge(0);
+                    System.out.println("销毁Cookie");
+                    cookie.setPath(request.getContextPath());
+                    cookie.setDomain(request.getServerName());
+                    response.addCookie(cookie);
+                    System.out.println("是否销毁"+cookies[i].getValue());
+                }
+            }
+        }
+        session.invalidate();
+
+        return "redirect:MX/indexss";
+    }
+
+    @RequestMapping("selectprice")
+    @ResponseBody
+    public List<Echarts> selectprice(HttpSession session){
+        System.out.println("擦");
+        Mark mark = (Mark) session.getAttribute("mark");
+        int m_id = mark.getM_id();
+        List<Echarts> list = this.mve.selectprice(m_id);
+        return  list;
     }
 }

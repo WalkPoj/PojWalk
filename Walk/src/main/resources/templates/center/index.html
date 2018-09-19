@@ -47,7 +47,7 @@
                     <p class="admin-name" th:text="${session.mark.m_name}+'管理员 您好！'">****管理员 您好！</p>
                     <div class="public-header-fun fr">
                         <a th:href="@{center/Guang(uid=${session.user.getU_id()},mid=${session.mark.m_id})}" class="public-header-man">管理</a>
-                        <a href="" class="public-header-loginout">安全退出</a>
+                        <a th:href="@{center/exit}" class="public-header-loginout">安全退出</a>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;">
+    <div data-options="region:'center',title:'操作页面'" style="padding:5px;background:#eee;">
         <div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
             <div title="我的信息" style="padding:20px;display:none;" >
                 <div id="ation" style="border: #0f0f0f solid 0px;width: 60%;margin-left: 15%;margin-top: 30px;text-align:center">

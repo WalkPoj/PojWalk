@@ -29,4 +29,7 @@
     <update id="updateIdcard">
         UPDATE `user` SET`u_idcard`=#{u_idcard} WHERE `u_id`=#{u_id}
     </update>
+    <select id="selectuid" resultType="int">
+          SELECT `u_id` FROM `user` WHERE `u_nickname`=#{u_nickname}
+    </select>
 </mapper>

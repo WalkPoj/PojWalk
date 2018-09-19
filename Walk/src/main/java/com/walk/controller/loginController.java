@@ -10,14 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class loginController {
@@ -32,10 +34,34 @@ public class loginController {
     private MarkService mve;
 
     @RequestMapping("/indexss")
-    public ModelAndView login(ModelAndView mav){
+    public String login(ModelAndView mav,HttpServletRequest request){
         System.out.println("进入");
-        mav.setViewName("redirect:center/login.html");
-       return mav;
+        Cookie[] cookies = request.getCookies();
+        if (cookies!=null){
+            ServletContext application = request.getSession().getServletContext();
+            List<String> list = (List<String>) application.getAttribute("list");
+            for (Cookie c: cookies) {
+                if ("loginname".equals(c.getName())){
+                    for (String name:list ) {
+                        System.out.println(c.getValue()+""+name);
+                        if (c.getValue().equals(name)){
+                            request.setAttribute("repeat",1);
+                            return "center/login.html";
+                        }
+                    }
+                    //System.out.println(c.getValue()+""+c.getName());
+                    int u_id = uve.selectuid(c.getValue());
+                    User us = new User();
+                    us.setU_nickname(c.getValue());
+                    us.setU_id(u_id);
+                    request.getSession().setAttribute("user",us);
+                    return "forward:/SystemServlet";
+                }
+            }
+        }
+
+        request.setAttribute("repeat","ok");
+       return "center/login.html";
     }
 
     @RequestMapping("/CpachaServlet")
@@ -49,12 +75,15 @@ public class loginController {
 
     @PostMapping("/LoginServlet")
     @ResponseBody
-    public String LoginServlet(ModelAndView mav, User user,String vcode,String method,HttpServletRequest request){
+    public String LoginServlet(ModelAndView mav, User user,String vcode,String method,HttpServletRequest request,HttpServletResponse response){
         if("logout".equals(method)){
             logout(mav, request);
             return null;
         }
         String loginCpacha = request.getSession().getAttribute("loginCapcha").toString();
+        ServletContext application = request.getSession().getServletContext();
+        List<String> list = (List<String>) application.getAttribute("list");
+
         if(StringUtil.isEmpty(vcode)){
             return "vcodeError";
         }
@@ -63,8 +92,6 @@ public class loginController {
         }
         //验证码验证通过，对比用户名密码是否正确
         String loginStatus = "loginFaild";
-        System.out.println(user.getU_nickname());
-        System.out.println(user.getU_password());
         User us = uve.login(user);
         if(us == null){
             return "loginError";
@@ -75,6 +102,20 @@ public class loginController {
         HttpSession session = request.getSession();
         session.setAttribute("user", us);
         session.setAttribute("userType", us.getU_root());
+        for (String name:list ) {
+            if (us.getU_nickname().equals(name)){
+                return "repeat";
+            }
+        }
+        list.add(us.getU_nickname());
+        Cookie cookieName=new Cookie("loginname", us.getU_nickname());
+       // Cookie cookiePassword=new Cookie("loginpassword", us.getU_password());
+        cookieName.setPath(request.getContextPath());
+        //cookiePassword.setPath(request.getContextPath());
+        cookieName.setMaxAge(60*60*3);//只保存一分钟
+        //cookiePassword.setMaxAge(60*60*3);//只保存一分钟
+        response.addCookie(cookieName);
+       // response.addCookie(cookiePassword);
         loginStatus = "loginSuccess";
         System.out.println(loginStatus);
         return loginStatus;
@@ -89,7 +130,6 @@ public class loginController {
 
     @RequestMapping("SystemServlet")
     public String SystemServlet( ModelAndView mav ,HttpSession session){
-        System.out.println("经过我同意没");
         User user = (User) session.getAttribute("user");
         System.out.println("要查询的商家id"+user.getU_id());
         Mark mark = mve.selectMark(user.getU_id());

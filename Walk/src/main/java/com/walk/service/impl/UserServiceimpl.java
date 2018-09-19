@@ -71,4 +71,9 @@ public class UserServiceimpl implements UserService {
     public int addUser(User u) {
         return udao.addUser(u);
     }
+
+    @Override
+    public int selectuid(String u_nickname) {
+        return udao.selectuid(u_nickname);
+    }
 }

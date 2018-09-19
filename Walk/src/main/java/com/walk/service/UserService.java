@@ -1,6 +1,7 @@
 package com.walk.service;
 
 import com.walk.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
     /**
@@ -52,4 +53,11 @@ public interface UserService {
      * @return
      */
     public int addUser(User u);
+
+    /**
+     * 查询登录的用户id
+     * @param u_nickname
+     * @return
+     */
+    public int selectuid(String u_nickname);
 }

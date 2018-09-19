@@ -62,4 +62,11 @@ public interface UserDao {
      * @return
      */
     public int updateIdcard(String u_idcard,int u_id);
+
+    /**
+     * 查询登录的用户id
+     * @param u_nickname
+     * @return
+     */
+    public int selectuid(@Param("u_nickname")String u_nickname);
 }
