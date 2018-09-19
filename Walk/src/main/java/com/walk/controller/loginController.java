@@ -60,7 +60,7 @@ public class loginController {
             }
         }
 
-        request.setAttribute("repeat","ok");
+        request.setAttribute("repeat",0);
        return "center/login.html";
     }
 

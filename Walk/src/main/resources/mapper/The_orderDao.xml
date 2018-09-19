@@ -27,7 +27,4 @@
     <select id="selectMonth" resultType="Echarts">
         SELECT COUNT(a.`o_id`) AS o_id,d.`s_title`FROM `the_order` a,`scenery` d WHERE a.`s_id`=d.`s_id` AND a.`m_id`=#{m_id} AND DATE_FORMAT(`o_create`,'%Y-%m')=CONCAT(YEAR(CURDATE()),#{month}) GROUP BY d.`s_title`
     </select>
-    <select id="selectprice" resultType="Echarts">
-          SELECT SUM(`o_price`) AS o_id,d.`s_title`FROM `the_order` a,`scenery` d WHERE a.`s_id`=d.`s_id` AND a.`m_id`=#{m_id} GROUP BY d.`s_title`
-    </select>
 </mapper>

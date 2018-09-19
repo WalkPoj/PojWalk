@@ -33,11 +33,5 @@ public interface MorderService {
      */
     public List<Echarts> selectMonth(int m_id,String month);
 
-    /**
-     * 销售额
-     * @param m_id
-     * @return
-     */
-    public List<Echarts> selectprice(int m_id);
 
 }

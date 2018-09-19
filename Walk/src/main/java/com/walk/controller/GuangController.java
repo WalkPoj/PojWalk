@@ -594,14 +594,4 @@ public class GuangController {
 
         return "redirect:MX/indexss";
     }
-
-    @RequestMapping("selectprice")
-    @ResponseBody
-    public List<Echarts> selectprice(HttpSession session){
-        System.out.println("擦");
-        Mark mark = (Mark) session.getAttribute("mark");
-        int m_id = mark.getM_id();
-        List<Echarts> list = this.mve.selectprice(m_id);
-        return  list;
-    }
 }

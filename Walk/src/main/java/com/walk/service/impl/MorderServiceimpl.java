@@ -37,8 +37,4 @@ public class MorderServiceimpl implements MorderService {
         return tdao.selectMonth(m_id,month);
     }
 
-    @Override
-    public List<Echarts> selectprice(int m_id) {
-        return tdao.selectprice(m_id);
-    }
 }
